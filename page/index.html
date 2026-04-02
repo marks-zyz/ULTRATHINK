@@ -244,12 +244,13 @@ nav {
   align-items: center;
   gap: 8px;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.25em;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--red);
-  border: 1px solid rgba(255,64,64,0.3);
-  padding: 4px 12px;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  padding: 6px 14px;
   margin-bottom: 28px;
   width: fit-content;
 }
@@ -288,6 +289,7 @@ nav {
   border: 1px solid var(--border);
   border-right: none;
   min-width: 140px;
+  background: var(--surface);
 }
 .stat-item:last-child { border-right: 1px solid var(--border); }
 .stat-num {
@@ -1557,8 +1559,11 @@ footer {
   /* ── QUERYLOOP PLAYER — esconde no mobile ── */
   .ql-player { display: none !important; }
 
+  /* ── FEATURES OCULTAS — esconde no mobile ── */
+  #ocultas { display: none !important; }
+
   /* ── SECTIONS ── */
-  .section-head { flex-wrap: wrap; gap: 10px; padding: 24px 16px 0; }
+  .section-head { flex-wrap: wrap; gap: 10px; padding: 24px 16px 16px; margin-bottom: 24px; }
   .section-desc { display: none; }
   .section-num { display: none; }
   .section-title { font-size: 22px; }
@@ -1575,6 +1580,10 @@ footer {
   .arch-cat:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
   .arch-cat:last-child { border-bottom: none; }
   .arch-file { grid-template-columns: 1fr; gap: 3px; }
+
+  /* ── PADRÕES FILTER ROW — scrollável no mobile ── */
+  .filter-row { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .fbtn { white-space: nowrap; flex-shrink: 0; }
 
   /* ── PADRÕES TABLE → lista mobile ── */
   .pt-table { display: block; overflow: hidden; }
@@ -1634,7 +1643,7 @@ footer {
   <!-- hero content -->
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-eyebrow"><i class="ph ph-book-open"></i>Guia de Arquitetura &amp; Inspiração — ultrathink.com.br</div>
+      <div class="hero-eyebrow">Inspiração e Insights</div>
       <h1 class="hero-title">CLAUDE<br><span class="hi">CODE</span></h1>
       <p class="hero-sub">Como o Claude Code resolve problemas complexos — e o que você pode aprender para construir produtos melhores</p>
       <div class="stats-row">
@@ -2007,7 +2016,7 @@ footer {
   </div><!-- /ql-player -->
 
   <div class="card-grid card-grid-2">
-    <div class="card">
+    <div class="card" data-card-id="query-loop">
       <i class="ph ph-infinity card-icon"></i>
       <div class="card-tag">Central — src/query.ts ~1.500 linhas</div>
       <div class="card-title">Query Loop</div>
@@ -2021,7 +2030,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="context-management">
       <i class="ph ph-archive card-icon amber"></i>
       <div class="card-tag">Compactação — src/services/compact/</div>
       <div class="card-title">Context Management</div>
@@ -2044,7 +2053,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="permission-system">
       <i class="ph ph-lock card-icon red"></i>
       <div class="card-tag">Segurança — src/utils/permissions/ · 24 arquivos ~330KB</div>
       <div class="card-title">Permission System</div>
@@ -2059,7 +2068,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="task-orchestration">
       <i class="ph ph-stack card-icon purple"></i>
       <div class="card-tag">Orquestração — src/tasks/ · 8 tipos</div>
       <div class="card-title">Task Orchestration</div>
@@ -2073,7 +2082,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="streaming-executor">
       <i class="ph ph-flow-arrow card-icon blue"></i>
       <div class="card-tag">Concorrência — src/services/tools/StreamingToolExecutor.ts</div>
       <div class="card-title">Streaming Tool Executor</div>
@@ -2086,7 +2095,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="agent-fork">
       <i class="ph ph-git-fork card-icon"></i>
       <div class="card-tag">Cache Inteligente — src/tools/AgentTool/forkSubagent.ts</div>
       <div class="card-title">Agent Fork System</div>
@@ -2254,7 +2263,7 @@ footer {
 
   <div class="card-grid card-grid-2">
 
-    <div class="card">
+    <div class="card" data-card-id="dream-task">
       <div class="type-badge" style="color:var(--purple);border-color:rgba(157,124,244,0.3);">BACKGROUND</div>
       <i class="ph ph-moon card-icon purple"></i>
       <div class="card-tag">src/tasks/DreamTask/ · src/services/autoDream/</div>
@@ -2275,7 +2284,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="sistema-buddy">
       <div class="type-badge" style="color:var(--accent);border-color:var(--accent-dim);">LANÇADO</div>
       <i class="ph ph-smiley card-icon amber"></i>
       <div class="card-tag">src/buddy/ — Tamagotchi de Terminal</div>
@@ -2317,7 +2326,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="exec-especulativa">
       <div class="type-badge" style="color:var(--amber);border-color:rgba(255,184,0,0.3);">EM TESTES</div>
       <i class="ph ph-lightning card-icon red"></i>
       <div class="card-tag">src/services/PromptSuggestion/speculation.ts</div>
@@ -2333,7 +2342,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="modo-undercover">
       <div class="type-badge" style="color:var(--red);border-color:rgba(255,64,64,0.3);">SECURITY</div>
       <i class="ph ph-mask card-icon red"></i>
       <div class="card-tag">src/utils/undercover.ts</div>
@@ -2351,7 +2360,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="magic-docs">
       <div class="type-badge" style="color:var(--accent);border-color:var(--accent-dim);">ATIVO</div>
       <i class="ph ph-magic-wand card-icon"></i>
       <div class="card-tag">src/services/MagicDocs/magicDocs.ts</div>
@@ -2366,7 +2375,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="anti-ptrace">
       <div class="type-badge" style="color:var(--red);border-color:rgba(255,64,64,0.3);">SECURITY</div>
       <i class="ph ph-shield-warning card-icon red"></i>
       <div class="card-tag">src/upstreamproxy/ — FFI para prctl</div>
@@ -2398,7 +2407,7 @@ footer {
 
   <div class="card-grid card-grid-2">
 
-    <div class="card">
+    <div class="card" data-card-id="react-reconciler">
       <i class="ph ph-code card-icon blue"></i>
       <div class="card-tag">src/ink/reconciler.ts</div>
       <div class="card-title"><i class="ph ph-atom"></i>React 19 Reconciler</div>
@@ -2412,7 +2421,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="yoga-flexbox">
       <i class="ph ph-layout card-icon blue"></i>
       <div class="card-tag">src/native-ts/yoga-layout/</div>
       <div class="card-title"><i class="ph ph-layout"></i>Yoga Flexbox — C++ → TypeScript Puro</div>
@@ -2426,7 +2435,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="dom-events">
       <i class="ph ph-tree-structure card-icon blue"></i>
       <div class="card-tag">src/ink/events/dispatcher.ts</div>
       <div class="card-title"><i class="ph ph-cursor-click"></i>DOM Events no Terminal</div>
@@ -2442,7 +2451,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="screen-buffer">
       <i class="ph ph-monitor card-icon blue"></i>
       <div class="card-tag">src/ink/screen.ts · src/ink/hooks/</div>
       <div class="card-title"><i class="ph ph-image-square"></i>Screen Buffer + IntersectionObserver</div>
@@ -2454,7 +2463,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="motor-vim">
       <i class="ph ph-keyboard card-icon"></i>
       <div class="card-tag">src/vim/ — Motor Vim Completo</div>
       <div class="card-title"><i class="ph ph-keyboard"></i>Motor Vim — Função Pura</div>
@@ -2468,7 +2477,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="ansi-parser">
       <i class="ph ph-terminal card-icon"></i>
       <div class="card-tag">src/ansi/ — Parser + Busca Fuzzy</div>
       <div class="card-title"><i class="ph ph-terminal"></i>ANSI Parser + Busca Fuzzy</div>
@@ -2499,7 +2508,7 @@ footer {
 
   <div class="card-grid card-grid-2">
 
-    <div class="card">
+    <div class="card" data-card-id="bridge-system">
       <i class="ph ph-bridge card-icon amber"></i>
       <div class="card-tag">src/bridge/ — 40+ arquivos</div>
       <div class="card-title"><i class="ph ph-arrows-left-right"></i>Bridge System CLI↔Web</div>
@@ -2513,7 +2522,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="send-message">
       <i class="ph ph-chat-dots card-icon amber"></i>
       <div class="card-tag">src/tools/SendMessageTool/ — Protocolo Discriminado</div>
       <div class="card-title"><i class="ph ph-paper-plane-tilt"></i>SendMessage Protocol</div>
@@ -2528,7 +2537,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="mcp-client">
       <i class="ph ph-plug card-icon amber"></i>
       <div class="card-tag">src/services/mcp/ — 23 arquivos</div>
       <div class="card-title"><i class="ph ph-plugs-connected"></i>MCP Client — 9 Transportes</div>
@@ -2542,7 +2551,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="oauth-api">
       <i class="ph ph-key card-icon amber"></i>
       <div class="card-tag">src/services/oauth/ — Race Dual</div>
       <div class="card-title"><i class="ph ph-identification-card"></i>OAuth + API Service Layer</div>
@@ -2557,7 +2566,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="ferramentas">
       <i class="ph ph-files card-icon amber"></i>
       <div class="card-tag">src/tools/ — FileEdit, Bash, PowerShell, WebFetch</div>
       <div class="card-title"><i class="ph ph-wrench"></i>Ferramentas Internas</div>
@@ -2573,7 +2582,7 @@ footer {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="analytics-plugin">
       <i class="ph ph-chart-bar card-icon amber"></i>
       <div class="card-tag">src/services/analytics/ · src/services/plugins/</div>
       <div class="card-title"><i class="ph ph-chart-line-up"></i>Analytics + Plugin System</div>
@@ -2604,7 +2613,7 @@ footer {
 
   <div class="card-grid card-grid-3">
 
-    <div class="card">
+    <div class="card" data-card-id="cmd-thinkback">
       <i class="ph ph-calendar card-icon purple"></i>
       <div class="card-tag">Easter Egg</div>
       <div class="card-title">/thinkback</div>
@@ -2612,7 +2621,7 @@ footer {
       <div class="card-footer"><span class="badge purple"><i class="ph ph-confetti"></i>Easter egg</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="cmd-ultrareview">
       <i class="ph ph-robot card-icon blue"></i>
       <div class="card-tag" style="color:var(--muted);">Não confirmado publicamente</div>
       <div class="card-title">/ultrareview</div>
@@ -2620,7 +2629,7 @@ footer {
       <div class="card-footer"><span class="badge" style="color:var(--muted);border-color:var(--border2);"><i class="ph ph-question"></i>Não lançado</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="cmd-ultraplan">
       <i class="ph ph-cloud-arrow-up card-icon blue"></i>
       <div class="card-tag">Cloud (CCR)</div>
       <div class="card-title">/ultraplan</div>
@@ -2628,7 +2637,7 @@ footer {
       <div class="card-footer"><span class="badge blue"><i class="ph ph-cloud"></i>Cloud · Opus</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="cmd-rewind">
       <i class="ph ph-clock-counter-clockwise card-icon amber"></i>
       <div class="card-tag">Time Travel</div>
       <div class="card-title">/rewind</div>
@@ -2636,7 +2645,7 @@ footer {
       <div class="card-footer"><span class="badge amber"><i class="ph ph-clock-counter-clockwise"></i>Checkpoint seletor</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="cmd-btw">
       <i class="ph ph-chat-centered-text card-icon"></i>
       <div class="card-tag">Fork + Cache Share</div>
       <div class="card-title">/btw</div>
@@ -2644,7 +2653,7 @@ footer {
       <div class="card-footer"><span class="badge green"><i class="ph ph-git-branch"></i>Fork + cache share</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="cmd-voice">
       <i class="ph ph-microphone card-icon"></i>
       <div class="card-tag">Push-to-Talk</div>
       <div class="card-title">/voice</div>
@@ -2652,7 +2661,7 @@ footer {
       <div class="card-footer"><span class="badge amber"><i class="ph ph-microphone-slash"></i>Mic required</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="cmd-buddy">
       <i class="ph ph-smiley card-icon amber"></i>
       <div class="card-tag">Lançado</div>
       <div class="card-title">/buddy</div>
@@ -2660,7 +2669,7 @@ footer {
       <div class="card-footer"><span class="badge green"><i class="ph ph-check-circle"></i>Lançado</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="cmd-chrome">
       <i class="ph ph-browser card-icon blue"></i>
       <div class="card-tag">MCP Native</div>
       <div class="card-title">/chrome</div>
@@ -2668,7 +2677,7 @@ footer {
       <div class="card-footer"><span class="badge blue"><i class="ph ph-plugs-connected"></i>MCP native</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card-id="cmd-stickers">
       <i class="ph ph-sticker card-icon purple"></i>
       <div class="card-tag">Merch</div>
       <div class="card-title">/stickers</div>
@@ -2765,7 +2774,7 @@ footer {
   <div class="card-grid card-grid-3" style="margin-bottom:1px;">
 
     <!-- Spinner verbs -->
-    <div class="card">
+    <div class="card" data-card-id="spinner-verbs">
       <i class="ph ph-spinner card-icon purple"></i>
       <div class="card-title"><i class="ph ph-quotes"></i>204 Spinner Verbs</div>
       <div class="spinner-box"><div class="spinner-word vis" id="spinnerW">Clauding</div></div>
@@ -2780,7 +2789,7 @@ footer {
     </div>
 
     <!-- Codinomes -->
-    <div class="card">
+    <div class="card" data-card-id="codinomes">
       <i class="ph ph-detective card-icon amber"></i>
       <div class="card-title"><i class="ph ph-shield-star"></i>Codinomes Internos</div>
       <ul class="cn-list">
@@ -2796,7 +2805,7 @@ footer {
     </div>
 
     <!-- Métricas -->
-    <div class="card">
+    <div class="card" data-card-id="metricas">
       <i class="ph ph-chart-bar card-icon"></i>
       <div class="card-title"><i class="ph ph-trend-up"></i>Métricas Únicas</div>
       <div class="tech-item">
@@ -2841,7 +2850,7 @@ footer {
     </div>
 
     <!-- Bones + Soul + Anti-Leak -->
-    <div class="card">
+    <div class="card" data-card-id="companion-bones">
       <i class="ph ph-dna card-icon purple"></i>
       <div class="card-title"><i class="ph ph-heart"></i>CompanionBones + CompanionSoul + Anti-Leak</div>
       <div class="soul-box">
@@ -2888,179 +2897,497 @@ footer {
 <!-- Pre-rendered insight panels (hidden) -->
 <div id="insightPanels" style="display:none">
 
-  <!-- ANATOMIA -->
-  <div data-section="anatomia" data-title="Anatomia — Loop &amp; Contexto"
-       data-takeaway="A grande lição da anatomia do Claude Code é que sistemas resilientes não tentam esconder a complexidade — eles a modelam explicitamente em estados, filas e marcadores. Implemente um loop de estados mínimo (idle → processing → recovering → compact → done), retenha erros antes de exibi-los, escale limites de forma inteligente e nunca destrua histórico. Esses quatro padrões juntos são a diferença entre um protótipo que impressiona numa demo e um produto que aguenta clientes reais pagando todo mês.">
+  <!-- QUERY LOOP -->
+  <div data-section="query-loop" data-title="Query Loop"
+       data-takeaway="O Query Loop do Claude Code é a prova de que um produto de IA robusto não é sobre o modelo — é sobre a máquina de estados ao redor dele. AsyncGenerator com 9+ estados, escalada automática de tokens, parada por retornos decrescentes e retenção de erros até recuperação são quatro padrões que você pode implementar em qualquer app de IA hoje. A diferença entre um chatbot que impressiona numa demo e um que sobrevive a clientes reais pagando todo mês está exatamente nesses quatro mecanismos.">
     <div class="insight-item">
-      <div class="insight-item-title">O Loop com Estados Salva Seu Chatbot de Suporte de Colapsar</div>
-      <div class="insight-item-body">O Claude Code usa um AsyncGenerator com 9+ estados distintos — cada estado representa uma condição diferente do contexto (compactando, recuperando, aguardando, etc.). Em um chatbot de atendimento ao cliente, implemente o mesmo padrão: quando a conversa ultrapassar X tokens, dispare um estado "compact" que resume os últimos N turnos antes de continuar, em vez de simplesmente truncar. Isso evita que o modelo "esqueça" o problema do cliente no meio da resolução.</div>
+      <div class="insight-item-title">Pare de Desperdiçar Tokens: Implemente Diminishing Returns</div>
+      <div class="insight-item-body">O Claude Code detecta quando uma continuação adicionou menos de 500 tokens em relação à anterior, e para após 3 ocorrências seguidas. Em qualquer app que use <code>stream</code> com continuações (relatórios, análises longas), implemente a mesma lógica: meça o delta de tokens entre chunks, e se o delta cair abaixo de um limiar por N turnos, encerre antes de consumir cota. Isso pode cortar 40-60% do custo de API em prompts que entram em loop sem perceber.</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">Escalada 3x de Tokens Resolve o Problema do Relatório Incompleto</div>
-      <div class="insight-item-body">O sistema de Max Output Recovery começa com 8K tokens e escala 3x (8K → 24K → 72K) quando detecta que a resposta foi cortada — mas para quando o delta de tokens cai abaixo de 500 em 3 tentativas, detectando "diminishing returns". Em apps que geram relatórios longos, implemente isso: tente com limite menor, detecte se foi truncado via <code>stop_reason === "max_tokens"</code>, reenvie 3x maior, abandone se o ganho for marginal. Você corta custo de API em 60-70% nos casos simples e garante completude nos complexos.</div>
+      <div class="insight-item-title">Retenha o Erro, Tente Recuperar, Só Então Mostre</div>
+      <div class="insight-item-body">O padrão Withheld Messages guarda erros em quarentena antes de exibi-los ao usuário. Se a API retornar 503, você não mostra o erro — você tenta fallback, retry, modelo alternativo. Só se tudo falhar o erro aparece. Em SaaS de IA: crie uma fila <code>pendingErrors</code> com timeout de 3s. Durante esse tempo, tente recuperar silenciosamente. O usuário nunca vê o erro que você já resolveu, e percebe confiabilidade superior mesmo com a mesma taxa de falhas.</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">Withheld Messages: Não Mostre Erro Antes de Tentar Recuperar</div>
-      <div class="insight-item-body">O Claude Code retém erros do stream até decidir se consegue se recuperar — o usuário nunca vê uma mensagem de erro que o sistema vai consertar sozinho. Em qualquer SaaS que chame APIs externas, aplique o mesmo: quando uma chamada falhar, coloque o erro em quarentena, tente fallback (retry, API alternativa, cache), e só mostre ao usuário se todas as recuperações falharem. A diferença de UX é brutal — em vez de "Erro ao processar", o usuário vê o resultado correto na segunda tentativa sem saber que houve problema.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">Tombstone Pattern Evita Corrupção de Histórico em Automações</div>
-      <div class="insight-item-body">Quando uma mensagem fica órfã (ex: tool call sem tool result), o Claude Code não deleta — ele marca com tombstone e ignora na renderização, mantendo o transcript íntegro. Em automações com múltiplos agentes ou webhooks assíncronos, nunca delete registros de etapas com falha — marque-os como <code>void: true</code> e filtre na leitura. Isso permite auditoria completa, reprocessamento idempotente e debug sem perda de rastreabilidade.</div>
+      <div class="insight-item-title">Tombstone em Vez de Delete: Histórico de IA Nunca Deve Ser Destruído</div>
+      <div class="insight-item-body">Quando uma mensagem fica órfã (tool call sem result), o Claude Code não deleta — marca como <code>tombstone</code> e filtra na renderização. Em automações com múltiplos agentes: nunca delete uma mensagem de log com falha. Adicione um campo <code>voided: true</code> e filtre no query. Isso mantém rastreabilidade completa para debug, permite reprocessamento idempotente, e impede bugs de "deleção que corrompeu a sequência" — problema clássico em webhooks assíncronos.</div>
     </div>
   </div>
 
-  <!-- ARQUITETURA -->
-  <div data-section="arquitetura" data-title="Explorador de Arquitetura"
-       data-takeaway="A arquitetura modular do Claude Code não é elegância acadêmica — é uma decisão de negócio disfarçada de decisão técnica. Quando você isola domínios, cria escopos de configuração e usa um sistema de plugins, está construindo um produto que pode ser vendido para múltiplos clientes com necessidades diferentes, mantido por um time pequeno sem cruzamento de bugs, e evoluído sem reescritas. Para vibe coders: quando meu segundo cliente pedir algo diferente do primeiro, o que vou precisar reescrever? Se a resposta for quase tudo, sua arquitetura está te cobrando juros compostos toda semana.">
+  <!-- CONTEXT MANAGEMENT -->
+  <div data-section="context-management" data-title="Context Management"
+       data-takeaway="A compactação de contexto em 3 camadas do Claude Code (time-based → microcompact → autocompact com circuit breaker) resolve o problema de custo e qualidade que toda empresa de IA enfrenta em produção: o contexto cresce, o modelo piora, o custo explode. Cada camada tem um gatilho diferente (tempo inativo, edições cacheadas, threshold de tokens) e o Circuit Breaker garante que a compactação em si não vire um loop infinito de falhas. Para vibe coders: implemente pelo menos a camada 1 (limpar tool results após gap de 1h) — ela sozinha reduz custo em 30-40% em apps com sessões longas.">
     <div class="insight-item">
-      <div class="insight-item-title">Cada Ferramenta Como Módulo Isolado Elimina Bugs em Cascata</div>
-      <div class="insight-item-body">No Claude Code, cada ferramenta (Bash, Read, Edit, Glob) é um módulo completamente isolado com sua própria validação, permissões e tratamento de erro. Em dashboards ou automações com múltiplas integrações (Stripe + Notion + WhatsApp), estruture cada integração com interface padronizada: <code>{ execute(params): Promise&lt;Result&gt;, validate(params): ValidationResult, permissions: string[] }</code>. Quando o webhook do Stripe mudar, você toca em exatamente um arquivo — os testes do módulo Notion continuam passando.</div>
+      <div class="insight-item-title">Limpe Tool Results Após 1h de Inatividade — Cache Frio É Reescrita Grátis</div>
+      <div class="insight-item-body">A camada 1 do Context Management remove resultados de tools antigos quando o gap entre mensagens supera 1h. A lógica: cache frio já expirou de qualquer forma, então reescrever o contexto não tem custo marginal. Em apps de chat de longa duração, implemente um middleware que, ao retomar sessão depois de 1h+, limpa automaticamente tool results, imagens e blocos de código grandes do histórico — mantendo apenas mensagens text e um resumo. Reduz contexto em 60-70% sem perda perceptível de qualidade.</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">3 Escopos de Config Resolvem Multi-Cliente Sem Gambiarra</div>
-      <div class="insight-item-body">O Claude Code tem três escopos independentes — user (global), project (repositório) e local (máquina) — onde cada escopo sobrescreve o anterior de forma previsível. Em SaaS multi-tenant, implemente os três níveis: default da plataforma, configuração do plano/organização (que o cliente admin edita), e configuração de instância. Um cliente enterprise que quer desabilitar uma feature mexe só no escopo dele — sem flags especiais no banco, sem risco de afetar outros clientes.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">Separação em 6 Domínios Permite Trocar o Modelo de IA sem Reescrever</div>
-      <div class="insight-item-body">O Claude Code separa claramente: Loop Central, Ferramentas, Contexto, Comunicação (API), UI e Personalidade. Crie uma camada de "Comunicação" isolada com interface agnóstica — <code>complete(messages, options): Stream</code> — e coloque toda lógica de contexto, memória e personalidade em domínios separados. Quando o GPT-5 sair mais barato ou o Claude 4 for mais inteligente para seu caso, você troca em um arquivo só e seus clientes não percebem a diferença.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">Plugin Architecture Permite Crescer Sem Mexer no Core</div>
-      <div class="insight-item-body">As ferramentas do Claude Code são descobertas e carregadas dinamicamente — o sistema central não precisa ser modificado para adicionar uma nova capacidade. Implemente um registry de "skills": <code>skillRegistry.register('consultar-estoque', EstoqueSkill)</code>. O motor do chatbot não muda, você apenas registra novas skills conforme o cliente pede novas funcionalidades. Isso permite vender módulos como add-ons pagos sem tocar no produto core.</div>
+      <div class="insight-item-title">Circuit Breaker na Compactação Previne Loop Infinito de Falhas</div>
+      <div class="insight-item-body">O autocompact do Claude Code tem Circuit Breaker com MAX=3 falhas consecutivas. Sem isso: 1279 sessões geraram 250K chamadas de API desperdiçadas em um dia. Em qualquer feature que chama API em background (compactação, resumo, análise), implemente circuit breaker: após N falhas, para por um período (ex: 30min), registra o evento, e retoma. O padrão mais simples: um contador em memória com timestamp do último failure — sem biblioteca, sem infra extra.</div>
     </div>
   </div>
 
-  <!-- OCULTAS -->
-  <div data-section="ocultas" data-title="Features Ocultas"
-       data-takeaway="A arquitetura &quot;oculta&quot; do Claude Code revela uma tese de produto clara: sistemas de IA para usuários reais precisam de três camadas que a maioria dos vibe coders ignora — consolidação autônoma de estado (DreamTask), preview especulativo antes de commitar (overlay filesystem), e classificação escalonada para controlar custo (2-stage classifier). Se você está construindo qualquer app com IA para clientes, implemente pelo menos o DreamTask pattern e o classificador 2-estágios — eles existem no produto mais avançado de coding AI do mundo por razões muito concretas de custo e experiência.">
+  <!-- PERMISSION SYSTEM -->
+  <div data-section="permission-system" data-title="Permission System"
+       data-takeaway="O sistema de permissões do Claude Code demonstra que segurança não é uma feature — é uma arquitetura. O pipeline deny→ask→allow→preapproved com 12 etapas, o classificador AI em 2 estágios, e os checks bypass-immune para arquivos críticos formam um sistema que é ao mesmo tempo rápido (64 tokens para aprovações triviais) e rigoroso (chain-of-thought para bloqueios). Para vibe coders: o padrão 2-stage classification é o mais roubável — use um modelo pequeno e rápido para filtrar 90% das ações, e reserve o modelo caro para apenas as 10% ambíguas. A economia de custo é imediata.">
     <div class="insight-item">
-      <div class="insight-item-title">DreamTask: Seu App Precisa de um Processo que "Dorme e Consolida"</div>
-      <div class="insight-item-body">O Claude Code tem um subagente background que roda o pipeline Orient→Gather→Consolidate→Prune enquanto o usuário trabalha — como o cérebro durante o sono. Para vibe coders: toda feature que acumula estado (histórico, preferências, logs) precisa de um worker secundário que periodicamente sintetiza esse ruído em insight limpo sem bloquear o fluxo principal. O truque do lock via mtime é genial: um único <code>stat()</code> no filesystem diz se já está processando, sem banco de dados nem Redis.</div>
+      <div class="insight-item-title">2-Stage Classification: Modelo Barato Filtra 90%, Caro Decide os 10%</div>
+      <div class="insight-item-body">Stage 1 usa max_tokens=64 com stop_sequences para aprovar/bloquear ações triviais em milissegundos. Apenas ações ambíguas vão para Stage 2 (4096 tokens, chain-of-thought). Em qualquer SaaS de IA com classificação de intenção (spam, segurança, routing), implemente a mesma divisão: Haiku/Flash para filtro inicial, Sonnet/Opus só para casos duvidosos. A redução de custo é de 85-90% na classificação, com qualidade igual ou superior — porque o modelo grande foca só onde importa.</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">Execução Especulativa com Overlay: Mostre o Resultado Antes do Clique</div>
-      <div class="insight-item-body">O Claude Code executa prováveis próximas ações em um overlay copy-on-write — escrita vai para diretório temporário, leitura consulta overlay antes do real. Se o usuário confirma, promove; se cancela, descarta. Para apps de cliente, isso vira "preview antes de confirmar": antes do usuário clicar em "gerar relatório", rode a operação em staging e mostre o resultado real. A latência percebida cai para zero porque o cálculo pesado já aconteceu.</div>
+      <div class="insight-item-title">Arquivos Críticos São Bypass-Immune — Nunca Permita Override Total</div>
+      <div class="insight-item-body">O Claude Code nunca permite edição de <code>.bashrc</code>, <code>.gitconfig</code> e similares, mesmo em modo bypassPermissions. Essa imunidade é hardcoded, não configurável. Em produtos multi-tenant com modo admin, implemente o mesmo conceito: crie uma lista explícita de ações que nenhum role pode executar — nem o super admin. Isso protege contra bugs de escalada de privilégio, engenharia social, e o clássico "mas eu sei o que estou fazendo" que precede acidentes de produção.</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">Magic Docs: Um Header Mágico Ativa Comportamento Sofisticado</div>
-      <div class="insight-item-body">Qualquer arquivo com <code># MAGIC DOC: [título]</code> no Claude Code é detectado passivamente e atualizado automaticamente por subagente — zero configuração extra. O padrão de produto aqui é "convention over configuration" levado a sério: em vez de pedir ao usuário que preencha formulários, detecte intenção por convenção (um campo especial, um emoji no nome, um prefixo). Seus clientes não-técnicos adoram "mágica" que funciona sem setup.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">Classificador 2-Estágios: Barato para o Comum, Pesado só para o Difícil</div>
-      <div class="insight-item-body">O sistema de permissões usa <code>classifyYoloAction()</code> em duas fases: Stage 1 com max_tokens=64 resolve 80-90% dos casos em milissegundos e centavos; Stage 2 com chain-of-thought só entra quando há ambiguidade real. Para vibe coders: classifique intenção do usuário com o modelo mais barato primeiro, escale para o caro apenas quando necessário. Um classificador de 64 tokens antes de chamar Claude Opus pode reduzir 80% do custo de inference do seu produto.</div>
+      <div class="insight-item-title">detectUnreachableRules(): Valide Suas Regras de Negócio com IA</div>
+      <div class="insight-item-body">O Claude Code tem uma função que analisa as regras de permissão em busca de conflitos, regras que nunca disparam, e shadow rules (uma regra que cobre completamente outra). Para produtos com lógica de regras complexa (planos de acesso, roles, feature flags), implemente uma versão simples: rode uma análise periódica que lista todas as combinações rule+path e detecta duplicatas ou contradições. Bugs de permissão são os mais difíceis de encontrar em produção — e os mais críticos.</div>
     </div>
   </div>
 
-  <!-- TERMINAL -->
-  <div data-section="terminal" data-title="Terminal Renaissance"
-       data-takeaway="O stack de terminal do Claude Code é uma aula de como construir UI performática quando você não pode usar o DOM: React como modelo de componentes agnóstico de renderer, Yoga como engine de layout portável, interning de strings para diff O(1), e quantização de eventos para eliminar renders desnecessários. Os três padrões mais roubáveis: Scroll Quantum (desacople eventos de alta frequência do ciclo de render), CharPool/StylePool (interne dados repetidos como IDs inteiros), e a função transition() pura para máquinas de estado — esses três juntos eliminam a maioria dos problemas de performance e bugs de estado em apps que crescem para clientes reais.">
+  <!-- TASK ORCHESTRATION -->
+  <div data-section="task-orchestration" data-title="Task Orchestration"
+       data-takeaway="O sistema de orquestração em 8 tipos do Claude Code resolve o problema central de qualquer produto de IA multiagente: como coordenar trabalho assíncrono sem travar, sem loop infinito, e sem perder controle. O Stall Watchdog (analisa últimos 1024 bytes), o Stable Idle (5 polls antes de declarar inatividade) e o Ctrl+B Backgrounding são três mecanismos simples que juntos tornam o sistema robusto a edge cases que aparecem em produção mas não em demos. Para vibe coders: o Stall Watchdog é o mais fácil de implementar e resolve o bug mais comum em apps de IA com tools — o agente que fica esperando input interativo e nunca termina.">
     <div class="insight-item">
-      <div class="insight-item-title">React no Terminal: Reconciler Customizado é o Padrão Para Qualquer Renderer</div>
-      <div class="insight-item-body">O Claude Code portou o React 19 para o terminal implementando um host config completo do <code>react-reconciler</code> — JSX vira uma árvore DOM virtual própria, passa por Yoga Flexbox (portado de C++ do React Native para TypeScript puro) e gera ANSI em vez de pixels. O insight não é "porte o React para o terminal" — é que qualquer superfície (PDF, email HTML, canvas, SVG) pode ter um renderer React customizado. Se você gera relatórios para clientes, considere um reconciler que transforma JSX em templates de PDF diretamente.</div>
+      <div class="insight-item-title">Stall Watchdog: Detecte Prompt Interativo Antes de Travar Tudo</div>
+      <div class="insight-item-body">O Claude Code analisa os últimos 1024 bytes do output de um processo para detectar se está aguardando input (prompt interativo). Se detectado, cancela ou escalona. Em apps que executam subprocessos ou agentes long-running: implemente um watchdog que verifica periodicamente (a cada 10s) se o output mudou. Se parou mas não finalizou, e o último output contém padrões de "aguardando input" (ex: <code>?</code> no final, <code>Enter to continue</code>), cancele e retorne erro explicativo. Isso resolve 80% dos timeouts misteriosos.</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">Scroll Quantum: Desacople Eventos de Alta Frequência do Ciclo de Render</div>
-      <div class="insight-item-body">O virtual scroll usa <code>SCROLL_QUANTUM = 40</code> — quantiza o scrollTop para múltiplos de 40px, eliminando React commits a cada tick de mousewheel. O scroll visual acontece fora do ciclo React via CSS transform, e só quando o usuário para de scrollar o estado é sincronizado. Para qualquer app que processa eventos de alta frequência (digitação ao vivo, sliders, streaming de tokens): nunca processe cada evento individual — quantize, debounce ou use requestAnimationFrame com flag dirty.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">CharPool/StylePool: Internação de Strings Torna Diff de Tela O(1)</div>
-      <div class="insight-item-body">O screen buffer interna cada caractere e estilo ANSI como ID inteiro via CharPool e StylePool — comparar dois frames vira comparar arrays de inteiros, não strings. Esse padrão de interning é diretamente aplicável em qualquer app com listas longas de conteúdo repetido: internalize strings comuns (nomes de categorias, status, labels de UI) como IDs numéricos em memória, e operações de diff/busca ficam 10-50x mais rápidas sem mudar a lógica de produto.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">Motor Vim com Função Pura: Máquina de Estados Sem Bugs de Efeito Colateral</div>
-      <div class="insight-item-body">O motor Vim tem 11 estados em um union type TypeScript exaustivo, e a função <code>transition()</code> retorna <code>{ next?: CommandState, execute?: () =&gt; void }</code> — o estado muda de forma pura, efeitos colaterais ficam separados. Para fluxos de múltiplas etapas (onboarding, checkout, formulários condicionais) cheios de bugs de estado porque lógica e efeitos estão misturados: modele como um union type de estados possíveis, escreva uma <code>transition()</code> pura — cada estado é um valor, não uma variável global.</div>
+      <div class="insight-item-title">Stable Idle: Não Declare "Terminado" Antes de 5 Polls Consecutivos</div>
+      <div class="insight-item-body">O sistema considera uma task terminada só depois de 5 verificações consecutivas sem mudança de estado. Isso evita falso positivo quando um processo tem burst de inatividade mas ainda está processando. Em workflows assíncronos (polling de job queue, webhook de processamento), use o mesmo conceito: não marque como <code>complete</code> na primeira checagem positiva — aguarde N confirmações. O N depende da variância do seu sistema, mas 3-5 é um bom padrão inicial que elimina race conditions.</div>
     </div>
   </div>
 
-  <!-- COMUNICAÇÃO -->
-  <div data-section="comunicacao" data-title="Comunicação &amp; Protocolos"
-       data-takeaway="O padrão central que atravessa toda a arquitetura de comunicação do Claude Code é: nunca confiar em uma única camada para confiabilidade. Deduplicação no buffer, gate no flush, watchdog no stream, retry no cliente e cap no servidor são camadas independentes que se protegem mutuamente. Para vibe coders: o dinheiro dos clientes está em cima da confiabilidade percebida, não das features. Um chatbot que nunca duplica mensagem, nunca trava e se recupera sozinho de falha de rede vale muito mais — e gera muito menos churn — do que um com dez features a mais mas que às vezes bugga.">
+  <!-- STREAMING EXECUTOR -->
+  <div data-section="streaming-executor" data-title="Streaming Tool Executor"
+       data-takeaway="O StreamingToolExecutor do Claude Code resolve o problema de concorrência em tools de IA de forma elegante: paralelo por padrão, cancelamento de siblings em falha, resultados em ordem de recebimento. Esses três princípios juntos garantem máxima velocidade sem custo de corrupção de estado. Para vibe coders: o sibling cancellation é o mais importante para produto — quando uma tool falha, o usuário não quer esperar 30s pelo timeout das outras três que já não têm como terminar bem. Falhe rápido, falhe limpo, deixe o usuário agir.">
     <div class="insight-item">
-      <div class="insight-item-title">Dual Protocol com Ring Buffer para Deduplicação sem Banco de Dados</div>
-      <div class="insight-item-body">O Bridge System mantém dois protocolos simultâneos (v1/v2) com um BoundedUUIDSet como ring buffer para descartar mensagens duplicadas sem explodir memória. Se você está construindo um chatbot que recebe webhooks de múltiplas fontes (WhatsApp, Instagram, email), implemente o mesmo padrão: um ring buffer de IDs recentes (últimos 500-1000) evita processar a mesma mensagem duas vezes sem precisar de banco de dados para cada lookup.</div>
+      <div class="insight-item-title">Sibling Cancellation: Quando Uma Tool Falha, Cancele as Irmãs</div>
+      <div class="insight-item-body">Se Bash falha em um grupo de tools paralelas, o executor cancela imediatamente os siblings ainda em andamento. Em apps que executam múltiplas chamadas de API em paralelo (ex: buscar dados de 3 fontes para gerar um relatório): implemente um <code>AbortController</code> compartilhado. Quando qualquer fetch falha com erro não-retriable, chame <code>controller.abort()</code>. O usuário vê o erro em 200ms em vez de aguardar todos os timeouts — e você para de pagar por chamadas que não vão contribuir para o resultado.</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">FlushGate State Machine para Sincronizar Operações Assíncronas</div>
-      <div class="insight-item-body">O FlushGate é uma máquina de estados que sincroniza flush de dados com streaming ao vivo — ele impede que dados intermediários vazem para o usuário enquanto o sistema ainda está processando. Em qualquer SaaS com geração de conteúdo por IA, aplique o mesmo: nunca mostre resultado parcial que pode ser descartado. Use um gate que só libera o stream para o cliente quando o estado interno confirmou que a resposta é estável e válida.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">Retry Infinito com Heartbeat e Streaming Watchdog de 90s</div>
-      <div class="insight-item-body">O API Service faz retry infinito mas mantém um watchdog de 90 segundos no streaming — se nenhum chunk chegar nessa janela, considera a conexão morta e reinicia. Para clientes pagantes, isso é crítico: implemente sempre um watchdog no lado do servidor para streams de IA, nunca confie só no timeout do cliente. O heartbeat (envio periódico de chunks vazios ou status) mantém conexões WebSocket e SSE vivas através de proxies e load balancers que matam conexões idle.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">Slot Reservation com Cap Dinâmico para Controle de Picos de Carga</div>
-      <div class="insight-item-body">O sistema de slot reservation vai de 8k a 64k dependendo de capacidade detectada — ele reserva slots antes de precisar deles, não reativamente. Se você tem um SaaS com picos de uso (agendamentos, campanhas de marketing), implemente reservation antecipada de tokens ou workers antes do pico, e um cap dinâmico que recua automaticamente sob pressão. Isso evita o padrão mais caro: filas explodindo e timeout em cascata quando o cliente faz uma campanha às 9h da manhã.</div>
+      <div class="insight-item-title">Resultados em Ordem de Recebimento, Não de Lançamento</div>
+      <div class="insight-item-body">O executor entrega resultados na ordem em que chegam, não na ordem em que foram iniciados. Isso evita que uma tool lenta bloqueie a exibição das que já terminaram. Em UIs de painel ou dashboard que carregam múltiplos widgets: implemente o mesmo padrão — renderize cada widget assim que seu dado chega, não espere todos completarem. Use Promise.race() ou um stream de resultados. O impacto em UX percebida é enorme: o usuário vê progresso imediato em vez de tela branca até tudo carregar.</div>
     </div>
   </div>
 
-  <!-- COMANDOS -->
-  <div data-section="comandos" data-title="Sistema de Comandos"
-       data-takeaway="A arquitetura de comandos do Claude Code demonstra um princípio poderoso para produtos de IA: a interface mais escalável é aquela onde o próprio usuário consegue estender o sistema sem depender do criador. Skills declarativas em Markdown, ativação condicional por contexto e execução paralela via /batch são padrões que você pode implementar em qualquer SaaS de IA — e cada um deles reduz o seu custo operacional enquanto aumenta o poder percebido pelo cliente. Features que o cliente consegue personalizar sozinho são features que você não precisa manter.">
+  <!-- AGENT FORK -->
+  <div data-section="agent-fork" data-title="Agent Fork System"
+       data-takeaway="O Agent Fork System revela uma otimização de custo que a maioria dos builders de IA deixa na mesa: quando você lança N agentes em paralelo para tarefas independentes, a diferença entre prefixos idênticos e ligeiramente diferentes pode ser de 60-80% no custo de cache. Prefixos byte-idênticos = um único cache hit que serve todos os N agentes. Qualquer diferença = N cache misses separados. Para vibe coders: antes de paralelizar agentes, pense no formato do payload. O sistema prompt, contexto compartilhado e instruções gerais devem vir ANTES do task-specific content. Um layout de prompt pode valer mais do que qualquer otimização de código.">
     <div class="insight-item">
-      <div class="insight-item-title">Skills como Markdown Declarativo — Qualquer Cliente Pode Criar</div>
-      <div class="insight-item-body">O sistema de skills do Claude Code são arquivos Markdown com frontmatter YAML — sem código, sem deploy, sem PR. Qualquer dev (ou até o cliente treinado) consegue criar um novo comando. Se você está construindo uma plataforma de automação para clientes, adote esse padrão: deixe o cliente declarar seus próprios fluxos em YAML/Markdown ao invés de abrir tickets para você. Isso escala seu produto sem escalar seu tempo.</div>
+      <div class="insight-item-title">Prefixo Byte-Idêntico = Cache Compartilhado Entre N Agentes</div>
+      <div class="insight-item-body">O <code>buildForkedMessages()</code> garante que todos os agentes paralelos recebem o mesmo payload até o ponto de divergência (o sufixo task-specific). A API usa o prefixo como chave de cache — se é byte-idêntico, um único hit serve todos. Em apps que processam lotes com o mesmo contexto (ex: analisar 50 produtos com as mesmas instruções), estruture os prompts como: [system + contexto geral + instruções] + [task específica]. Nunca embaralhe metadados por task no começo do prompt — isso destrói o cache e multiplica o custo por N.</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">Ativação Condicional por Contexto — Skills só Quando Fazem Sentido</div>
-      <div class="insight-item-body">Skills no Claude Code são ativadas apenas quando o usuário está em certos contextos — o sistema filtra antes de mostrar opções. Aplicado em chatbots: não apresente todas as opções para todos os usuários o tempo todo. Use contexto (plano do cliente, histórico recente, página atual no app) para filtrar quais ações fazem sentido naquele momento. Isso reduz ruído cognitivo e aumenta conversão nas ações que importam.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">/batch — Múltiplos Comandos em Paralelo em Uma Invocação</div>
-      <div class="insight-item-body">O comando /batch executa múltiplos comandos simultaneamente em vez de sequencialmente — uma única chamada dispara N operações em paralelo. Para automações de cliente (relatórios, integrações, scraping), agrupe operações independentes em um único job paralelo ao invés de encadear sequencialmente. A diferença de latência percebida pelo cliente é enorme, e o custo de API geralmente cai porque você elimina round-trips de orquestração.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">/thinkback e /rewind — Retrospectiva e Contexto Histórico como Produto</div>
-      <div class="insight-item-body">O /thinkback é um "Spotify Wrapped para devs" — gera relatório animado do histórico de uso. O /rewind permite navegar no histórico como viagem no tempo. Para produtos de cliente: dashboards de retrospectiva ("o que sua IA fez esse mês") aumentam percepção de valor e reduzem churn. Capacidade de retomar contexto antigo ("volte para o estado de sexta-feira") elimina a maior fricção em automações longas — o cliente nunca perde o fio.</div>
+      <div class="insight-item-title">buildForkedMessages(): Construa Seus Payloads com Separação de Prefixo</div>
+      <div class="insight-item-body">O padrão é: monte o payload base completo (system, histórico, instruções, contexto), então adicione APENAS a variação no final. Em processamento paralelo de documentos com Claude: crie uma função <code>buildPayload(baseMessages, taskSpecific)</code> que garante que <code>baseMessages</code> nunca muda entre chamadas do mesmo lote. Teste: log os primeiros 1000 bytes de cada payload paralelo — devem ser idênticos. Se não forem, você está pagando N vezes pelo mesmo cache.</div>
     </div>
   </div>
 
-  <!-- PADRÕES -->
-  <div data-section="padroes" data-title="Catálogo de Padrões"
-       data-takeaway="Os padrões arquiteturais de IA não são abstrações acadêmicas — cada um resolve um problema de produto que vai aparecer assim que você tiver usuários reais. Withheld Messages e Circuit Breaker protegem a confiança do usuário. 2-Stage Classification e Chain-of-Thought Descartável protegem sua margem. Overlay Filesystem e Bitmap Rejection protegem a experiência. A sacada para vibe coders é simples: cada padrão que você ignora vai aparecer como bug de produto mais tarde — a diferença entre quem se prepara e quem apaga incêndio é só o momento em que você aprende a lição.">
+  <!-- DREAM TASK -->
+  <div data-section="dream-task" data-title="DreamTask — A IA que Sonha"
+       data-takeaway="O DreamTask é o padrão mais subestimado e mais poderoso do Claude Code: consolidação autônoma de contexto em background enquanto o usuário trabalha. O insight central é que memória não se organiza sozinha em sistemas de IA — ela se fragmenta e degrada com o tempo. Ao implementar um background agent com as 4 fases (Orient, Gather, Consolidate, Prune) e um lock transacional via mtime, o Claude Code resolve o problema de 'memória que ficou boa de verdade' sem interromper o fluxo do usuário. Para vibe coders: o padrão mais fácil de implementar é o Prune — um job de limpeza que roda offline e remove memórias redundantes ou inválidas. Isso sozinho melhora a qualidade das respostas em 20-30% em apps com contexto acumulado.">
     <div class="insight-item">
-      <div class="insight-item-title">Withheld Messages — Nunca Assuste o Usuário com Erros que Você Já Resolveu</div>
-      <div class="insight-item-body">Quando um subagente falha internamente, reter o erro do stream até saber se a recuperação funcionou transforma uma experiência de pânico em silêncio confiante. O usuário só vê problema se ele realmente persistir — não cada tropeço no caminho. Implemente como state machine: erro entra em quarentena, recuperação tenta, sucesso descarta, falha real publica — nessa ordem, nunca ao contrário.</div>
+      <div class="insight-item-title">Background Agent de Consolidação: IA que Organiza Memória Enquanto Você Trabalha</div>
+      <div class="insight-item-body">O DreamTask roda em background entre sessões, consolidando fragmentos de memória em chunks coerentes via pipeline Orient→Gather→Consolidate→Prune. Em apps de IA com histórico longo (assistente pessoal, CRM inteligente), implemente uma versão simplificada: um job que roda a cada 24h e pede ao modelo para revisar as últimas 50 memórias, identificar duplicatas, resolver contradições, e descartar itens obsoletos. O prompt é simples; o impacto em qualidade de resposta é imediato e cumulativo.</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">2-Stage Classification — Gaste Dinheiro Onde Importa, não Onde é Fácil</div>
-      <div class="insight-item-body">Passar toda requisição por um modelo caro de classificação é o jeito mais rápido de quebrar a margem do seu produto. Com Stage 1 em 64 tokens você aprova 80-90% dos casos triviais por centavos; Stage 2 com chain-of-thought completo só entra quando há ambiguidade real. Para apps com volume, isso não é otimização — é a diferença entre produto viável e produto que sangra dinheiro até o founder desistir.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">Overlay Filesystem — Deixe o Modelo Especular sem Você Pagar pelo Erro</div>
-      <div class="insight-item-body">Copy-on-write para contexto de agente significa que você pode deixar o modelo explorar caminhos alternativos em sandbox isolada e só commitar o resultado se o usuário aprovar. Isso é especialmente poderoso em fluxos de edição destrutiva — refatoração de código, reescrita de documento, deleção em massa. O usuário experimenta ousadia sem risco real; você entrega confiança como feature.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">Circuit Breaker — Produto que Sabe Parar é Produto que o Usuário Volta a Usar</div>
-      <div class="insight-item-body">Agentes em loop infinito tentando recuperar uma falha irrecuperável são o pesadelo silencioso de apps com IA. Defina N máximo de tentativas por operação, e quando esgotar: para, reporta o estado exato e devolve controle ao usuário com contexto suficiente para ele decidir o próximo passo. App que explica onde parou e por quê constrói confiança que app que trava silenciosamente nunca terá.</div>
-    </div>
-    <div class="insight-item">
-      <div class="insight-item-title">Chain-of-Thought Descartável — Pense em Voz Alta, mas não Cobre pelo Monólogo</div>
-      <div class="insight-item-body">Usar CoT para raciocínio interno e depois stripá-lo do contexto antes de continuar é uma das otimizações mais subestimadas de custo e qualidade. O modelo pensa melhor com CoT, mas carregar esse raciocínio intermediário no contexto longo degrada performance e infla custo quadraticamente. Trate o CoT como rascunho — útil no processo, lixo no produto final. Produtos que fazem isso bem parecem mais inteligentes E custam menos por chamada.</div>
+      <div class="insight-item-title">Lock Transacional via mtime: Coordenação Sem Banco de Dados</div>
+      <div class="insight-item-body">O DreamTask usa o mtime de um arquivo como timestamp E mutex simultaneamente: se o arquivo existe e seu mtime é recente, outro processo está rodando. Se o processo falha, <code>rollbackConsolidationLock()</code> usa <code>utimes()</code> para retroagir o mtime e liberar o lock sem banco, sem Redis, sem infra extra. Em workers serverless que precisam de idempotência (ex: Cloudflare Workers), esse padrão de lock-via-filesystem-ou-KV é uma alternativa simples a Durable Objects para coordenação de curta duração.</div>
     </div>
   </div>
 
-  <!-- EXPRESSÕES -->
-  <div data-section="expressoes" data-title="Expressões &amp; Personalidade"
-       data-takeaway="Personalidade e UX não são camada cosmética sobre funcionalidade — são o produto em si para uma geração de usuários que tem dez alternativas funcionais a um clique de distância. Os vibe coders que ganham não são os que constroem a feature mais inteligente, são os que fazem o usuário sentir algo enquanto a feature roda. Spinner verbs, tipos com nomes honestos, retrospectivas animadas e gamificação com integridade têm uma coisa em comum: cada um exige que o builder se pergunte o que o usuário sente nesse momento — e essa inversão de prioridade é o que separa produto que as pessoas recomendam de produto que as pessoas toleram.">
+  <!-- SISTEMA BUDDY -->
+  <div data-section="sistema-buddy" data-title="Sistema Buddy"
+       data-takeaway="O Sistema Buddy demonstra que gamificação com integridade é um diferencial de produto, não um enfeite. Anti-cheat (Bones nunca persistem), PRNG determinístico (mesmo usuário sempre tem o mesmo companheiro), raridade real (1% legendary por gacha verdadeiro), 18 espécies e stats RPG formam um sistema onde as conquistas dos usuários têm valor porque o sistema as protege. Para vibe coders: a lição mais importante não é 'adicione um pet ao seu produto' — é que qualquer elemento de gamificação sem mecanismo de integridade vai ser explorado, e quando for, todo o valor percebido colapsa. Construa o anti-cheat antes de construir a recompensa.">
     <div class="insight-item">
-      <div class="insight-item-title">204 Spinner Verbs — O Loading Spinner é o Primeiro Momento de Personalidade</div>
-      <div class="insight-item-body">"Clauding", "Flibbertigibbeting", "Discombobulating" — cada spinner verb é uma micro-decisão de brand que acontece exatamente quando o usuário está mais vulnerável à ansiedade de espera. Apps que usam "Processando..." são esquecíveis; apps que usam verbos inventados com personalidade criam momento de sorriso onde deveria haver frustração. Para vibe coders: o spinner não é UX de fallback, é UX de identidade — trate com o mesmo cuidado que você trata o nome do produto.</div>
+      <div class="insight-item-title">Anti-Cheat Antes da Recompensa: Integridade Estrutural é o Produto</div>
+      <div class="insight-item-body">Bones nunca persistem em disco — eles são recalculados deterministicamente do userId toda vez. Isso significa que nenhum usuário pode manipular sua raridade salvando/restaurando arquivos. Se você vai adicionar qualquer elemento de coleção ou conquista no seu produto: desenhe o mecanismo anti-exploit antes de pensar na UI. Identifique todos os pontos de savestate (disco, localStorage, banco) e defina quais são imutáveis. A percepção de fairness do sistema determina se os usuários vão querer exibi-lo ou escondê-lo.</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">Tipos como Constrangimento Social — Nomes Longos Forçam o Dev a Pensar</div>
-      <div class="insight-item-body">Quando um tipo se chama <code>UnverifiedUserInputBeforeRateLimitCheck</code> em vez de <code>string</code>, o desenvolvedor para de mão no teclado e pensa antes de chamar a função. É constrangimento social codificado em sistema de tipos — mais eficaz que comentário, mais honesto que doc, impossível de ignorar. Para produtos com IA que lidam com dados sensíveis, essa prática previne classes inteiras de bug que code review não pega porque o problema está no entendimento, não na sintaxe.</div>
+      <div class="insight-item-title">PRNG Determinístico: Randomização Reproduzível por Usuário</div>
+      <div class="insight-item-body">O PRNG mulberry32 garante que o mesmo userId sempre gera o mesmo companheiro — único, mas estável. Isso é diferente de random puro (muda a cada reload) e de dado salvo (pode ser manipulado). Em features de personalização ou onboarding: use seed baseada em userId para elementos "uniquely yours" que não podem ser rerolados. Exemplo: avatares gerados por hash, paleta de cores da conta, tagline personalizada. O usuário sente que o produto foi feito pra ele sem você ter feito nada por usuário.</div>
+    </div>
+  </div>
+
+  <!-- EXECUÇÃO ESPECULATIVA -->
+  <div data-section="exec-especulativa" data-title="Execução Especulativa"
+       data-takeaway="A execução especulativa do Claude Code é uma das ideias mais avançadas em UX de IA: o sistema executa a próxima ação provável enquanto o usuário ainda está pensando em pedir, com filesystem copy-on-write garantindo que nada acontece ao código real até aceitação explícita. O insight para produto é que latência percebida e latência real são duas coisas diferentes — ao preparar o trabalho especulativo, a ação parece instantânea mesmo que demore 3s. Para vibe coders: um overlay filesystem é a implementação mais segura de 'pre-fetch com undo' — copie reads para um diretório temporário, aplique writes lá, só promova para real após confirmação. Zero risco de corrupção.">
+    <div class="insight-item">
+      <div class="insight-item-title">Overlay Filesystem: Especule Sem Arriscar o Estado Real</div>
+      <div class="insight-item-body">Writes vão para <code>overlayPath</code>; reads consultam overlay primeiro, filesystem real depois. Se o usuário aceita: <code>promoteOverlay()</code>. Se rejeita: descarta o overlay sem rastro. Em features de AI-suggested edits (como suggest mode no Notion ou suggestions no Google Docs), implemente o mesmo: crie uma "branch virtual" da entidade (documento, config, código), aplique as mudanças da IA nela, mostre diff, aguarde aprovação. O estado real nunca muda antes da confirmação — isso elimina uma classe inteira de bugs de "IA que fez coisa errada e não tem undo".</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">Retrospectiva como Produto — Diferencial que Nenhum Concorrente Copia Rápido</div>
-      <div class="insight-item-body">O conceito de Spotify Wrapped aplicado ao contexto de desenvolvimento — mostrar ao usuário quais padrões usou, quais decisões tomou, em forma de retrospectiva animada — é o tipo de feature que cria ritual. Usuário que tem ritual com produto não churna. Para apps de desenvolvimento com IA, implementar um /thinkback trimestral transforma dados de uso que você já tem em momento de deleite inesperado. O custo de build é baixo; o impacto em retenção é desproporcional.</div>
+      <div class="insight-item-title">Feature Flag Server-Side: Rollback Instantâneo Sem Deploy</div>
+      <div class="insight-item-body">A execução especulativa é controlada por <code>tengu_speculation</code>, uma flag server-side. Isso significa que a Anthropic pode ativar, desativar ou ajustar o comportamento para % do tráfego sem nenhum deploy. Em features experimentais de IA (que são basicamente todas): separe o código de feature do código de rollout. Feature flags não são só para A/B test — são o mecanismo de segurança principal em sistemas onde o comportamento da IA em produção é diferente do comportamento em staging.</div>
+    </div>
+  </div>
+
+  <!-- MODO UNDERCOVER -->
+  <div data-section="modo-undercover" data-title="Modo Undercover"
+       data-takeaway="O Modo Undercover resolve um problema único da Anthropic mas ensina um princípio universal: sistemas que operam em contextos públicos precisam de proteção contextual automática, não manual. Sem toggle OFF, sem configuração, sem opt-in — o sistema detecta o contexto (repositório público/open-source) e aplica o comportamento adequado automaticamente. Para vibe coders: esse princípio se aplica a qualquer produto com dados sensíveis em contextos variáveis. Em vez de confiar que o usuário vai ativar o 'modo seguro', detecte o contexto (ambiente de produção vs. dev, cliente enterprise vs. trial) e ajuste o comportamento da IA automaticamente — sem perguntar, sem config.">
+    <div class="insight-item">
+      <div class="insight-item-title">Proteção Contextual Automática: Detecte o Ambiente, Ajuste o Comportamento</div>
+      <div class="insight-item-body">O Modo Undercover ativa-se ao detectar que o repositório é público/open-source — sem nenhuma intervenção humana. O prompt resultante proíbe qualquer referência a informações internas da Anthropic. Em assistentes de IA para empresas: implemente detecção automática de contexto sensível. Se o usuário está em uma sessão de suporte com cliente, injete automaticamente restrições sobre compartilhamento de roadmap interno. Se está em apresentação (detectável por horário + participantes), restrinja dados financeiros. Segurança contextual > segurança opt-in.</div>
     </div>
     <div class="insight-item">
-      <div class="insight-item-title">Buddy System com Anti-Cheat — Gamificação Honesta Retém Melhor</div>
-      <div class="insight-item-body">O sistema completo — gacha, espécies raras, stats RPG, shiny, anti-cheat — só funciona porque tem integridade estrutural. Qualquer gamificação que pode ser burlada perde valor em semanas porque os early adopters encontram o exploit e o senso de conquista colapsa para todos. Anti-cheat não é feature técnica — é garantia de que as conquistas dos usuários significam algo. Construa o mecanismo de integridade antes de construir a recompensa, ou você vai reescrever tudo quando o primeiro exploit aparecer.</div>
+      <div class="insight-item-title">Sem Force-OFF: Alguns Comportamentos de Segurança Devem Ser Irrevogáveis</div>
+      <div class="insight-item-body">Não existe forma de desativar o Modo Undercover — nem mesmo via configuração de admin. Isso é uma decisão de produto deliberada: certos comportamentos de proteção não devem ser overridable por nenhum usuário, incluindo o próprio time da Anthropic. Em produtos com compliance (HIPAA, GDPR, SOC2), identifique os 3-5 comportamentos que nunca podem ser desligados e os isole do sistema de permissões normal. A regra prática: se a consequência de override for auditoria ou vazamento de dados, o toggle não deve existir.</div>
+    </div>
+  </div>
+
+  <!-- MAGIC DOCS -->
+  <div data-section="magic-docs" data-title="Magic Docs"
+       data-takeaway="O Magic Docs encarna um princípio de design de produto que a maioria dos builders ignora: convention over configuration para features de IA. Um único header mágico (<code># MAGIC DOC: título</code>) ativa rastreamento automático, atualização por subagente e sincronização sem nenhuma configuração adicional. O padrão é poderoso porque a adoção é zero-friction — qualquer arquivo pode virar um doc mágico sem mexer em settings, sem criar conta, sem nenhum setup. Para vibe coders: implemente pelo menos uma 'convenção mágica' no seu produto. Qualquer arquivo, campo ou tag com um padrão especial que ativa comportamento sofisticado cria uma experiência de descoberta que usuários avançados adoram e que custa quase nada de implementar.">
+    <div class="insight-item">
+      <div class="insight-item-title">Convention Over Configuration: Um Header Ativa Comportamento Sofisticado</div>
+      <div class="insight-item-body">O padrão <code># MAGIC DOC: [título]</code> é detectado passivamente pelo FileReadTool — qualquer arquivo que o Claude lê e que tem esse header é automaticamente monitorado para atualizações por um subagente dedicado. Em assistentes de código: implemente convenções semelhantes. Um arquivo com <code>// @ai-generated</code> pode ser automaticamente sugerido para refatoração. Um CLAUDE.md com seção <code>## Auto-update</code> pode disparar documentação automática após cada commit. Convenções são features que os usuários descobrem e ficam impressionados — sem você ter que anunciar nada.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Detecção Passiva via Listener: Monitore Sem Polling</div>
+      <div class="insight-item-body">O Magic Docs não faz polling periódico de arquivos — ele escuta o FileReadTool. Quando o Claude lê um arquivo como parte de qualquer outra tarefa, o listener verifica se é um Magic Doc. Em sistemas de cache ou sync: prefira listeners em pontos de acesso naturais (hooks em read/write operations) a polling periódico. O polling cria carga constante de CPU/rede e sempre tem latência. Um hook no momento do acesso é simultâneo ao evento e tem custo zero quando não há acesso — o modelo correto para a maioria dos casos de uso.</div>
+    </div>
+  </div>
+
+  <!-- ANTI-PTRACE -->
+  <div data-section="anti-ptrace" data-title="Anti-Ptrace + Protobuf Hand-Rolled"
+       data-takeaway="O Anti-Ptrace via bun:ffi e o Protobuf Hand-Rolled ilustram dois princípios poderosos: primeiro, segurança de baixo nível não requer frameworks complexos — 10 linhas de código para bloquear gdb/ptrace, 10 linhas para serializar um único tipo de mensagem. Segundo, dependências têm custo oculto além do tamanho: tempo de manutenção, superfície de ataque, compatibilidade de versão. Para vibe coders: antes de adicionar uma dependência para resolver um caso de uso simples, pergunte se 10-20 linhas de código resolveriam o mesmo problema. Não é sobre premature optimization — é sobre não carregar toneladas de código externo para resolver algo pontual.">
+    <div class="insight-item">
+      <div class="insight-item-title">prctl Anti-Ptrace: Proteja Secrets em Heap Contra gdb</div>
+      <div class="insight-item-body">Uma linha de FFI (<code>prctl(PR_SET_DUMPABLE, 0)</code>) bloqueia qualquer processo do mesmo UID de fazer ptrace e injetar no heap onde os tokens de API ficam em memória. Em apps que lidam com API keys ou tokens em processo long-running (daemons, workers): considere adicionar esse call no início do processo em Linux. É uma linha de código que elimina um vetor de ataque que nenhum framework de segurança costuma cobrir. Em Node.js com bun ou com FFI nativa, o custo de implementação é trivial.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Protobuf Hand-Rolled: 10 Linhas Substituem uma Dependência Inteira</div>
+      <div class="insight-item-body">O Claude Code serializa uma única mensagem Protobuf com 10 linhas de encoding varint manual — sem protobufjs, sem geração de código, sem deps. Para uma única mensagem de um único tipo, isso é correto. Em microserviços que precisam serializar poucos tipos de mensagem para uma interface interna: avalie o custo de implementar o encoding manual dos seus N campos versus adicionar toda a toolchain Protobuf/Avro/Thrift. Se N &lt; 5 campos, encoding manual é mais rápido de entender, mais fácil de debugar, e elimina uma categoria de vulnerabilidade de supply chain.</div>
+    </div>
+  </div>
+
+  <!-- REACT RECONCILER -->
+  <div data-section="react-reconciler" data-title="React 19 Reconciler no Terminal"
+       data-takeaway="O React 19 Reconciler customizado do Claude Code demonstra que React não é um framework de browser — é uma arquitetura de UI agnóstica de renderer. Ao implementar um host config completo do react-reconciler, o Claude Code rodou o mesmo modelo de componentes, props, state e lifecycle hooks em um terminal de texto puro. Para vibe coders: o insight prático não é 'implemente seu próprio reconciler' — é que quando você precisa de UI em contextos não-convencionais (PDF, email, terminal, canvas), uma camada de abstração baseada em componentes é quase sempre mais sustentável do que código imperativo. React Native prova isso para mobile; o Claude Code prova para terminal.">
+    <div class="insight-item">
+      <div class="insight-item-title">react-reconciler: React Roda em Qualquer Renderer, Não Só no DOM</div>
+      <div class="insight-item-body">O host config do react-reconciler define como criar, atualizar e destruir "elementos" — que podem ser células de terminal, shapes de canvas, ou nós de PDF. O Claude Code implementou o config completo para terminal, incluindo profiling de commits lentos e debug via fiber walking. Em apps que precisam de UI em contextos não-DOM (geração de email HTML, PDF report, canvas interativo): considere uma thin layer baseada em react-reconciler ou Ink. A alternativa — código imperativo de manipulação direta — fica impossível de manter em semanas quando o design muda.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Commit Profiling: Meça Renders Lentos em Produção</div>
+      <div class="insight-item-body">O reconciler do Claude Code inclui profiling de commits lentos — ele detecta quando um ciclo de render demorou mais do que um threshold e registra quais fibras foram responsáveis. Em apps React com problemas de performance difíceis de reproduzir: implemente um hook de profiling na camada do reconciler (ou via React Profiler API) que salva os top-3 componentes lentos de cada commit. Logs estruturados com tempo de commit + componente culpado identificam 90% dos problemas de performance em produção sem nenhuma sessão de profiling manual.</div>
+    </div>
+  </div>
+
+  <!-- YOGA FLEXBOX -->
+  <div data-section="yoga-flexbox" data-title="Yoga Flexbox — C++ → TypeScript"
+       data-takeaway="O porte do Yoga (engine de layout do React Native, originalmente em C++) para TypeScript puro é uma das implementações mais impressionantes do Claude Code — e o insight de produto é claro: quando você controla o layout engine, você controla totalmente o comportamento em qualquer ambiente. Sem dependências nativas = sem problemas de binding em diferentes plataformas, arquiteturas, ou versões de OS. Para vibe coders: a lição é sobre dependências nativas em geral. Toda vez que você adiciona uma dep nativa (sqlite3, sharp, canvas), você está aceitando os custos de binding para cada plataforma que suportar. Em muitos casos, um port TypeScript puro de funcionalidade crítica — mesmo menor e menos otimizado — tem custo total de manutenção muito menor.">
+    <div class="insight-item">
+      <div class="insight-item-title">Flexbox em Qualquer Contexto: Porte o Engine, Não Confie no Browser</div>
+      <div class="insight-item-body">Ao portar o Yoga para TypeScript, o Claude Code garantiu que o mesmo algoritmo de layout roda no terminal, em Node.js, em qualquer ambiente que execute JS — sem nenhuma dependência do browser ou de bindings nativos. Em apps que precisam calcular layouts fora do browser (geração de PDF, email HTML, canvas server-side): usar uma implementação TypeScript pura do algoritmo de layout garante comportamento idêntico entre client e server, debug mais simples, e portabilidade total. O custo é performance ligeiramente menor; o benefício é eliminação de uma classe inteira de bugs de "funciona aqui mas não lá".</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Zero Deps Nativas: O Custo Oculto de node-gyp</div>
+      <div class="insight-item-body">Cada dependência nativa (sqlite3, canvas, sharp, etc.) adiciona: compilação na instalação (que falha em ARM vs x64), bindings específicos por versão de Node, impossibilidade de rodar em algumas plataformas serverless, e surface de ataque de supply chain. O Yoga em TypeScript puro elimina todos esses problemas. Antes de adicionar uma dep nativa: avalie se existe uma implementação TypeScript pura do mesmo algoritmo. Para casos de uso de alta performance (video processing, crypto de alta frequência), a dep nativa é necessária. Para layout, parsing, serialização — quase sempre há uma alternativa pura.</div>
+    </div>
+  </div>
+
+  <!-- DOM EVENTS -->
+  <div data-section="dom-events" data-title="DOM Events no Terminal"
+       data-takeaway="O modelo completo de DOM events (capture → target → bubble) no terminal do Claude Code, com SCROLL_QUANTUM de 40 px desacoplando scroll visual de renders React, demonstra um princípio fundamental de UI performática: desacople eventos de alta frequência do ciclo de render. Wheel events, mousemove, resize — todos dispararam ordens de magnitude mais rápido do que React pode renderizar. Se cada evento dispara um render, você tem UI travada. O Scroll Quantum é o padrão: quantize o valor do evento antes de entrar no estado React, e o sistema roda 40x mais leve sem nenhuma perda de fidelidade visual perceptível.">
+    <div class="insight-item">
+      <div class="insight-item-title">SCROLL_QUANTUM = 40: Quantize Eventos de Alta Frequência Antes do React</div>
+      <div class="insight-item-body">Cada tick de wheel no terminal dispara um evento. Sem quantização, cada tick → setState → React render. Com SCROLL_QUANTUM=40, o scroll acumula até 40px antes de atualizar o estado. O resultado: 40x menos renders por scroll, UI fluida, sem perda visual perceptível. Em qualquer app React com scroll, resize, ou drag: implemente um buffer de quantização antes do setState. Para scroll: use <code>Math.round(delta / 40) * 40</code>. Para resize: debounce com 16ms. Para drag: threshold de 4px antes de atualizar posição. Essas três otimizações eliminam 90% dos problemas de performance de UI de alta frequência.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">getEventPriority(): Nem Todo Evento Tem a Mesma Urgência</div>
+      <div class="insight-item-body">O dispatch de eventos do Claude Code replica o <code>getEventPriority()</code> do react-dom, que trata cliques com prioridade alta, scrolls com prioridade normal, e foco/blur com prioridade baixa. Em apps React com muitos eventos concorrentes: use <code>startTransition()</code> para envolver atualizações de baixa prioridade (filtros de busca, paginação, refresh de dados) e deixe eventos diretos do usuário (cliques, inputs) com prioridade normal. Isso sozinho resolve o bug clássico de "a UI trava enquanto o filtro está processando" sem nenhuma mudança de arquitetura.</div>
+    </div>
+  </div>
+
+  <!-- SCREEN BUFFER -->
+  <div data-section="screen-buffer" data-title="Screen Buffer + IntersectionObserver"
+       data-takeaway="O CharPool/StylePool e o KeepAlive Clock do Claude Code ilustram dois padrões de performance que funcionam em qualquer contexto de UI — não só terminal. String interning (guardar strings repetidas como IDs inteiros) reduz comparação entre frames de O(n chars) para O(1). Clock que para quando não há subscribers elimina ciclos de CPU desnecessários. Esses dois padrões juntos definem a diferença entre UI que trava sob carga e UI que mantém 60fps. Para vibe coders: o string interning é o mais fácil de implementar e tem impacto imediato em apps que renderizam listas ou tabelas com dados repetitivos — produto/status/categoria que aparecem em centenas de rows.">
+    <div class="insight-item">
+      <div class="insight-item-title">CharPool/StylePool: String Interning Reduz Comparação a Dois Inteiros</div>
+      <div class="insight-item-body">Em vez de comparar strings de estilo entre frames (<code>"color: #D97757; font-size: 13px"</code> == <code>"color: #D97757; font-size: 13px"</code>), o Claude Code atribui IDs inteiros únicos a cada string distinta via Pool, e a comparação vira <code>3 === 3</code>. Em apps React que renderizam listas longas com atributos repetitivos (status de pedido, tipo de usuário, categoria de produto): implemente um Map de string → integer para os valores mais frequentes e compare os IDs no shouldComponentUpdate ou useMemo deps. Para 10.000 rows, a diferença em tempo de diff pode ser 50-100ms por render.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">KeepAlive Clock: Animações Param Quando Ninguém Está Olhando</div>
+      <div class="insight-item-body">O clock de animação do Claude Code só roda quando há pelo menos um subscriber (um componente animando algo visível). Sem subscribers, o clock para completamente — zero CPU, zero bateria. Em apps mobile ou com animações em background: implemente um clock global com contagem de subscribers. Use o IntersectionObserver para decrementar o contador quando componentes saem da viewport. Uma animação de loading spinner que você esqueceu em uma tab inativa consumindo CPU constante é o tipo de bug que aparece nos reviews da App Store como "drena bateria".></div>
+    </div>
+  </div>
+
+  <!-- MOTOR VIM -->
+  <div data-section="motor-vim" data-title="Motor Vim — Função Pura"
+       data-takeaway="O Motor Vim com 11 estados como union type TypeScript e função pura transition() é uma masterclass em como modelar máquinas de estado complexas. A separação total entre estado e efeito colateral (transition() retorna o próximo estado e uma função de ação, mas nunca executa a ação) torna o sistema completamente testável sem mocks, completamente previsível sem logs, e trivialmente debugável. Para vibe coders: qualquer lógica de negócio com 3+ estados que muda baseada em eventos é uma máquina de estados — e modelá-la como tal (union type + função pura de transição) vai reduzir bugs em 60-70% comparado a booleanos e ifs encadeados.">
+    <div class="insight-item">
+      <div class="insight-item-title">Union Type + Função Pura: Máquina de Estados Sem Bug de Estado Inválido</div>
+      <div class="insight-item-body">O motor Vim define 11 estados como <code>type VimState = 'normal' | 'insert' | 'visual' | ...</code>. A função <code>transition(state, event)</code> retorna <code>{ next?: VimState, execute?: () => void }</code>. Nunca existem combinações inválidas porque TypeScript garante em compile-time que todos os estados são tratados. Em qualquer lógica com estados complexos (onboarding multi-step, wizard de checkout, editor com modos): abandone booleanos (<code>isEditing, isPreviewing, isSaving</code>) e use um union type. TypeScript vai te forçar a cobrir todos os casos e vai tornar estados impossíveis literalmente não-representáveis no tipo.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Grapheme Segmentation via Intl.Segmenter: Trate Emojis Como Átomos</div>
+      <div class="insight-item-body">O motor Vim opera sobre graphemes via <code>Intl.Segmenter</code> — "👨‍👩‍👧‍👦" é um único grapheme, não 7 code points. Em qualquer app que processa texto de usuário (contagem de caracteres para Twitter/SMS, seleção de texto, highlight): use <code>new Intl.Segmenter().segment(text)</code> em vez de <code>text.length</code> ou <code>text.split('')</code>. Emoji compostos quebrando no meio é um bug de UX que aparece nos reviews de usuários internacionais como "app quebrado" — e é trivialmente evitável com uma linha de código.</div>
+    </div>
+  </div>
+
+  <!-- ANSI PARSER -->
+  <div data-section="ansi-parser" data-title="ANSI Parser + Busca Fuzzy"
+       data-takeaway="O ANSI Parser e a Busca Fuzzy do Claude Code ensinam dois princípios de performance que se aplicam bem além do terminal. O tokenizer de 8 estados elimina backtracking ao processar sequências de controle — cada char é processado uma única vez. O bitmap de 26 bits elimina 80-90% dos candidatos em O(1) antes de qualquer comparação de string cara. Juntos, eles formam o padrão de filtro em dois estágios: rejeição barata primeiro, avaliação cara depois. Para vibe coders: qualquer busca em lista grande beneficia desse padrão. Um pre-filter que rejeita candidatos impossíveis antes do scoring real pode reduzir o tempo de busca de O(n×m) para O(n) na prática.">
+    <div class="insight-item">
+      <div class="insight-item-title">Bitmap de 26 Bits: Rejeite 80-90% dos Candidatos de Busca em O(1)</div>
+      <div class="insight-item-body">Para cada arquivo indexado, o Claude Code mantém um bitmap de 26 bits (um por letra a-z). Se o query tem a letra 'z' mas o bitmap do arquivo não tem o bit 'z' setado, o arquivo é imediatamente descartado — sem nenhuma comparação de string. Isso elimina 80-90% dos candidatos antes de qualquer fuzzy matching caro. Em apps de busca com catálogo grande (produtos, usuários, documentos): implemente um pre-filter baseado em bitmap de caracteres para os campos mais buscados. Para 100.000 itens, isso pode reduzir os candidatos que chegam ao algoritmo de ranking de 100.000 para 2.000.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Build Incremental Assíncrono: Índice Cresce Enquanto o Usuário Já Busca</div>
+      <div class="insight-item-body">A busca fuzzy do Claude Code começa a retornar resultados antes de o índice estar completo — o build é incremental e assíncrono, e a busca consulta o índice parcial. Em apps com datasets grandes que precisam de busca em tempo real (file picker, command palette): não bloqueie a UI esperando o índice completo. Construa o índice em chunks de 100ms, sinalize o progresso (ex: "Indexando 3.421 de 15.000 arquivos"), e permita busca no índice parcial. O usuário percebe responsividade imediata e o índice completo fica disponível em background.</div>
+    </div>
+  </div>
+
+  <!-- BRIDGE SYSTEM -->
+  <div data-section="bridge-system" data-title="Bridge System CLI↔Web"
+       data-takeaway="O Bridge System com BoundedUUIDSet e FlushGate resolve dois problemas universais em sistemas de mensageria em tempo real: deduplicação sem crescimento ilimitado de memória, e ordering de operações sem locks. O BoundedUUIDSet (ring buffer + Set) garante dedup em espaço constante sem precisar de banco ou cache externo. O FlushGate garante que mensagens ao vivo não aparecem antes das mensagens acumuladas serem entregues. Para vibe coders: qualquer WebSocket ou Server-Sent Events de produção precisa desses dois mecanismos. Mensagens duplicadas e out-of-order são os bugs mais difíceis de reproduzir e os que mais destroem confiança do usuário em produtos de comunicação em tempo real.">
+    <div class="insight-item">
+      <div class="insight-item-title">BoundedUUIDSet: Deduplicação de Mensagens em Espaço Constante</div>
+      <div class="insight-item-body">Um Set puro cresce indefinidamente com o histórico. Um ring buffer sozinho perde dedup para IDs antigos que retornam. O BoundedUUIDSet combina os dois: ring buffer com tamanho fixo (ex: 1000 IDs), um Set para lookup O(1), e quando o ring transborda, o ID mais antigo é removido do Set. Em qualquer sistema de WebSocket ou SSE onde mensagens podem chegar duplicadas (reconexão, retry de produtor): implemente esse padrão. Uma Map simples com timestamp + limpeza periódica funciona igualmente bem para a maioria dos casos e cabe em menos de 20 linhas.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">FlushGate: Garanta que Backlog Chega Antes do Live</div>
+      <div class="insight-item-body">O FlushGate é uma state machine de 3 estados: <code>flushing</code> (entregando mensagens acumuladas), <code>switching</code> (transição), <code>live</code> (apenas mensagens em tempo real). Isso garante que quando o cliente reconecta, ele recebe primeiro todas as mensagens que perdeu, na ordem correta, antes de começar a receber o stream live. Em chats, dashboards de métricas, ou feeds com reconexão: se você pular essa garantia, o usuário vê mensagens out-of-order — o que é pior do que não ver nenhuma. A state machine de 3 estados é a implementação mínima que garante o ordering correto.</div>
+    </div>
+  </div>
+
+  <!-- SEND MESSAGE -->
+  <div data-section="send-message" data-title="SendMessage Protocol"
+       data-takeaway="O SendMessage Protocol do Claude Code demonstra como construir um sistema de mensageria entre agentes que funciona tanto localmente (UDS socket) quanto remotamente (bridge routing cross-máquina) usando a mesma interface. O padrão discriminado (unicast vs broadcast, tipos de mensagem como shutdown_request ou plan_approval_response) torna o protocolo autodescritivopara debug e extensível para novos tipos de comunicação. Para vibe coders: qualquer sistema com múltiplos agentes ou workers que precisam se comunicar beneficia de um protocolo discriminado simples em vez de callbacks ou polling. Um mailbox em disco com tipos de mensagem explícitos é mais debugável e mais resiliente do que qualquer sistema de queue complexo para a maioria dos casos de uso.">
+    <div class="insight-item">
+      <div class="insight-item-title">Mailbox em Disco: O Sistema de Mensageria Mais Simples que Funciona em Produção</div>
+      <div class="insight-item-body">O SendMessage usa diretórios de mailbox no filesystem para comunicação entre agentes — cada agente tem um diretório, mensagens são arquivos JSON. Não há Redis, não há broker, não há infra extra. Para multi-agent systems em produção com N &lt; 100 agentes: um mailbox filesystem é mais debugável (você pode ler as mensagens com <code>cat</code>), mais resiliente (persiste através de crashes), e mais simples de implementar do que qualquer sistema de queue. A limitação é latência (file I/O &gt; memory), mas para coordenação de agentes com granularidade de segundos, isso nunca é o gargalo.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">shutdown_request + Auto-Resume: Desligamento Gracioso é Feature de Produto</div>
+      <div class="insight-item-body">O protocolo inclui <code>shutdown_request</code> com approve/reject e auto-resume de agentes inativos. Isso significa que um agente pode ser parado, reiniciado, e retomar de onde parou — o estado está no mailbox, não em memória volátil. Em qualquer job queue ou workflow de longa duração: design o estado como externamente persistível desde o início. Se o worker pode ser parado e retomado a qualquer momento com zero perda de progresso, você elimina a categoria de bugs mais cara em sistemas distribuídos — o processo que morreu no meio e deixou dados inconsistentes.</div>
+    </div>
+  </div>
+
+  <!-- MCP CLIENT -->
+  <div data-section="mcp-client" data-title="MCP Client — 9 Transportes"
+       data-takeaway="O MCP Client com 9 transportes e o In-Process Transport de 64 linhas usando queueMicrotask() revelam um princípio de design poderoso: a mesma interface de tool deve funcionar para tools locais (em-processo), tools remotas (HTTP), tools enterprise (XAA) e tools de teste (mock) sem que o código de chamada precise saber a diferença. O channel gating em 6 níveis é o mecanismo de segurança que torna isso seguro em produção. Para vibe coders: construa suas integrações com abstração de transporte desde o início. Um <code>ToolClient</code> que aceita um transport object em vez de chamar HTTP diretamente permite testar com mocks, desenvolver com stubs locais, e migrar para produção trocando apenas o transport — sem reescrever lógica de negócio.">
+    <div class="insight-item">
+      <div class="insight-item-title">In-Process Transport: queueMicrotask() para Comunicação Bidirecional em 64 Linhas</div>
+      <div class="insight-item-body">O transport em-processo do MCP usa <code>queueMicrotask()</code> para simular comunicação assíncrona bidirecional sem nenhuma socket, nenhuma serialização, nenhuma rede — tudo em memória no mesmo processo. Em testes de integração de MCP ou qualquer sistema baseado em mensagens: use o mesmo padrão para criar um transport fake. Ao invés de mockar a camada HTTP com jest.mock(), implemente um transport em-memória que entrega as mensagens via microtask queue. Seus testes ficam 10x mais rápidos e você testa o protocolo real — não um mock que diverge do comportamento de produção.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Channel Gating em 6 Níveis: Controle Granular de Acesso para Tools</div>
+      <div class="insight-item-body">O MCP gating tem 6 níveis de acesso que controlam quais tools um contexto pode chamar. Isso permite que um agente de leitura nunca acesse tools de escrita, mesmo que esteja no mesmo sistema. Em produtos multi-tenant com tools de IA: implemente gating de tools baseado no plano do cliente, não apenas no papel do usuário. Tools de análise avançada ficam atrás de enterprise gate; tools básicas ficam disponíveis para todos. O gating no nível de tool é mais granular e mais seguro do que verificar permissão no início da ação.</div>
+    </div>
+  </div>
+
+  <!-- OAUTH API -->
+  <div data-section="oauth-api" data-title="OAuth + API Service Layer"
+       data-takeaway="A Race Dual OAuth e o API Service Layer do Claude Code são a camada de resiliência que transforma uma integração frágil em um produto de produção. Race dual (automático + manual em paralelo, primeiro vence) elimina o timeout de auth. Retry infinito com heartbeat, streaming watchdog de 90s, e slot reservation cap de 8k→64k garantem que uma sessão nunca trava silenciosamente. Para vibe coders: o streaming watchdog é a feature mais fácil de implementar e tem o maior impacto em UX percebida. Um stream que trava silenciosamente é percebido como 'app travado' pelo usuário — um watchdog que detecta ausência de chunks em 90s e reabre a conexão transforma isso em 'reconectando automaticamente'.">
+    <div class="insight-item">
+      <div class="insight-item-title">Race Dual OAuth: Automático + Manual em Paralelo, Primeiro Vence</div>
+      <div class="insight-item-body">Ao invés de tentar o fluxo automático, esperar timeout, e só então mostrar o botão manual, o Claude Code inicia os dois simultaneamente. Se o automático completar em 200ms, o manual é cancelado silenciosamente — o usuário nem percebeu. Se o automático falhar, o manual já está pronto. Em qualquer auth flow com fallback manual: implemente o race pattern. <code>Promise.race([automaticAuth(), showManualAuthButton()])</code>. O usuário nunca espera pelo timeout de uma tentativa para ver a opção alternativa — a latência percebida cai para o mínimo possível.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Streaming Watchdog 90s: Detecte Streams Silenciosamente Mortos</div>
+      <div class="insight-item-body">O API Service Layer tem um watchdog que monitora chunks do stream — se 90s passam sem nenhum chunk (mas a conexão ainda está "aberta"), o watchdog fecha e reabre. Streams TCP podem ficar em estado "open sem dados" indefinidamente por problemas de NAT, proxy ou load balancer sem enviar FIN. Em apps que consomem streaming de LLM: implemente um watchdog simples com <code>setTimeout</code> que reseta a cada chunk e reabre a conexão se disparar. Sem isso, 1-5% dos usuários experimentam sessões que parecem travadas mas estão tecnicamente abertas — e você nunca vê isso nos logs.</div>
+    </div>
+  </div>
+
+  <!-- FERRAMENTAS -->
+  <div data-section="ferramentas" data-title="Ferramentas Internas"
+       data-takeaway="As 15 validações do FileEditTool, os 15 patterns destrutivos do BashTool, e o cache LRU de 50MB do WebFetchTool representam a mesma filosofia: segurança em profundidade em cada ponto de contato com o mundo externo. Em vez de uma validação geral no início, há validações específicas para cada tipo de erro que realmente aconteceu em produção. Para vibe coders: quando você tem uma tool que chama APIs externas, executa código ou modifica arquivos, não tente prever todos os edge cases de uma vez — construa sua lista de validações iterativamente. Toda vez que algo errado acontecer em produção, adicione a detecção para aquele padrão específico. Após 6 meses, você terá uma lista defensiva real, não uma lista teórica.">
+    <div class="insight-item">
+      <div class="insight-item-title">15 Patterns Destrutivos: Sua Lista de 'Nunca Executar' Deve Ser Explícita</div>
+      <div class="insight-item-body">O BashTool detecta 15 patterns de comandos destrutivos (<code>rm -rf</code>, <code>DROP TABLE</code>, <code>format</code>, etc.) e requer confirmação explícita antes de executar. Em qualquer agente de IA com acesso a shell ou banco de dados: mantenha uma lista explícita de patterns que precisam de confirmação extra. Não confie apenas no modelo para saber o que é destrutivo — a lista hardcoded é o safety net que funciona mesmo quando o model reasoning falha em edge cases. Comece com os 10 mais óbvios e adicione quando algum incidente acontecer.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Cache LRU 50MB por 15min: WebFetch Não Busca a Mesma URL Duas Vezes no Mesmo Contexto</div>
+      <div class="insight-item-body">O WebFetchTool mantém um cache LRU de 50MB com TTL de 15min. Se o agente consulta a mesma URL múltiplas vezes na mesma sessão (documentação, API reference, pricing page), paga o custo de rede apenas uma vez. Em agentes que fazem research com múltiplas consultas: implemente cache em memória para chamadas externas com TTL razoável (10-30min). Isso reduz latência, custo de bandwidth, e o risco de rate limiting em APIs externas que não têm generosidade nos limites para agentes de IA.</div>
+    </div>
+  </div>
+
+  <!-- ANALYTICS PLUGIN -->
+  <div data-section="analytics-plugin" data-title="Analytics + Plugin System"
+       data-takeaway="O Analytics com user buckets via SHA-256 e hot-swap de pipeline, combinado com o Plugin System de scope hierarchy (user < project < local), demonstra como construir infraestrutura de dados e extensibilidade que cresce sem reescrita. SHA-256 para bucketing é anônimo e determinístico — o mesmo usuário sempre cai no mesmo bucket sem armazenar PII. Hot-swap de pipeline significa que você pode mudar o destino dos eventos sem reiniciar o processo. Scope hierarchy significa que um usuário pode sobrescrever configuração de projeto sem afetar outros. Para vibe coders: implemente os 3 níveis de scope desde o início (default < organização < usuário). O custo de add depois de ter customers é muito maior do que o custo de construir certo na primeira vez.">
+    <div class="insight-item">
+      <div class="insight-item-title">SHA-256 para A/B Buckets: Determinístico, Anônimo, Sem Banco de Dados</div>
+      <div class="insight-item-body">Em vez de salvar "usuário X está no grupo A" em banco, o Claude Code deriva o bucket com SHA-256(userId + experimentId) % 100. O resultado: o mesmo usuário sempre cai no mesmo grupo, sem estado adicional, sem sincronização entre servidores, e sem PII armazenada. Em apps com feature flags ou A/B tests: implemente bucketing por hash. Uma função de 3 linhas substitui uma tabela de banco e toda a infraestrutura de sync. A única limitação: você não pode mover um usuário entre grupos manualmente — mas para a maioria dos A/B tests, isso é o comportamento correto.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Scope Hierarchy: user &lt; project &lt; local com Sobreposição Explícita</div>
+      <div class="insight-item-body">O Plugin System usa três camadas onde cada mais específica sobrescreve a mais geral. User (global, todos os projetos) → Project (repositório específico) → Local (máquina específica). Em qualquer SaaS multi-tenant com config de comportamento: implemente exatamente esse modelo. Admin da plataforma define defaults, admin da organização sobrescreve, usuário individual sobrescreve sua instância. O custo de add essa estrutura depois de ter configurações em produção é alto — migrations complexas, dados inconsistentes, expectativas de usuário quebradas. Faça certo na v1.</div>
+    </div>
+  </div>
+
+  <!-- CMD THINKBACK -->
+  <div data-section="cmd-thinkback" data-title="/thinkback — Spotify Wrapped para Devs"
+       data-takeaway="/thinkback é a prova de que um easter egg bem-feito tem valor de marketing desproporcional ao custo de implementação. Spotify Wrapped viral não porque é útil — vira porque é compartilhável, pessoal e inesperado. Um relatório animado do ano em ASCII art, com alternate screen e output duplo (terminal + HTML para vídeo), é o tipo de feature que aparece no Twitter, Reddit e HN sem nenhum gasto de marketing. Para vibe coders: inclua pelo menos uma feature 'maravilhosa e inútil' no seu produto. A razão não é diversão — é que features compartilháveis geram aquisição orgânica de um público que já está predisposto a amar o produto. O ROI de uma hora de implementação de um easter egg bem-feito pode superar uma campanha de ads.">
+    <div class="insight-item">
+      <div class="insight-item-title">Alternate Screen: UI Rica Sem Poluir o Terminal Permanente</div>
+      <div class="insight-item-body">O <code>/thinkback</code> usa alternate screen (sequência ANSI <code>\x1b[?1049h</code>) para renderizar a retrospectiva animada em um buffer separado — quando termina, o terminal volta ao estado exato anterior, sem rastro. Em CLIs com output longo ou interfaces temporárias (progress bar animada, preview de arquivo, diff visual): use alternate screen para conteúdo que não deve ficar no histórico do terminal. O usuário vê uma experiência rica; quando termina, o terminal está limpo. É a diferença entre "UI de produto" e "output de shell descartável".</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Output Duplo: Terminal Live + HTML para Captura = Compartilhabilidade Automática</div>
+      <div class="insight-item-body">O thinkback gera dois outputs em paralelo: a animação no terminal (live experience) e um HTML equivalente que pode ser convertido em vídeo para download. Isso transforma uma experiência efêmera em artefato compartilhável. Em qualquer feature de relatório ou retrospectiva: ofereça sempre uma forma de exportar como imagem/PDF/HTML além do display em tempo real. O usuário que consegue compartilhar o resultado é o seu melhor canal de aquisição — cada share é um anúncio orgânico para a audiência mais relevante possível.</div>
+    </div>
+  </div>
+
+  <!-- CMD ULTRAREVIEW -->
+  <div data-section="cmd-ultrareview" data-title="/ultrareview — 20 Agentes em Paralelo"
+       data-takeaway="/ultrareview representa a evolução da code review: em vez de um único revisor (humano ou IA) lendo sequencialmente, 20+ agentes especializados analisam o repositório em paralelo na nuvem, cada um focado em uma dimensão diferente (segurança, performance, cobertura, arquitetura). O resultado é consolidado em minutos com cobertura que nenhum revisor único consegue. Para vibe coders: o princípio de specialização de agentes paralelos é aplicável a qualquer análise complexa. Em vez de um prompt longo pedindo ao modelo para fazer N coisas, crie N agentes com um único foco cada — e consolide os resultados. A qualidade por dimensão é muito maior, e o tempo total é menor do que análise sequencial.">
+    <div class="insight-item">
+      <div class="insight-item-title">Agentes Especializados em Paralelo: Qualidade por Dimensão, Não Qualidade Genérica</div>
+      <div class="insight-item-body">Um prompt genérico "revise este código" produz revisão genérica. Agentes especializados — um para segurança, um para performance, um para test coverage, um para documentação — produzem análise profunda em cada dimensão. Em análise de documento, auditoria de contrato, ou due diligence com IA: divida a tarefa por dimensão especializada, não por seção do documento. Um agente que só procura cláusulas de indemnização encontra muito mais do que um agente genérico que lê o contrato inteiro. O custo de N agentes em paralelo é menor que N×tempo sequencial e maior em qualidade do que 1 agente tentando fazer tudo.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">CCR (Cloud Claude Runtime): Teleporte de Repositório para Análise Distribuída</div>
+      <div class="insight-item-body">O /ultrareview "teleporta" o repositório para um ambiente remoto de computação (CCR), onde os agentes rodam em infra da Anthropic com acesso a resources que um laptop não tem. O terminal local fica completamente livre. Para produtos de análise de código ou dados com IA: ofereça uma opção "run in cloud" para análises longas. O usuário não precisa esperar com o laptop aberto — envia, recebe notificação, acessa resultado. Separar a UX de submit da UX de resultado multiplica o volume de análises pesadas que seus usuários vão fazer.</div>
+    </div>
+  </div>
+
+  <!-- CMD ULTRAPLAN -->
+  <div data-section="cmd-ultraplan" data-title="/ultraplan — Opus na Nuvem"
+       data-takeaway="/ultraplan demonstra como desacoplar a sessão do usuário do tempo de processamento do modelo cria uma categoria diferente de UX para tarefas longas. Em vez de o usuário esperar 5-10 minutos com o terminal bloqueado enquanto o Opus pensa, o terminal fica livre para outras tarefas e o resultado retorna quando pronto. Para vibe coders: qualquer task de IA que dura mais de 30 segundos deve ter um modo assíncrono com notificação. Usuário que fica olhando para um spinner de 5 minutos percebe o produto como lento mesmo que o resultado seja excelente. Usuário que recebe uma notificação 'seu plano está pronto' percebe o produto como eficiente — e provavelmente vai lançar mais análises porque o custo de espera percebido é zero.">
+    <div class="insight-item">
+      <div class="insight-item-title">Terminal Livre Durante Processamento: Desacople Submit de Resultado</div>
+      <div class="insight-item-body">O <code>/ultraplan</code> envia a sessão para um remote runner com Opus e retorna o controle ao terminal imediatamente. O resultado chega via SendMessage quando o Opus termina. Em qualquer feature de IA com processamento &gt;30s: separe a UX em dois momentos distintos — submit (instantâneo, confirma que foi recebido) e resultado (notificação quando pronto, com link para acessar). Isso é especialmente crítico em apps mobile onde o sistema pode matar processos em background. Um webhook + notificação push é mais confiável do que um stream longo aberto.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Modelo Certo para Task Certa: Opus para Planejamento, Haiku para Classificação</div>
+      <div class="insight-item-body">O /ultraplan usa explicitamente Opus — o modelo mais capaz e mais caro — para planejamento estratégico complexo. Outras tasks usam Haiku ou Sonnet. Em produtos de IA com múltiplos casos de uso: não use o mesmo modelo para tudo. Mapeie cada type de task para o tier de modelo mais adequado. Haiku para classificação, extração, formatação. Sonnet para geração, reasoning médio. Opus apenas para tarefas onde a diferença de qualidade justifica o custo (3-10x maior). Esse mapeamento geralmente reduz custo total em 40-60% com impacto mínimo em qualidade percebida.</div>
+    </div>
+  </div>
+
+  <!-- CMD REWIND -->
+  <div data-section="cmd-rewind" data-title="/rewind — Time Travel"
+       data-takeaway="/rewind implementa uma ideia fundamental que poucos builders de IA executam: undo em duas dimensões independentes (código E conversa). A maioria dos produtos de IA oferece undo de código OU undo de conversa, não os dois. O insight é que código e contexto são estados separados que podem ser restaurados independentemente — você pode querer voltar o código para ontem mas manter a conversa de hoje, ou restaurar um ponto da conversa sem desfazer o código. Para vibe coders: trate o estado persistente do seu produto como múltiplos timelines independentes, não uma única linha do tempo. Storage é barato; a capacidade de restaurar qualquer combinação de estado é o que transforma um produto de 'eu tenho medo de errar' para 'vou tentar mais coisa porque sei que posso voltar'.">
+    <div class="insight-item">
+      <div class="insight-item-title">Checkpoint Seletor: Snapshots Explícitos São Mais Úteis que Undo Infinito</div>
+      <div class="insight-item-body">O /rewind abre um seletor de checkpoints — pontos nomeados no tempo, não apenas o estado anterior. A diferença entre checkpoint nomeado ("antes de refatorar o auth") e undo linear ("10 passos atrás") é que o usuário consegue navegar de forma significativa. Em apps com estado complexo que muda ao longo do tempo (editores, configuradores, planos): ofereça checkpoints explícitos em momentos-chave em vez de apenas ctrl+z. Auto-salve checkpoints antes de operações destrutivas grandes. O usuário precisa de âncoras contextuais para navegar no tempo — não apenas um slider de "quanto tempo atrás".</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Duas Dimensões de Undo Independentes: Código Separado de Conversa</div>
+      <div class="insight-item-body">Restaurar o código para ontem não deve forçar a restaurar a conversa para ontem — e vice-versa. Em assistentes de IA com estado persistente: separe o versionamento do contexto do versionamento do output/artefato. Um usuário pode querer continuar a conversa atual mas desfazer as mudanças de código das últimas 2 horas. Outro pode querer retomar uma conversa de semana passada mas manter o código atual. Implemente os dois como cursores independentes em seus respectivos stores, não como um único snapshot de estado global.</div>
+    </div>
+  </div>
+
+  <!-- CMD BTW -->
+  <div data-section="cmd-btw" data-title="/btw — Fork + Cache Share"
+       data-takeaway="/btw é a implementação mais elegante do princípio 'pergunta rápida sem interromper o trabalho'. Um fork byte-idêntico que compartilha o cache da sessão atual significa que a pergunta paralela não custa o dobro — ela reaproveita todo o contexto que já foi processado. Para vibe coders: o padrão de fork com cache compartilhado é aplicável em qualquer sistema onde você precisa fazer uma consulta lateral sem perder o estado da tarefa principal. Em assistentes de código, o equivalente é: antes de um refactor grande, o usuário pode perguntar 'o que vai quebrar?' em um fork sem iniciar um novo contexto pago e sem interromper o planejamento em andamento.">
+    <div class="insight-item">
+      <div class="insight-item-title">Fork que Herda Cache: Consulta Lateral Sem Pagar por Contexto Duplicado</div>
+      <div class="insight-item-body">O /btw cria um fork com prefixo byte-idêntico à sessão principal, então adiciona apenas a pergunta específica. O cache da sessão principal já está quente — o fork não paga para reprocessar o mesmo contexto. Em plataformas de IA onde o usuário faz perguntas tangenciais durante uma tarefa maior: implemente fork/branch de contexto. O branch herda o contexto pai via cache, adiciona apenas o delta, retorna a resposta, e é descartado. O usuário paga apenas pelo tokens do delta, não pelo contexto inteiro repetido. Isso reduz custo de "perguntas rápidas" de O(contexto + pergunta) para O(pergunta).</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Não Interrompe Contexto: Paralelo Sem Polling de Atenção</div>
+      <div class="insight-item-body">O /btw retorna a resposta sem modificar a sessão principal — o contexto principal continua exatamente onde estava, como se a pergunta não tivesse acontecido. Em assistentes de IA com tarefas longas: implemente um "modo pergunta" que consulta o modelo em paralelo sem adicionar a troca ao histórico principal. Um usuário trabalhando em um refactor de 20 arquivos pode perguntar "como funciona o sistema de auth?" sem esse contexto aparecer no histórico do refactor. A sessão de trabalho fica limpa; a pergunta pontual é respondida. Separação de concerns no nível de contexto.</div>
+    </div>
+  </div>
+
+  <!-- CMD VOICE -->
+  <div data-section="cmd-voice" data-title="/voice — Push-to-Talk"
+       data-takeaway="/voice demonstra o princípio de 'fail early, fail clean' levado ao extremo: antes de ativar qualquer coisa, verifica auth, kill-switch, disponibilidade do SoX, e permissão de microfone — e falha com mensagem clara em cada etapa se algo estiver errado. Para vibe coders: qualquer feature que depende de recursos externos (microfone, câmera, GPS, Bluetooth) deve ter um preflight check explícito que valida TODOS os pré-requisitos antes de tentar usar o recurso. O usuário que recebe 'Microfone não encontrado — instale SoX com brew install sox' entende exatamente o que fazer. O usuário que recebe um erro genérico após 3s de spinner tenta de novo, fica frustrado, e cria ticket de suporte.">
+    <div class="insight-item">
+      <div class="insight-item-title">Preflight Check: Valide Todos os Pré-Requisitos Antes de Tentar Usar o Recurso</div>
+      <div class="insight-item-body">O /voice verifica: (1) auth válida, (2) kill-switch não ativo, (3) SoX instalado, (4) permissão de microfone — nessa ordem, falhando imediatamente com mensagem específica em cada etapa. Em features que dependem de hardware ou permissões (microfone, câmera, notificações, localização): implemente um preflight sequencial. Não tente usar o recurso e tratar o erro depois — verifique a condição antes. O custo de "verificar e falhar com mensagem clara" é infinitamente menor do que "tentar, falhar genericamente, e debugar com o usuário no suporte".</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Kill-Switch de Feature: Desative Remotamente Sem Deploy</div>
+      <div class="insight-item-body">O preflight do /voice inclui verificação de um kill-switch server-side. Se a Anthropic precisar desativar o voice input por qualquer razão (bug de segurança, sobrecarga, problema legal), isso acontece instantaneamente para todos os usuários sem nenhum deploy. Em features de IA com acesso a recursos sensíveis (microfone, câmera, dados do sistema): implemente kill-switch antes de lançar. A capacidade de desativar uma feature em segundos é a diferença entre um incidente controlado e um incidente que escala. O custo de implementação é uma chamada de API a cada início de feature; o valor é controle total em emergências.</div>
+    </div>
+  </div>
+
+  <!-- CMD BUDDY -->
+  <div data-section="cmd-buddy" data-title="/buddy — Companheiro Único"
+       data-takeaway="O /buddy demonstra como tornar um produto de produtividade emocionalmente memorável com um mecanismo que custa muito pouco para implementar: um companheiro determinístico e único por usuário. A combinação de hash (identidade estável) + gacha (descoberta) + raridade real (1% legendary) + RPG stats cria apego emocional sem manipulação. Para vibe coders: adicionar uma dimensão de identidade única ao seu produto (mesmo que seja apenas um avatar ou uma cor gerada por hash do email) aumenta o senso de ownership do usuário. Não é sobre a feature em si — é sobre o usuário sentir que o produto foi feito especificamente para ele. Isso reduz churn de forma mensurável mesmo quando a feature core não muda.">
+    <div class="insight-item">
+      <div class="insight-item-title">Hash-Determinístico de Identidade: Único Sem Ser Aleatório</div>
+      <div class="insight-item-body">O companheiro é derivado de hash(userId) — sempre o mesmo para o mesmo usuário, único entre usuários, sem estado adicional. Em onboarding de produtos: use hash do email para gerar elementos de identidade únicos — avatar inicial, paleta de cores da conta, tagline personalizada, nome de instância. O usuário percebe personalização sem você ter armazenado preferências. Mais importante: essa personalização não pode ser "resetada" por acidente porque é derivada deterministicamente a cada vez. Não há estado adicional para sincronizar, para migrar, ou para corromper.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Gacha com Raridade Real: Expectativa Gerenciada Cria Engajamento Sustentável</div>
+      <div class="insight-item-body">O sistema Buddy tem probabilidades reais e publicadas (1% legendary, 1% shiny) — não são percepções manipuladas. Quando o usuário consegue um legendary, o valor percebido é real porque a raridade é real. Em qualquer sistema de coleção ou conquista: publique as probabilidades. Usuários que entendem o mecanismo confiam mais no sistema e valorizam mais as conquistas raras do que usuários que suspeitam de manipulação. Transparência em gamificação não diminui o engajamento — aumenta, porque transforma sorte em um evento significativo compartilhável.</div>
+    </div>
+  </div>
+
+  <!-- CMD CHROME -->
+  <div data-section="cmd-chrome" data-title="/chrome — MCP Native"
+       data-takeaway="O /chrome demonstra a tese central do MCP: qualquer aplicação pode se tornar uma tool de IA ao expor suas capacidades via protocolo padronizado. O Chrome conecta como MCP server, e o Claude Code o controla diretamente — sem Playwright, sem Selenium, sem wrapper. Para vibe coders: o /chrome é a preview do que vai acontecer com todos os aplicativos nos próximos 2-3 anos. O custo de conectar seu app ao Claude Code é implementar o protocolo MCP — e você passa a ser acessível de qualquer assistente de IA compatível. Em vez de construir uma integração customizada com cada AI assistant, você expõe um MCP server uma vez e funciona com todos.">
+    <div class="insight-item">
+      <div class="insight-item-title">MCP Nativo: Transforme Qualquer App em Tool de IA com Um Protocolo</div>
+      <div class="insight-item-body">O Chrome como MCP server significa que o Claude Code pode navegar, ler DOM, preencher formulários e tirar screenshots usando exatamente o mesmo protocolo que usa para qualquer outra tool. Em times que constroem produtos: considere expor um MCP server para seus próprios produtos internos. Seu painel de analytics, seu CRM interno, seu sistema de tickets — cada um pode se tornar uma tool que seus agentes de IA usam diretamente, sem custom integration. O custo de implementar um MCP server básico é de horas; o benefício é conectividade com o ecossistema crescente de AI assistants.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Sem Playwright: Protocolos Nativos São Mais Robustos que Wrappers</div>
+      <div class="insight-item-body">Playwright abstrai sobre o Chrome DevTools Protocol; MCP permite ao Claude se conectar diretamente ao CDP via extensão. Remover a camada de abstração elimina a versão de Playwright, o gerenciamento de browser binaries, e a superfície de bugs que cresce com cada intermediário. Para automação de browser: avalie o CDP diretamente antes de adicionar Playwright. Para casos simples (navegar, clicar, ler texto), o CDP com WebSocket é direto e trivialmente implementável. Playwright faz sentido quando você precisa de cross-browser, page.waitForSelector abstraction, e o ecossistema de plugins. Para AI agents que só precisam de Chrome, o CDP diretamente via MCP é mais limpo.</div>
+    </div>
+  </div>
+
+  <!-- CMD STICKERS -->
+  <div data-section="cmd-stickers" data-title="/stickers — Loja de Merch"
+       data-takeaway="Um slash command que abre uma loja de adesivos em um CLI de programação parece absurdo — e é exatamente esse absurdo que faz dele um artefato cultural. O /stickers não existe para gerar receita de stickers. Existe para ser o tipo de coisa que aparece em posts de 'features malucas que encontrei no código-fonte', para criar afiliação (quem compra o sticker sinaliza pertencimento), e para ser memorável. Para vibe coders: o produto mais funcional do mercado perde para o produto que as pessoas amam falar sobre. Uma feature absurda mas deliciosa é marketing mais eficiente do que qualquer campanha — ela viraliza organicamente entre o público que já usa o produto e que vai recomendar para outros com o mesmo perfil.">
+    <div class="insight-item">
+      <div class="insight-item-title">Features Memoráveis São Marketing: O Absurdo Que Vira Conversa</div>
+      <div class="insight-item-body">Ninguém esperava encontrar uma loja de stickers em um CLI de programação. Por isso funciona — é o tipo de surpresa deliciosa que as pessoas compartilham. Em produtos para devs: plante pelo menos uma feature que claramente não é séria mas demonstra que a equipe tem personalidade. Uma loja de merch acessível via CLI, um spinner com piadas, um help text com haiku — essas features custam horas de implementação e geram meses de posts orgânicos. A pergunta não é "isso é útil?" — é "isso é o tipo de coisa que vai aparecer no HN ou Twitter por conta própria?".</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Merch como Afiliação: Usuários Que Compram Sticker Ficam Por Mais Tempo</div>
+      <div class="insight-item-body">Quando um usuário compra um sticker de um produto de software, ele está fazendo um gesto de identidade — está declarando publicamente que usa e gosta do produto. Esse gesto aumenta o custo psicológico de churnar. Em produtos com base de usuários engajada: ofereça qualquer forma de expressão de afiliação (sticker, camiseta, badge de Discord, frame de LinkedIn). A mecânica é simples: usuário que se identifica com o produto permanece mais tempo, refere mais pessoas, e perdoa mais falhas. O custo de um programa de merch é trivial comparado ao impacto em LTV dos usuários que participam.</div>
+    </div>
+  </div>
+
+  <!-- SPINNER VERBS -->
+  <div data-section="spinner-verbs" data-title="204 Spinner Verbs"
+       data-takeaway="204 verbos para loading spinners — de 'Clauding' a 'Flibbertigibbeting' — representam uma decisão de produto que a maioria dos times nunca considera: loading state como momento de brand. O spinner não é um problema a resolver — é uma oportunidade de entregar uma micro-dose de personalidade exatamente quando o usuário está mais ansioso (esperando). Para vibe coders: substitua todos os seus 'Processando...' e 'Carregando...' por verbos com personalidade. Custo: uma tarde de trabalho. Benefício: usuários que screnshotam o spinner para compartilhar, reviews que mencionam 'aquele loading com frases engraçadas', e retenção aumentada por criação de momento de deleite em um ponto de tensão.">
+    <div class="insight-item">
+      <div class="insight-item-title">Loading State é Momento de Personalidade, Não de Silêncio</div>
+      <div class="insight-item-body">O usuário está mais vulnerável à ansiedade exatamente quando o spinner está rodando. Um "Processando..." genérico confirma a ansiedade. Um "Flibbertigibbeting" transforma o momento em sorriso. Em qualquer app com operações assíncronas: crie uma lista de 20-50 mensagens de loading que reflitam a personalidade do produto. Categorize por contexto (análise, geração, busca, conexão) e sorteie. O custo é mínimo; o impacto em percepção de qualidade é desproporcionalmente alto — usuários avaliam a "sensação" do produto tanto quanto as features, e o loading state é um momento high-stakes de sensação.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Verbos Inventados Como Identidade: Clauding Não Existe, Por Isso É Perfeito</div>
+      <div class="insight-item-body">"Clauding" é um verbo que não existe no dicionário. É perfeito exatamente por isso — é proprietário, inimitável, e cria uma referência cultural exclusiva do produto. Quando um usuário diz "o Claude está Clauding" para um colega, ele está usando linguagem do produto na vida real — o indicador mais forte de brand embedment que existe. Em produtos de IA: crie pelo menos um verbo proprietário para o que seu produto faz. Não "Processando" — "[NomeDoProduto]ing" ou um verbo inventado que só faz sentido no seu contexto. Propriedade linguística é um moat que nenhuma feature copia.</div>
+    </div>
+  </div>
+
+  <!-- CODINOMES -->
+  <div data-section="codinomes" data-title="Codinomes Internos"
+       data-takeaway="Codinomes internos como Tengu, Kairos, Bagel, Plover, Fennec, Numbat, Capybara revelam como a Anthropic mantém confidencialidade de features em desenvolvimento sem criar burocracia excessiva. Um codinome impede que uma menção casual em commit message ou log revele qual feature está sendo desenvolvida, seu propósito, ou seu status. Para vibe coders: codinomes são úteis em qualquer empresa que tenha competidores atentos ou que queira fazer anúncios de features no timing correto. O custo é zero (escolha um animal ou palavra aleatória); o benefício é que você pode discutir uma feature em público (repositório, issues, Slack) sem vazar o roadmap. Kairos sendo 'modo assistente proativo não público' é exatamente o tipo de informação que um competidor adoraria ter.">
+    <div class="insight-item">
+      <div class="insight-item-title">Codinomes em Repositórios: Confidencialidade Sem Processo Burocrático</div>
+      <div class="insight-item-body">Tengu (analytics prefix), Plover (autoDream gate), Bagel (WebBrowser tool) — nenhum desses nomes revela o que a feature faz a alguém que não está no time interno. Em times que desenvolvem features competitivas em repositórios semi-públicos ou com contractors externos: adote codinomes para features em desenvolvimento antes do anúncio. O processo é simples: escolha um animal ou conceito aleatório (não relacionado à feature), use consistentemente em commits, issues, e código. Quando lançar, o anúncio pode usar o nome real — a menção nos logs históricos é irrelevante depois do lançamento.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">XAA (Cross-App Access): Identidade de Produto para Protocolos Internos</div>
+      <div class="insight-item-body">XAA não é um codinome genérico — é um acrônimo técnico que descreve um padrão de auth enterprise (Cross-App Access, Layer-3). A distinção é importante: codinomes são para features cujo propósito você quer esconder; acrônimos são para conceitos técnicos que precisam de identidade própria para ser referenciados de forma consistente. Em times técnicos: crie acrônimos para os padrões arquiteturais que você usa repetidamente (BUC para BoundedUUIDSet, FG para FlushGate). Isso permite discussão precisa em code review, issue tracker, e onboarding sem repetir a descrição completa toda vez.</div>
+    </div>
+  </div>
+
+  <!-- MÉTRICAS -->
+  <div data-section="metricas" data-title="Métricas Únicas"
+       data-takeaway="Multi-Clauding como métrica oficial de produto, CapacityWake como padrão de sleep/wake para poll loops, e Rolling Wave Launch para timezone-aware releases revelam como a Anthropic pensa em métricas de produto com profundidade. Medir 'dois Claudes ao mesmo tempo' não é uma métrica trivial — é um proxy de engajamento profundo que só usuários power realizam. Rolling Wave Launch reconhece que UTC-midnight spike é desperdício de buzz. Para vibe coders: a métrica que você escolhe medir define o produto que você vai construir. Se você mede DAU, otimiza para dailiness. Se mede Multi-Clauding, otimiza para profundidade de uso. Escolha métricas que capturam o comportamento de usuário que define sucesso real para seu produto.">
+    <div class="insight-item">
+      <div class="insight-item-title">Multi-Clauding: Meça Comportamento Power User, Não Apenas Ativação</div>
+      <div class="insight-item-body">Medir quantos usuários rodam dois Claudes simultaneamente é uma métrica de profundidade de uso que DAU não captura. Em produtos de produtividade: identifique o comportamento que distingue power users de usuários casuais e meça explicitamente. Para um editor: quantos arquivos abertos ao mesmo tempo. Para uma ferramenta de análise: quantas queries em paralelo. Para um assistente: quantas tasks simultâneas. Essa métrica vai guiar features de forma muito mais eficaz do que "mais usuários" — porque usuários power são o segmento que fica, paga mais, e indica para outros power users.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">Rolling Wave Launch: Lançamentos Por Timezone Maximizam Cobertura de Mídia</div>
+      <div class="insight-item-body">Em vez de lançar tudo em UTC midnight (que cria um spike no TechCrunch mas é 11pm em São Paulo e 8am em Tóquio ao mesmo tempo), o Rolling Wave lança progressivamente por timezone — primeiro UTC-8 (Pacific), depois UTC+0 (Europa), depois UTC+9 (Ásia). Cada "onda" gera seu próprio ciclo de posts, tweets e discussões na hora de pico local de cada mercado. Para lançamentos de produto globais: planeje o rolling wave desde o início. Não é só sobre timezone — é sobre ter 3 oportunidades de coverage em vez de 1, e garantir que cada mercado recebe atenção no momento certo.</div>
+    </div>
+  </div>
+
+  <!-- COMPANION BONES -->
+  <div data-section="companion-bones" data-title="CompanionBones + CompanionSoul"
+       data-takeaway="CompanionBones (hash do userId) + CompanionSoul (nome gerado pelo modelo) + Anti-Leak (Bones nunca persistem em disco) é a arquitetura de identidade mais elegante do Claude Code. A separação entre identidade determinística (Bones = sempre a mesma para o mesmo userId) e identidade gerada (Soul = nome criado pelo modelo na primeira sessão) cria um companheiro que é ao mesmo tempo singular e estável. Para vibe coders: essa separação entre 'quem você é' (hash determinístico) e 'como você se chama' (gerado e persistido) é um padrão de identidade applicável a qualquer feature de personalização. O Anti-Leak (nunca persistir o que pode ser recalculado) é o princípio de segurança mais importante: dados que não existem em disco não podem vazar.">
+    <div class="insight-item">
+      <div class="insight-item-title">Anti-Leak: Dados que Não Persistem Não Podem Vazar</div>
+      <div class="insight-item-body">CompanionBones é recalculado de hash(userId) toda vez que necessário — nunca salvo em disco. Se o banco de dados vazar, não há registro de qual Bones pertence a qual usuário. Em apps com dados de preferência ou comportamento do usuário: separe o que precisa ser persistido do que pode ser derivado. Preferência de tema pode ser derivada de hash + timezone (hora local → light/dark). Sugestões de onboarding podem ser derivadas de dados já existentes. Dados derivados = zero risco de vazamento, zero custo de storage, zero sincronização entre dispositivos. Não persista o que você pode calcular.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-item-title">CompanionSoul: Identidade Gerada Pelo Modelo na Primeira Sessão</div>
+      <div class="insight-item-body">O nome do companheiro é gerado pelo modelo na primeira interação — único, personalizado, e persistido apenas esse resultado (não o processo). O modelo recebe as características do companheiro (espécie, stats, raridade) e gera um nome que faz sentido para aquela combinação. Em onboarding com IA: use o modelo para gerar elementos de identidade personalizada na primeira sessão (nome de instância, tagline, welcome message) e persista apenas o resultado. O usuário percebe uma experiência única e personalizada; você tem o custo de uma chamada de API no onboarding. O ROI em percepção de qualidade é imediato.</div>
     </div>
   </div>
 
 </div>
+
 
 <!-- ═══ FOOTER ═══ -->
 <footer>
@@ -3452,14 +3779,12 @@ setInterval(function() {
 
 // ── INSIGHT BUTTON AUTO-INJECT (per card) ──
 (function() {
-  document.querySelectorAll('.card').forEach(function(card) {
-    var wrap = card.closest('[id]');
-    if (!wrap) return;
-    var sectionId = wrap.id;
-    if (!document.querySelector('#insightPanels [data-section="' + sectionId + '"]')) return;
+  document.querySelectorAll('.card[data-card-id]').forEach(function(card) {
+    var cardId = card.getAttribute('data-card-id');
+    if (!document.querySelector('#insightPanels [data-section="' + cardId + '"]')) return;
     var btn = document.createElement('button');
     btn.className = 'insight-btn';
-    btn.setAttribute('data-section', sectionId);
+    btn.setAttribute('data-section', cardId);
     btn.innerHTML = '<i class="ph ph-lightbulb"></i>Insights';
     card.appendChild(btn);
   });
