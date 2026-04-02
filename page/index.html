@@ -1,0 +1,2959 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Próxima Escolha — Descubra seu caminho</title>
+  <meta name="description" content="Descubra qual decisão educacional faz sentido para o seu momento de vida.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+    :root {
+      --surface: #F7F8FC;
+      --surface-raised: #FFFFFF;
+      --surface-deep: #EEEEF5;
+      --voice-loud: #1B1F3B;
+      --voice-mid: #5D6180;
+      --voice-quiet: #8E91AB;
+      --pulse: #6C5CE7;
+      --pulse-alt: #8577ED;
+      --pulse-glow: rgba(108, 92, 231, 0.12);
+      --green: #00C9A7;
+      --green-glow: rgba(0, 201, 167, 0.12);
+      --line: rgba(27, 31, 59, 0.07);
+      --line-strong: rgba(27, 31, 59, 0.13);
+      --font-alma: 'Space Grotesk', system-ui, sans-serif;
+      --font-maquina: 'Space Mono', monospace;
+      --font-ponte: 'Inter', system-ui, sans-serif;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-reveal: cubic-bezier(0.23, 1, 0.32, 1);
+      --radius: 8px;
+      --radius-m: 12px;
+      --radius-l: 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-ponte);
+      background: var(--surface);
+      color: var(--voice-loud);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100dvh;
+    }
+
+    button, input { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ═══════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════ */
+    .marks___nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 clamp(16px, 4vw, 40px);
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      transition: border-color 0.4s;
+    }
+
+    .marks___logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .marks___logo-icon {
+      width: 24px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .marks___logo-text {
+      font-family: var(--font-alma);
+      font-size: 1.1rem;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+    }
+
+    .marks___logo-text span {
+      color: var(--pulse);
+    }
+
+    .marks___nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .marks___nav-chip {
+      font-family: var(--font-maquina);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: var(--voice-quiet);
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: none;
+    }
+
+    .marks___nav-btn {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: var(--surface-raised);
+      color: var(--voice-mid);
+      font-family: var(--font-maquina);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      padding: 6px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.3s var(--ease-out);
+    }
+
+    .marks___nav-btn:hover {
+      border-color: var(--pulse);
+      color: var(--pulse);
+    }
+
+    /* ═══════════════════════════════════════
+       PROGRESS BAR
+    ═══════════════════════════════════════ */
+    .marks___progress {
+      position: fixed;
+      top: 56px;
+      left: 0; right: 0;
+      height: 3px;
+      background: var(--line);
+      z-index: 99;
+    }
+
+    .marks___progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--pulse), var(--green));
+      border-radius: 0 2px 2px 0;
+      transition: width 0.5s var(--ease-out);
+    }
+
+    /* ═══════════════════════════════════════
+       SCREEN CONTAINER
+    ═══════════════════════════════════════ */
+    .marks___screen {
+      min-height: 100dvh;
+      padding: 56px 0 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: marks___fadeUp 0.4s var(--ease-reveal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .marks___screen-inner {
+      width: min(720px, calc(100% - 48px));
+      padding: 20px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .marks___screen-wide {
+      width: min(960px, calc(100% - 48px));
+    }
+
+    /* ═══════════════════════════════════════
+       WATERMARK ICON
+    ═══════════════════════════════════════ */
+    .marks___watermark {
+      position: absolute;
+      bottom: -40px;
+      right: -40px;
+      width: 340px;
+      height: 340px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+      color: var(--voice-loud);
+      animation: marks___watermarkIn 0.8s var(--ease-reveal);
+    }
+
+    .marks___watermark svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    @keyframes marks___watermarkIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 0.04; transform: scale(1); }
+    }
+
+    @media (max-width: 640px) {
+      .marks___watermark {
+        width: 240px;
+        height: 240px;
+        bottom: -20px;
+        right: -20px;
+      }
+    }
+
+    /* ═══════════════════════════════════════
+       TYPOGRAPHY
+    ═══════════════════════════════════════ */
+    .marks___kicker {
+      font-family: var(--font-maquina);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--voice-quiet);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .marks___kicker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pulse);
+      animation: marks___blink 2.4s ease-in-out infinite;
+    }
+
+    .marks___headline {
+      font-family: var(--font-alma);
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .marks___headline em {
+      font-style: normal;
+      color: var(--pulse);
+      position: relative;
+    }
+
+    .marks___headline em::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--pulse);
+      opacity: 0.35;
+    }
+
+    .marks___subline {
+      font-size: clamp(1rem, 1.5vw, 1.12rem);
+      color: var(--voice-mid);
+      max-width: 52ch;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ═══════════════════════════════════════
+       HERO / LANDING
+    ═══════════════════════════════════════ */
+    .marks___hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 40px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      overflow: hidden;
+      background: var(--line);
+    }
+
+    .marks___hero-metric {
+      padding: 20px;
+      background: var(--surface-raised);
+    }
+
+    .marks___hero-metric strong {
+      display: block;
+      font-family: var(--font-alma);
+      font-size: 1.5rem;
+      line-height: 1;
+      margin-bottom: 6px;
+      font-weight: 700;
+      color: var(--pulse);
+    }
+
+    .marks___hero-metric span {
+      font-size: 0.85rem;
+      color: var(--voice-mid);
+      line-height: 1.4;
+    }
+
+    .marks___hero-actions {
+      margin-top: 36px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* ═══════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════ */
+    .marks___btn-primary {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 48px;
+      padding: 0 24px;
+      border: none;
+      border-radius: var(--radius-m);
+      background: var(--pulse);
+      color: #fff;
+      font-family: var(--font-alma);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-out);
+      box-shadow: 0 4px 16px rgba(108, 92, 231, 0.25);
+    }
+
+    .marks___btn-primary:hover {
+      background: var(--pulse-alt);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(108, 92, 231, 0.3);
+    }
+
+    .marks___btn-primary svg {
+      transition: transform 0.3s var(--ease-out);
+    }
+    .marks___btn-primary:hover svg {
+      transform: translateX(3px);
+    }
+
+    .marks___btn-ghost {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 48px;
+      padding: 0 20px;
+      border: 1.5px solid var(--line-strong);
+      border-radius: var(--radius-m);
+      background: transparent;
+      color: var(--voice-mid);
+      font-family: var(--font-alma);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-out);
+    }
+
+    .marks___btn-ghost:hover {
+      border-color: var(--pulse);
+      color: var(--pulse);
+    }
+
+    .marks___btn-back {
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: var(--voice-quiet);
+      font-family: var(--font-maquina);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      padding: 8px 0;
+      transition: color 0.3s;
+    }
+
+    .marks___btn-back:hover { color: var(--voice-loud); }
+
+    /* ═══════════════════════════════════════
+       OPTIONS GRID (QUIZ)
+    ═══════════════════════════════════════ */
+    .marks___options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .marks___option {
+      appearance: none;
+      position: relative;
+      text-align: left;
+      padding: 20px;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius-m);
+      background: var(--surface-raised);
+      color: var(--voice-loud);
+      cursor: pointer;
+      transition: all 0.3s var(--ease-out);
+      min-height: 90px;
+    }
+
+    .marks___option:hover {
+      border-color: var(--pulse);
+      background: color-mix(in srgb, var(--pulse) 4%, var(--surface-raised));
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(108, 92, 231, 0.1);
+    }
+
+    .marks___option:active {
+      transform: translateY(-1px);
+      background: color-mix(in srgb, var(--pulse) 8%, var(--surface-raised));
+      transition-duration: 0.1s;
+    }
+
+    .marks___option strong {
+      display: block;
+      font-family: var(--font-alma);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .marks___option span {
+      display: block;
+      font-size: 0.84rem;
+      color: var(--voice-mid);
+      line-height: 1.45;
+    }
+
+    /* ═══════════════════════════════════════
+       FORM (CAPTURE)
+    ═══════════════════════════════════════ */
+    .marks___form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .marks___field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .marks___field.marks___full { grid-column: 1 / -1; }
+
+    .marks___field label {
+      font-family: var(--font-maquina);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--voice-quiet);
+    }
+
+    .marks___field input {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--surface-raised);
+      color: var(--voice-loud);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .marks___field input:focus {
+      border-color: var(--pulse);
+      box-shadow: 0 0 0 3px var(--pulse-glow);
+    }
+
+    .marks___field input::placeholder {
+      color: var(--voice-quiet);
+    }
+
+    .marks___form-footer {
+      margin-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .marks___fineprint {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: var(--voice-quiet);
+      line-height: 1.55;
+      max-width: 56ch;
+    }
+
+    .marks___error {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      background: rgba(230, 57, 70, 0.08);
+      border: 1px solid rgba(230, 57, 70, 0.16);
+      color: #a62633;
+      font-size: 0.88rem;
+    }
+
+    /* ═══════════════════════════════════════
+       ANALYSIS
+    ═══════════════════════════════════════ */
+    .marks___analysis {
+      text-align: center;
+      display: grid;
+      place-items: center;
+      gap: 28px;
+      min-height: calc(100dvh - 100px);
+    }
+
+    .marks___analysis-spinner {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 0%, #6C5CE7 40%, #00C9A7 70%, transparent 100%);
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px));
+      mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px));
+      animation: marks___spin 1s linear infinite;
+    }
+
+    .marks___analysis-text strong {
+      display: block;
+      font-family: var(--font-alma);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .marks___analysis-text p {
+      color: var(--voice-mid);
+      font-size: 0.95rem;
+      max-width: 40ch;
+      margin: 0 auto;
+    }
+
+    .marks___analysis-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .marks___analysis-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--voice-quiet);
+      animation: marks___pulse 1.2s ease infinite;
+    }
+    .marks___analysis-dots span:nth-child(2) { animation-delay: 0.15s; }
+    .marks___analysis-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+    /* ═══════════════════════════════════════
+       RESULT
+    ═══════════════════════════════════════ */
+    .marks___result-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .marks___pill {
+      font-family: var(--font-maquina);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      padding: 5px 10px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      color: var(--voice-mid);
+    }
+
+    .marks___pill--hot {
+      background: rgba(255, 71, 87, 0.1);
+      border-color: rgba(255, 71, 87, 0.2);
+      color: #e63946;
+    }
+
+    .marks___pill--warm {
+      background: rgba(255, 159, 67, 0.1);
+      border-color: rgba(255, 159, 67, 0.2);
+      color: #c96a1c;
+    }
+
+    .marks___pill--cold {
+      background: rgba(0, 201, 167, 0.1);
+      border-color: rgba(0, 201, 167, 0.2);
+      color: #00a88c;
+    }
+
+    .marks___result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .marks___result-card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      background: var(--surface-raised);
+    }
+
+    .marks___result-card strong {
+      display: block;
+      font-family: var(--font-alma);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .marks___result-card p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--voice-mid);
+      line-height: 1.5;
+    }
+
+    .marks___result-reasons {
+      margin-top: 24px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .marks___reason {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: var(--radius);
+      background: var(--surface-deep);
+    }
+
+    .marks___reason-icon {
+      flex: 0 0 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--green-glow);
+      display: grid;
+      place-items: center;
+      color: var(--green);
+    }
+
+    .marks___reason p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--voice-mid);
+      line-height: 1.5;
+    }
+
+    .marks___result-actions {
+      margin-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* ═══════════════════════════════════════
+       RESULT REPORT (scrollable)
+    ═══════════════════════════════════════ */
+    .marks___report {
+      min-height: auto;
+      align-items: flex-start;
+      padding-top: 72px;
+      padding-bottom: 40px;
+    }
+
+    .marks___report .marks___screen-inner {
+      padding: 0;
+    }
+
+    .marks___report-hero {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 32px;
+      align-items: center;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .marks___radar-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .marks___radar-wrap svg {
+      width: 100%;
+      max-width: 340px;
+    }
+
+    /* ═══════════════════════════════════════
+       MARKET INSIGHT CARD (3D tilt)
+    ═══════════════════════════════════════ */
+    .marks___market-perspective {
+      perspective: 800px;
+      margin-top: 16px;
+    }
+
+    .marks___market-card {
+      position: relative;
+      padding: 24px;
+      border-radius: var(--radius-m);
+      background: linear-gradient(145deg, #1B1F3B, #252A4A);
+      color: #F7F8FC;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out;
+      will-change: transform;
+      cursor: default;
+    }
+
+    .marks___market-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at var(--mx, 50%) var(--my, 50%),
+        rgba(255,255,255,0.08) 0%,
+        transparent 60%
+      );
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .marks___market-card:hover::before {
+      opacity: 1;
+    }
+
+    .marks___market-shine {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 40%,
+        rgba(255,255,255,0.03) 45%,
+        rgba(255,255,255,0.06) 50%,
+        rgba(255,255,255,0.03) 55%,
+        transparent 60%
+      );
+      background-size: 200% 200%;
+      background-position: var(--shine, 100% 0%);
+      pointer-events: none;
+      transition: background-position 0.15s ease-out;
+    }
+
+    .marks___market-label {
+      font-family: var(--font-maquina);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(247,248,252,0.4);
+      margin-bottom: 10px;
+    }
+
+    .marks___market-title {
+      font-family: var(--font-alma);
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .marks___market-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .marks___market-stat {
+      padding: 10px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .marks___market-stat strong {
+      display: block;
+      font-family: var(--font-alma);
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .marks___market-stat span {
+      font-size: 0.68rem;
+      color: rgba(247,248,252,0.5);
+      line-height: 1.3;
+    }
+
+    .marks___market-foot {
+      margin-top: 12px;
+      font-size: 0.72rem;
+      color: rgba(247,248,252,0.35);
+      line-height: 1.45;
+    }
+
+    .marks___report-section {
+      padding: 36px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .marks___report-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .marks___report-label {
+      font-family: var(--font-maquina);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--voice-quiet);
+      margin-bottom: 14px;
+    }
+
+    .marks___report-title {
+      font-family: var(--font-alma);
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .marks___report-body {
+      font-size: 0.95rem;
+      color: var(--voice-mid);
+      line-height: 1.7;
+      max-width: 64ch;
+    }
+
+    .marks___report-body strong {
+      color: var(--voice-loud);
+      font-weight: 600;
+    }
+
+    .marks___report-highlight {
+      margin-top: 20px;
+      padding: 24px;
+      border-radius: var(--radius-m);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--pulse) 5%, var(--surface-raised)), color-mix(in srgb, var(--green) 3%, var(--surface-raised)));
+      border: 1.5px solid color-mix(in srgb, var(--pulse) 10%, transparent);
+    }
+
+    .marks___report-courses {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .marks___report-course {
+      padding: 0;
+      border-radius: var(--radius-m);
+      border: 1.5px solid var(--line);
+      background: var(--surface-raised);
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s var(--ease-out);
+    }
+
+    .marks___report-course:hover {
+      border-color: var(--pulse);
+      transform: translateY(-2px);
+    }
+
+    .marks___report-course-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      background: var(--surface-deep);
+    }
+
+    .marks___report-course-body {
+      padding: 20px;
+    }
+
+    .marks___report-course-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .marks___report-course-icon {
+      flex: 0 0 32px;
+      height: 32px;
+      border-radius: var(--radius);
+      background: var(--pulse-glow);
+      display: grid;
+      place-items: center;
+      color: var(--pulse);
+    }
+
+    .marks___report-course strong {
+      display: block;
+      font-family: var(--font-alma);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .marks___report-course p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--voice-mid);
+      line-height: 1.5;
+    }
+
+    .marks___report-lifestyle {
+      margin-top: 24px;
+      border-radius: var(--radius-m);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .marks___report-lifestyle img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .marks___report-lifestyle-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 16px 20px;
+      background: linear-gradient(transparent, rgba(27, 31, 59, 0.75));
+      color: #fff;
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+
+    .marks___report-lifestyle-caption strong {
+      display: block;
+      font-family: var(--font-alma);
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+
+    .marks___report-dims {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .marks___report-dim {
+      padding: 24px 16px;
+      border-radius: var(--radius-m);
+      border: 2px solid var(--line);
+      background: var(--surface-raised);
+      text-align: center;
+    }
+
+    .marks___report-dim-num {
+      font-family: var(--font-alma);
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .marks___report-dim-label {
+      font-family: var(--font-alma);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+
+    .marks___report-dim p {
+      font-size: 0.82rem;
+      color: var(--voice-mid);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    @media (max-width: 800px) {
+      .marks___report-dims { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .marks___report-dims { grid-template-columns: 1fr; }
+      .marks___report-dim-num { font-size: 2.4rem; }
+    }
+
+    .marks___report-quote {
+      margin-top: 24px;
+      padding: 20px 24px;
+      border-left: 3px solid var(--pulse);
+      border-radius: 0 var(--radius-m) var(--radius-m) 0;
+      background: color-mix(in srgb, var(--pulse) 3%, var(--surface));
+    }
+
+    .marks___report-quote p {
+      font-size: 0.95rem;
+      color: var(--voice-mid);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    .marks___report-quote cite {
+      display: block;
+      margin-top: 8px;
+      font-family: var(--font-maquina);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: var(--voice-quiet);
+      font-style: normal;
+    }
+
+    .marks___report-cta-section {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-l);
+      background: var(--voice-loud);
+      color: #F7F8FC;
+      min-height: 70vh;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 40px;
+      padding: 56px 48px;
+    }
+
+    .marks___report-cta-section .marks___btn-primary {
+      background: var(--pulse);
+    }
+
+    .marks___cta-bg-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: marks___ctaSlide 15s ease-in-out infinite;
+    }
+
+    .marks___cta-bg-slide:nth-child(1) { animation-delay: 0s; }
+    .marks___cta-bg-slide:nth-child(2) { animation-delay: 5s; }
+    .marks___cta-bg-slide:nth-child(3) { animation-delay: 10s; }
+
+    @keyframes marks___ctaSlide {
+      0%   { opacity: 0; }
+      8%   { opacity: 0.12; }
+      30%  { opacity: 0.12; }
+      38%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .marks___cta-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(27,31,59,0.92), rgba(27,31,59,0.75));
+      pointer-events: none;
+    }
+
+    .marks___cta-left {
+      position: relative;
+      z-index: 1;
+    }
+
+    .marks___cta-right {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+
+    @media (max-width: 800px) {
+      .marks___report-cta-section {
+        grid-template-columns: 1fr;
+        min-height: 50vh;
+        padding: 40px 24px;
+      }
+      .marks___report-cta-section > div[style*="max-width:66%"] {
+        max-width: 100% !important;
+      }
+    }
+
+    /* Profile + Market two-column */
+    .marks___report-profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    @media (max-width: 800px) {
+      .marks___report-profile-grid { grid-template-columns: 1fr; }
+    }
+
+    .marks___report-sticky-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 90;
+      padding: 12px 24px;
+      background: color-mix(in srgb, var(--surface) 94%, transparent);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (max-width: 640px) {
+      .marks___report-hero { grid-template-columns: 1fr; gap: 24px; }
+      .marks___radar-wrap svg { max-width: 280px; margin: 0 auto; }
+      .marks___report-courses { grid-template-columns: 1fr; }
+      .marks___report-cta-section { padding: 24px 20px; }
+      .marks___report-sticky-bar { padding: 10px 16px; }
+      .marks___report { padding-top: 64px; }
+    }
+
+    /* ═══════════════════════════════════════
+       THANK YOU
+    ═══════════════════════════════════════ */
+    .marks___thankyou-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    /* ═══════════════════════════════════════
+       OFF-CANVAS (Admin / Summary)
+    ═══════════════════════════════════════ */
+    .marks___offcanvas-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 26, 26, 0.2);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s var(--ease-out);
+    }
+
+    .marks___offcanvas-backdrop.marks___open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .marks___offcanvas {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: min(520px, 92vw);
+      background: var(--surface);
+      z-index: 201;
+      transform: translateX(100%);
+      transition: transform 0.4s var(--ease-out);
+      overflow-y: auto;
+      border-left: 1px solid var(--line);
+    }
+
+    .marks___offcanvas-backdrop.marks___open + .marks___offcanvas,
+    .marks___offcanvas.marks___open {
+      transform: translateX(0);
+    }
+
+    .marks___oc-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+      z-index: 2;
+    }
+
+    .marks___oc-header strong {
+      font-family: var(--font-maquina);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--voice-quiet);
+    }
+
+    .marks___oc-close {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: var(--surface-raised);
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      color: var(--voice-mid);
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .marks___oc-close:hover { border-color: var(--voice-loud); }
+
+    .marks___oc-body {
+      padding: 24px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .marks___oc-section {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      background: var(--surface-raised);
+    }
+
+    .marks___oc-section-title {
+      font-family: var(--font-maquina);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--voice-quiet);
+      margin-bottom: 10px;
+    }
+
+    .marks___oc-dark {
+      background: var(--voice-loud);
+      color: #F7F8FC;
+      border-color: transparent;
+    }
+
+    .marks___oc-dark .marks___oc-section-title {
+      color: rgba(247, 248, 252, 0.45);
+    }
+
+    .marks___oc-dark p {
+      color: rgba(247, 248, 252, 0.65);
+    }
+
+    .marks___oc-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .marks___oc-kpi {
+      padding: 12px;
+      border-radius: var(--radius);
+      background: rgba(247, 248, 252, 0.08);
+      border: 1px solid rgba(247, 248, 252, 0.08);
+    }
+
+    .marks___oc-kpi strong {
+      display: block;
+      font-size: 1.2rem;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .marks___oc-kpi span {
+      font-size: 0.68rem;
+      color: rgba(247, 248, 252, 0.45);
+      line-height: 1.3;
+    }
+
+    .marks___oc-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .marks___oc-detail {
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      background: var(--surface-deep);
+    }
+
+    .marks___oc-detail span {
+      display: block;
+      font-family: var(--font-maquina);
+      font-size: 0.64rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--voice-quiet);
+      margin-bottom: 4px;
+    }
+
+    .marks___oc-detail strong {
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .marks___oc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .marks___oc-tag {
+      font-family: var(--font-maquina);
+      font-size: 0.68rem;
+      padding: 4px 8px;
+      border-radius: var(--radius);
+      background: var(--surface-deep);
+      color: var(--voice-mid);
+    }
+
+    .marks___oc-score-row {
+      display: grid;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .marks___oc-score-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--voice-mid);
+    }
+
+    .marks___oc-score-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: var(--surface-deep);
+      overflow: hidden;
+    }
+
+    .marks___oc-score-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: var(--pulse);
+      transition: width 0.6s var(--ease-out);
+    }
+
+    .marks___oc-timeline {
+      display: grid;
+      gap: 8px;
+    }
+
+    .marks___oc-tl-item {
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      background: var(--surface-deep);
+    }
+
+    .marks___oc-tl-item strong {
+      display: block;
+      font-size: 0.82rem;
+      margin-bottom: 2px;
+    }
+
+    .marks___oc-tl-item span {
+      font-size: 0.8rem;
+      color: var(--voice-mid);
+      line-height: 1.4;
+    }
+
+    .marks___oc-note {
+      font-size: 0.76rem;
+      color: var(--voice-quiet);
+      line-height: 1.5;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ═══════════════════════════════════════
+       QUIZ SUMMARY (off-canvas lightweight)
+    ═══════════════════════════════════════ */
+    .marks___summary-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .marks___summary-item:last-child { border-bottom: none; }
+
+    .marks___summary-num {
+      flex: 0 0 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-maquina);
+      font-size: 0.68rem;
+      background: var(--pulse-glow);
+      color: var(--pulse);
+      border: 1px solid rgba(196, 83, 58, 0.15);
+    }
+
+    .marks___summary-q {
+      font-size: 0.8rem;
+      color: var(--voice-quiet);
+      line-height: 1.35;
+    }
+
+    .marks___summary-a {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--voice-loud);
+      margin-top: 2px;
+    }
+
+    /* ═══════════════════════════════════════
+       QUIZ FOOTER
+    ═══════════════════════════════════════ */
+    .marks___quiz-footer {
+      margin-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* ═══════════════════════════════════════
+       DIVIDER
+    ═══════════════════════════════════════ */
+    .marks___divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line-strong) 30%, var(--line-strong) 70%, transparent);
+      margin: 20px 0;
+    }
+
+    /* ═══════════════════════════════════════
+       KEYFRAMES
+    ═══════════════════════════════════════ */
+    @keyframes marks___fadeUp {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes marks___blink {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: 0.3; }
+    }
+
+    @keyframes marks___spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes marks___pulse {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40%           { transform: scale(1);   opacity: 1; }
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (min-width: 640px) {
+      .marks___nav-chip { display: block; }
+    }
+
+    @media (max-width: 640px) {
+      .marks___desktop-only { display: none !important; }
+      .marks___hero-metrics { grid-template-columns: 1fr; }
+      .marks___options { grid-template-columns: 1fr; }
+      .marks___form-grid { grid-template-columns: 1fr; }
+      .marks___field.marks___full { grid-column: auto; }
+      .marks___result-grid { grid-template-columns: 1fr; }
+      .marks___thankyou-grid { grid-template-columns: 1fr; }
+      .marks___oc-kpis { grid-template-columns: 1fr; }
+      .marks___oc-detail-grid { grid-template-columns: 1fr; }
+      .marks___screen-inner { padding: 16px 0; }
+      .marks___screen { padding: 48px 0 32px; }
+      .marks___headline { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+      .marks___nav-right { gap: 6px; }
+      .marks___nav-btn { font-size: 0.62rem; padding: 5px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="marks___nav">
+    <div class="marks___logo" data-action="reset-demo">
+      <span class="marks___logo-icon">
+        <svg width="24" height="22" viewBox="0 0 24 22" fill="none">
+          <path d="M12 21V12" stroke="#6C5CE7" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M12 12L4 4M4 4V9M4 4H9" stroke="#6C5CE7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 12L20 4M20 4V9M20 4H15" stroke="#00C9A7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="marks___logo-text">Próxima <span>Escolha</span></span>
+    </div>
+    <div class="marks___nav-right">
+      <span class="marks___nav-chip" id="marks___stepChip">Etapa 0/7</span>
+      <button class="marks___nav-btn" id="marks___toggleSummary" style="display:none;" data-action="toggle-summary">Ver respostas</button>
+      <button class="marks___nav-btn" id="marks___toggleAdmin" style="display:none;" data-action="toggle-admin">Visão admin</button>
+    </div>
+  </nav>
+
+  <!-- PROGRESS -->
+  <div class="marks___progress">
+    <div class="marks___progress-fill" id="marks___progressBar" style="width:0%"></div>
+  </div>
+
+  <!-- APP -->
+  <main id="marks___app"></main>
+
+  <!-- OFF-CANVAS: Summary -->
+  <div class="marks___offcanvas-backdrop" id="marks___summaryBackdrop"></div>
+  <aside class="marks___offcanvas" id="marks___summaryPanel"></aside>
+
+  <!-- OFF-CANVAS: Admin -->
+  <div class="marks___offcanvas-backdrop" id="marks___adminBackdrop"></div>
+  <aside class="marks___offcanvas" id="marks___adminPanel"></aside>
+
+  <!-- Hidden gallery trigger -->
+  <button id="marks___galleryBtn" style="position:fixed;bottom:12px;left:12px;z-index:300;width:28px;height:28px;border-radius:50%;border:1px solid rgba(27,31,59,0.08);background:var(--surface-raised);color:var(--voice-quiet);font-size:0.7rem;cursor:pointer;opacity:0.25;transition:opacity 0.3s;" title="Galeria de imagens">&bull;</button>
+
+  <!-- Gallery overlay -->
+  <div id="marks___gallery" style="display:none;position:fixed;inset:0;z-index:400;background:var(--voice-loud);color:#F7F8FC;overflow-y:auto;">
+    <div style="position:sticky;top:0;z-index:2;padding:16px 24px;background:rgba(27,31,59,0.95);backdrop-filter:blur(12px);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.06);">
+      <div>
+        <strong style="font-family:var(--font-alma);font-size:1rem;">Galeria de imagens</strong>
+        <span style="display:block;font-size:0.75rem;color:rgba(247,248,252,0.4);margin-top:2px;" id="marks___galleryCount"></span>
+      </div>
+      <button id="marks___galleryClose" style="width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;cursor:pointer;font-size:1.1rem;">&times;</button>
+    </div>
+    <div id="marks___galleryBody" style="padding:24px;"></div>
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════
+       DATA & STATE
+    ═══════════════════════════════════════ */
+    const steps = ["goal", "moment", "area", "mode", "barrier", "city", "timeframe"];
+    const app = document.getElementById("marks___app");
+
+    const state = {
+      screen: "landing",
+      stepIndex: 0,
+      answers: {},
+      lead: { name: "", email: "", phone: "" },
+      formError: "",
+      analysisIndex: 0,
+      analysisTimer: null,
+      submittedAt: null,
+      result: null,
+      summaryOpen: false,
+      adminOpen: false
+    };
+
+    const analysisMessages = [
+      "Lendo sinais de transição acadêmica e intenção…",
+      "Cruzando rotina, formato preferido e trava de decisão…",
+      "Estimando urgência, clareza e aderência por praça…",
+      "Montando recomendação e próxima ação…"
+    ];
+
+    const cityMeta = { bh: "Belo Horizonte", sp: "São Paulo", salvador: "Salvador", porto: "Porto Alegre" };
+
+    const areaMeta = {
+      tech: {
+        label: "Tecnologia e dados",
+        title: "Seu perfil mostra forte aderência a uma jornada de tecnologia com aplicação prática.",
+        summary: "Você sinalizou busca por clareza, futuro profissional e flexibilidade. Isso combina com trilhas de rápida empregabilidade e alta percepção de valor.",
+        courses: { digital: ["Análise e Desenvolvimento de Sistemas", "Ciência de Dados"], hybrid: ["Sistemas de Informação", "ADS"], presential: ["Sistemas de Informação", "Ciência da Computação"], undecided: ["ADS", "Sistemas de Informação"] },
+        asset: "Comparativo de rotas para migrar para tecnologia"
+      },
+      business: {
+        label: "Negócios e gestão",
+        title: "Seu perfil aponta para trilhas de gestão com foco em evolução profissional.",
+        summary: "Suas respostas sugerem que você valoriza progressão, aplicação direta e uma decisão que faça sentido para sua rotina.",
+        courses: { digital: ["Processos Gerenciais", "Gestão Financeira"], hybrid: ["Administração", "Processos Gerenciais"], presential: ["Administração", "Gestão Comercial"], undecided: ["Administração", "Processos Gerenciais"] },
+        asset: "Guia de carreira para evolução em gestão"
+      },
+      health: {
+        label: "Saúde e bem-estar",
+        title: "Seu perfil revela interesse por cuidado, impacto humano e especialização.",
+        summary: "A decisão aqui tende a exigir maior confiança sobre modalidade e aderência ao dia a dia, por isso a recomendação é mais consultiva.",
+        courses: { digital: ["Gestão Hospitalar", "Saúde Digital"], hybrid: ["Gestão Hospitalar", "Biomedicina"], presential: ["Psicologia", "Biomedicina"], undecided: ["Gestão Hospitalar", "Psicologia"] },
+        asset: "Mapa comparativo entre áreas de saúde"
+      },
+      creative: {
+        label: "Comunicação e design",
+        title: "Seu perfil combina com trilhas criativas que unem repertório e prática profissional.",
+        summary: "Há um componente forte de identidade nas suas escolhas, mas a decisão também precisa parecer viável e conectada ao mercado.",
+        courses: { digital: ["Marketing Digital", "Design Digital"], hybrid: ["Publicidade e Propaganda", "Marketing"], presential: ["Publicidade e Propaganda", "Design"], undecided: ["Marketing", "Publicidade e Propaganda"] },
+        asset: "Guia de diferenciação profissional em áreas criativas"
+      }
+    };
+
+    /* ═══════════════════════════════════════
+       QUESTION CONFIG (kept from original)
+    ═══════════════════════════════════════ */
+    function getQuestionConfig(id) {
+      const goal = state.answers.goal;
+
+      if (id === "goal") return {
+        id, kicker: "Etapa 1 de 7", title: "Qual situação mais\nparece com a sua?",
+        sub: "Entender que tipo de decisão você está tentando tomar agora.",
+        options: [
+          { value: "switch_course", label: "Quero trocar de curso", helper: "Já comecei, mas sinto que a escolha não combina mais comigo." },
+          { value: "second_degree", label: "Segunda graduação", helper: "Busco acelerar uma nova fase profissional." },
+          { value: "return_studies", label: "Voltar a estudar", helper: "Parei em algum momento e quero retomar." }
+        ]
+      };
+
+      if (id === "moment") {
+        const v = {
+          switch_course: [
+            { value: "wrong_fit", label: "Sinto que escolhi errado", helper: "Preciso de clareza para uma mudança rápida." },
+            { value: "close_to_dropout", label: "Pensando em trancar", helper: "Se não mudar de rota, vou parar." },
+            { value: "comparing_better_option", label: "Comparando alternativas", helper: "Já demonstro intenção concreta de mudança." }
+          ],
+          second_degree: [
+            { value: "career_acceleration", label: "Acelerar minha recolocação", helper: "Decisão ligada a empregabilidade." },
+            { value: "salary_growth", label: "Subir de cargo ou salário", helper: "Motivação pragmática de carreira." },
+            { value: "new_area", label: "Migrar para nova área", helper: "Busco reposicionamento profissional." }
+          ],
+          return_studies: [
+            { value: "return_after_pause", label: "Parei há alguns anos", helper: "Preciso de uma retomada segura." },
+            { value: "routine_fit", label: "Precisa caber na rotina", helper: "Trabalho e vida adulta entram na equação." },
+            { value: "insecure_restart", label: "Ainda estou inseguro", helper: "Preciso de confiança antes de decidir." }
+          ]
+        };
+        return { id, kicker: "Etapa 2 de 7", title: "Qual frase traduz\nmelhor esse momento?", sub: "O ponto de tensão que te trouxe até aqui.", options: v[goal || "switch_course"] };
+      }
+
+      if (id === "area") return {
+        id, kicker: "Etapa 3 de 7", title: "Em qual direção\nvocê tende a olhar?",
+        sub: "Ainda não precisamos de um curso. Só de uma direção.",
+        options: [
+          { value: "tech", label: "Tecnologia e dados", helper: "Carreiras digitais com alta empregabilidade." },
+          { value: "business", label: "Negócios e gestão", helper: "Liderança, operação e crescimento." },
+          { value: "health", label: "Saúde e bem-estar", helper: "Cuidado, impacto humano, especialização." },
+          { value: "creative", label: "Comunicação e design", helper: "Repertório, posicionamento e prática." }
+        ]
+      };
+
+      if (id === "mode") return {
+        id, kicker: "Etapa 4 de 7", title: "Qual formato faz\nsentido pra sua rotina?",
+        sub: "Muitas vezes a escolha errada não é o curso — é o formato.",
+        options: [
+          { value: "digital", label: "100% digital", helper: "Flexibilidade e autonomia." },
+          { value: "hybrid", label: "Híbrido", helper: "Equilíbrio entre presença e flexibilidade." },
+          { value: "presential", label: "Presencial", helper: "Rotina estruturada e presença física." },
+          { value: "undecided", label: "Ainda não sei", helper: "Quero entender antes de decidir." }
+        ]
+      };
+
+      if (id === "barrier") return {
+        id, kicker: "Etapa 5 de 7", title: "O que mais trava\nsua decisão agora?",
+        sub: "A principal trava muda completamente o próximo passo ideal.",
+        options: [
+          { value: "time", label: "Tempo e rotina", helper: "Meu dia a dia parece não comportar." },
+          { value: "money", label: "Investimento", helper: "Preciso entender viabilidade financeira." },
+          { value: "employability", label: "Empregabilidade", helper: "Quero segurança profissional." },
+          { value: "doubt", label: "Não sei qual curso", helper: "Preciso de orientação primeiro." }
+        ]
+      };
+
+      if (id === "city") return {
+        id, kicker: "Etapa 6 de 7", title: "Onde você está\nagora?",
+        sub: "Para direcionar opções relevantes para sua região.",
+        options: [
+          { value: "bh", label: "Belo Horizonte", helper: "Opções nesta praça." },
+          { value: "sp", label: "São Paulo", helper: "Dinâmica profissional da cidade." },
+          { value: "salvador", label: "Salvador", helper: "Opções para sua região." },
+          { value: "porto", label: "Porto Alegre", helper: "Caminhos aderentes a esta praça." }
+        ]
+      };
+
+      if (id === "timeframe") return {
+        id, kicker: "Etapa 7 de 7", title: "Quando gostaria\nde começar?",
+        sub: "Isso ajuda a calibrar o tipo de suporte que faz sentido agora.",
+        options: [
+          { value: "now", label: "Agora ou próximas semanas", helper: "Pronto para uma rota prática." },
+          { value: "three_months", label: "Próximos 3 meses", helper: "Quero comparar melhor antes." },
+          { value: "researching", label: "Ainda pesquisando", helper: "Preciso de orientação, não pressão." }
+        ]
+      };
+
+      return null;
+    }
+
+    function getOptionLabel(stepId, value) {
+      const q = getQuestionConfig(stepId);
+      if (!q) return "";
+      const o = q.options.find(i => i.value === value);
+      return o ? o.label : "";
+    }
+
+    function getSummaryEntries() {
+      return steps.filter(s => state.answers[s]).map((s, i) => ({
+        index: i + 1,
+        title: getQuestionConfig(s).title.replace(/\n/g, " "),
+        value: getOptionLabel(s, state.answers[s])
+      }));
+    }
+
+    function formatPhone(v) {
+      const d = v.replace(/\D/g, "").slice(0, 11);
+      if (d.length <= 2) return d;
+      if (d.length <= 7) return `(${d.slice(0,2)}) ${d.slice(2)}`;
+      return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
+    }
+
+    function esc(v) { return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+    /* ═══════════════════════════════════════
+       LEAD SCORING (kept from original)
+    ═══════════════════════════════════════ */
+    function deriveLeadModel() {
+      const a = state.answers;
+      const area = areaMeta[a.area];
+      const mk = a.mode || "undecided";
+      const courses = area.courses[mk] || area.courses.undecided;
+
+      let score=12, urgency=28, clarity=34, fit=42, readiness=30;
+      const tags=[], reasons=[];
+
+      if(a.goal==="switch_course"){score+=18;urgency+=16;readiness+=12;tags.push("Troca de curso");reasons.push("Sinal claro de redirecionamento acadêmico.")}
+      if(a.goal==="second_degree"){score+=21;urgency+=10;clarity+=8;readiness+=15;tags.push("Segunda graduação");reasons.push("Motivação pragmática orientada a evolução profissional.")}
+      if(a.goal==="return_studies"){score+=14;fit+=8;tags.push("Retomada dos estudos");reasons.push("Histórico de pausa e necessidade de retomada assistida.")}
+
+      const mw={wrong_fit:{score:12,urgency:14,readiness:8,tag:"Escolha desalinhada",reason:"Reconhece desalinhamento com a escolha atual."},close_to_dropout:{score:18,urgency:22,readiness:10,tag:"Risco de evasão",reason:"Risco de evasão se não houver rota clara."},comparing_better_option:{score:9,urgency:8,readiness:8,tag:"Comparando alternativa",reason:"Intenção real, fase comparativa."},career_acceleration:{score:16,urgency:10,readiness:14,tag:"Aceleração de carreira",reason:"Meta profissional objetiva."},salary_growth:{score:14,urgency:8,readiness:13,tag:"Crescimento salarial",reason:"Foco em retorno profissional."},new_area:{score:12,urgency:9,readiness:10,tag:"Migração de área",reason:"Aberto a recomeçar."},return_after_pause:{score:10,urgency:7,readiness:8,tag:"Retomada após pausa",reason:"Precisa de confiança para reentrar."},routine_fit:{score:11,urgency:9,fit:8,tag:"Rotina apertada",reason:"Compatibilidade com dia a dia é decisiva."},insecure_restart:{score:6,urgency:5,clarity:-4,tag:"Insegurança",reason:"Interesse mas confiança baixa."}};
+      const mm=mw[a.moment];
+      if(mm){score+=mm.score||0;urgency+=mm.urgency||0;clarity+=mm.clarity||0;fit+=mm.fit||0;readiness+=mm.readiness||0;tags.push(mm.tag);reasons.push(mm.reason)}
+
+      if(a.mode==="digital"){score+=8;fit+=8;clarity+=6;tags.push("Busca flexibilidade")}
+      if(a.mode==="hybrid"){score+=9;fit+=9;clarity+=8;tags.push("Equilíbrio presença/flex")}
+      if(a.mode==="presential"){score+=7;fit+=10;clarity+=7;tags.push("Valoriza presencial")}
+      if(a.mode==="undecided"){score+=2;clarity-=4;tags.push("Formato indefinido");reasons.push("Indefinição sobre formato.")}
+
+      const bw={time:{score:8,fit:10,clarity:4,tag:"Objeção: tempo",reason:"Proposta precisa ancorar flexibilidade."},money:{score:7,readiness:4,tag:"Objeção: investimento",reason:"Necessidade de conversa financeira."},employability:{score:13,urgency:10,readiness:12,tag:"Busca empregabilidade",reason:"Quer retorno profissional claro."},doubt:{score:4,clarity:-6,tag:"Precisa orientação",reason:"Próximo passo ideal é consultivo."}};
+      const bm=bw[a.barrier];
+      if(bm){score+=bm.score||0;urgency+=bm.urgency||0;clarity+=bm.clarity||0;fit+=bm.fit||0;readiness+=bm.readiness||0;tags.push(bm.tag);reasons.push(bm.reason)}
+
+      if(a.timeframe==="now"){score+=22;urgency+=18;readiness+=22;tags.push("Janela imediata");reasons.push("Sinal de ação no curto prazo.")}
+      if(a.timeframe==="three_months"){score+=12;urgency+=10;readiness+=10;tags.push("Janela 3 meses")}
+      if(a.timeframe==="researching"){score+=3;clarity-=4;readiness-=6;tags.push("Fase de pesquisa");reasons.push("Responde melhor a valor e orientação.")}
+      if(a.city){score+=6;readiness+=6;tags.push(`Praça: ${cityMeta[a.city]}`)}
+      if(state.lead.email&&state.lead.phone){score+=6;readiness+=6}
+
+      score=Math.max(18,Math.min(98,score));urgency=Math.max(24,Math.min(98,urgency));clarity=Math.max(18,Math.min(94,clarity));fit=Math.max(32,Math.min(95,fit));readiness=Math.max(20,Math.min(97,readiness));
+
+      let temperature="Frio",stage="Lead em nutrição",nextAction="Enviar guia comparativo e conteúdo de orientação.",CTA="Receber trilha personalizada",responseTime="Até 24h";
+      if(score>=86||(a.timeframe==="now"&&urgency>=70)){temperature="Quente";stage="SQL imediato";nextAction="Acionar especialista por WhatsApp em até 15 min.";CTA="Falar com especialista";responseTime="Até 15 min"}
+      else if(score>=65){temperature="Morno";stage="MQL priorizado";nextAction="Disparar opções aderentes com abordagem consultiva.";CTA="Receber opções aderentes";responseTime="No mesmo dia"}
+
+      const ba={time:"Enfatizar flexibilidade e formatos compatíveis com vida adulta.",money:"Apresentar viabilidade e argumentos de retorno.",employability:"Puxar conversa para carreira e caminhos profissionais.",doubt:"Atendimento consultivo antes de vender."}[a.barrier];
+
+      const recs=[courses[0],courses[1],a.mode==="presential"?"Experiência com contato e rotina":"Formato com aderência à rotina"];
+      const adminSummary=temperature==="Quente"?"Lead com alta intenção e sinais de urgência para abordagem rápida.":temperature==="Morno"?"Boa aderência, precisa de reforço de confiança e contexto.":"Fase de descoberta, indicado para nutrição guiada.";
+
+      return{score,urgency,clarity,fit,readiness,temperature,stage,nextAction,barrierAction:ba,CTA,responseTime,area,recommendations:recs,reasons:[...new Set(reasons)].slice(0,5),tags:[...new Set(tags)].slice(0,8),adminSummary,asset:area.asset,city:cityMeta[a.city],modeLabel:getOptionLabel("mode",a.mode),barrierLabel:getOptionLabel("barrier",a.barrier)};
+    }
+
+    /* ═══════════════════════════════════════
+       UI HELPERS
+    ═══════════════════════════════════════ */
+    function updateNav() {
+      const chip = document.getElementById("marks___stepChip");
+      const sumBtn = document.getElementById("marks___toggleSummary");
+      const admBtn = document.getElementById("marks___toggleAdmin");
+      const isComplete = ["result","thankyou"].includes(state.screen);
+      const hasAnswers = Object.keys(state.answers).length > 0;
+
+      if (state.screen === "landing") {
+        chip.style.display = "none";
+        sumBtn.style.display = "none";
+        admBtn.style.display = "none";
+      } else if (state.screen === "quiz") {
+        chip.textContent = `${state.stepIndex + 1} / 7`;
+        chip.style.display = "";
+        sumBtn.style.display = state.stepIndex > 0 ? "" : "none";
+        admBtn.style.display = "";
+      } else if (state.screen === "capture") {
+        chip.textContent = "Dados de contato";
+        chip.style.display = "";
+        sumBtn.style.display = "";
+        admBtn.style.display = "";
+      } else if (state.screen === "analysis") {
+        chip.textContent = "Analisando…";
+        chip.style.display = "";
+        sumBtn.style.display = "none";
+        admBtn.style.display = "none";
+      } else {
+        chip.style.display = "none";
+        sumBtn.style.display = "";
+        admBtn.style.display = "";
+      }
+
+      // Mobile: hide nav actions until complete
+      sumBtn.classList.toggle("marks___desktop-only", !isComplete);
+      admBtn.classList.toggle("marks___desktop-only", !isComplete);
+
+      // Progress
+      let pct = 0;
+      if (state.screen === "quiz") pct = ((state.stepIndex) / (steps.length + 1)) * 100;
+      else if (state.screen === "capture") pct = (steps.length / (steps.length + 1)) * 100;
+      else if (["analysis","result","thankyou"].includes(state.screen)) pct = 100;
+      document.getElementById("marks___progressBar").style.width = pct + "%";
+    }
+
+    /* ═══════════════════════════════════════
+       OFF-CANVAS: Summary
+    ═══════════════════════════════════════ */
+    function toggleSummary(force) {
+      state.summaryOpen = force !== undefined ? force : !state.summaryOpen;
+      const backdrop = document.getElementById("marks___summaryBackdrop");
+      const panel = document.getElementById("marks___summaryPanel");
+      backdrop.classList.toggle("marks___open", state.summaryOpen);
+      panel.classList.toggle("marks___open", state.summaryOpen);
+
+      if (state.summaryOpen) {
+        const entries = getSummaryEntries();
+        const isComplete = !!state.result;
+        panel.innerHTML = `
+          <div class="marks___oc-header">
+            <strong>Respostas coletadas</strong>
+            <button class="marks___oc-close" data-action="close-summary">&times;</button>
+          </div>
+          <div class="marks___oc-body">
+            ${entries.length === 0 ? `
+              <div class="marks___oc-section" style="text-align:center;padding:32px 20px;">
+                <div style="font-size:1.6rem;margin-bottom:10px;opacity:0.15;">📝</div>
+                <p style="font-family:var(--font-alma);font-size:0.95rem;font-weight:600;color:var(--voice-loud);margin-bottom:6px;">Nenhuma resposta ainda</p>
+                <p style="font-size:0.85rem;color:var(--voice-mid);">Assim que o usuário responder a primeira pergunta, as respostas vão aparecendo aqui em tempo real.</p>
+              </div>
+            ` :
+              entries.map(e => `
+                <div class="marks___summary-item">
+                  <div class="marks___summary-num">${e.index}</div>
+                  <div>
+                    <div class="marks___summary-q">${e.title}</div>
+                    <div class="marks___summary-a">${e.value}</div>
+                  </div>
+                </div>
+              `).join("")
+            }
+
+            <div class="marks___oc-section" style="margin-top:12px;">
+              <div class="marks___oc-section-title">Sobre este painel</div>
+              <p style="font-size:0.85rem;color:var(--voice-mid);line-height:1.6;">
+                Cada resposta do usuário é coletada e usada para montar o perfil de decisão, a recomendação de trilha e a classificação do lead. Em produção, esses dados alimentam o CRM, a automação e o time de atendimento em tempo real.
+              </p>
+              ${isComplete ? `
+                <p style="font-size:0.85rem;color:var(--voice-mid);line-height:1.6;margin-top:10px;">
+                  Para ver o relatório completo com score, temperatura, tags e próxima ação recomendada, abra a <strong style="color:var(--pulse);">Visão admin</strong> no menu superior.
+                </p>
+              ` : `
+                <p style="font-size:0.85rem;color:var(--voice-mid);line-height:1.6;margin-top:10px;">
+                  O relatório completo com score e classificação será gerado assim que o usuário concluir todas as etapas e fornecer seus dados de contato.
+                </p>
+              `}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    /* ═══════════════════════════════════════
+       OFF-CANVAS: Admin
+    ═══════════════════════════════════════ */
+    function toggleAdmin(force) {
+      state.adminOpen = force !== undefined ? force : !state.adminOpen;
+      const backdrop = document.getElementById("marks___adminBackdrop");
+      const panel = document.getElementById("marks___adminPanel");
+      backdrop.classList.toggle("marks___open", state.adminOpen);
+      panel.classList.toggle("marks___open", state.adminOpen);
+
+      if (!state.adminOpen) return;
+
+      // Empty state — quiz not complete yet
+      if (!state.result) {
+        const answered = Object.keys(state.answers).length;
+        const entries = getSummaryEntries();
+        panel.innerHTML = `
+          <div class="marks___oc-header">
+            <strong>Visão administrativa</strong>
+            <button class="marks___oc-close" data-action="close-admin">&times;</button>
+          </div>
+          <div class="marks___oc-body">
+            <div class="marks___oc-section" style="text-align:center;padding:32px 20px;">
+              <div style="font-size:2rem;margin-bottom:12px;opacity:0.2;">🔒</div>
+              <p style="font-family:var(--font-alma);font-size:1rem;font-weight:600;margin-bottom:8px;color:var(--voice-loud);">Dados insuficientes para classificação</p>
+              <p style="font-size:0.88rem;color:var(--voice-mid);line-height:1.55;max-width:36ch;margin:0 auto;">O lead precisa completar todas as etapas e fornecer seus dados de contato para que o score e a recomendação sejam gerados.</p>
+              <div style="margin-top:16px;font-family:var(--font-maquina);font-size:0.72rem;color:var(--voice-quiet);letter-spacing:0.06em;">${answered} de 7 etapas respondidas</div>
+            </div>
+            ${entries.length > 0 ? `
+              <div class="marks___oc-section">
+                <div class="marks___oc-section-title">Sinais parciais coletados</div>
+                ${entries.map(e => `
+                  <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);">
+                    <span style="flex:0 0 20px;height:20px;border-radius:50%;background:var(--pulse-glow);color:var(--pulse);display:grid;place-items:center;font-size:0.6rem;font-family:var(--font-maquina);">${e.index}</span>
+                    <div><div style="font-size:0.78rem;color:var(--voice-quiet);">${e.title}</div><div style="font-size:0.85rem;font-weight:600;">${e.value}</div></div>
+                  </div>
+                `).join("")}
+              </div>
+            ` : ""}
+            <div class="marks___oc-note">
+              Em produção, esta camada mostra score, temperatura, tags, prioridade e recomendação de próxima ação — tudo derivado das respostas e dados de contato do lead.
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      // Full state — quiz complete
+      const r = state.result;
+      const submitted = state.submittedAt ? new Intl.DateTimeFormat("pt-BR",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(state.submittedAt) : "Agora";
+      const tempClass = r.temperature==="Quente"?"marks___pill--hot":r.temperature==="Morno"?"marks___pill--warm":"marks___pill--cold";
+
+      panel.innerHTML = `
+        <div class="marks___oc-header">
+          <strong>Visão administrativa</strong>
+          <button class="marks___oc-close" data-action="close-admin">&times;</button>
+        </div>
+        <div class="marks___oc-body">
+          <div class="marks___oc-section marks___oc-dark">
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+              <span class="marks___pill ${tempClass}">${r.temperature}</span>
+              <span class="marks___pill">${r.stage}</span>
+              <span class="marks___pill">${r.city}</span>
+            </div>
+            <p>${r.adminSummary}</p>
+            <div class="marks___oc-kpis">
+              <div class="marks___oc-kpi"><strong>${r.score}</strong><span>Score</span></div>
+              <div class="marks___oc-kpi"><strong>${r.responseTime}</strong><span>Tempo resposta</span></div>
+              <div class="marks___oc-kpi"><strong>${r.CTA}</strong><span>Próxima ação</span></div>
+            </div>
+          </div>
+
+          <div class="marks___oc-section">
+            <div class="marks___oc-section-title">Dimensões do score</div>
+            ${[{l:"Urgência",v:r.urgency},{l:"Clareza",v:r.clarity},{l:"Aderência",v:r.fit},{l:"Prontidão",v:r.readiness}].map(d=>`
+              <div class="marks___oc-score-row" style="margin-bottom:8px;">
+                <div class="marks___oc-score-label"><span>${d.l}</span><span>${d.v}</span></div>
+                <div class="marks___oc-score-bar"><div class="marks___oc-score-fill" style="width:${d.v}%"></div></div>
+              </div>
+            `).join("")}
+          </div>
+
+          <div class="marks___oc-section">
+            <div class="marks___oc-section-title">Detalhes do lead</div>
+            <div class="marks___oc-detail-grid">
+              <div class="marks___oc-detail"><span>Nome</span><strong>${esc(state.lead.name)}</strong></div>
+              <div class="marks___oc-detail"><span>WhatsApp</span><strong>${esc(state.lead.phone)}</strong></div>
+              <div class="marks___oc-detail"><span>E-mail</span><strong>${esc(state.lead.email)}</strong></div>
+              <div class="marks___oc-detail"><span>Praça</span><strong>${r.city}</strong></div>
+              <div class="marks___oc-detail"><span>Área</span><strong>${r.area.label}</strong></div>
+              <div class="marks___oc-detail"><span>Formato</span><strong>${r.modeLabel}</strong></div>
+              <div class="marks___oc-detail"><span>Objeção</span><strong>${r.barrierLabel}</strong></div>
+              <div class="marks___oc-detail"><span>Janela</span><strong>${getOptionLabel("timeframe",state.answers.timeframe)}</strong></div>
+            </div>
+          </div>
+
+          <div class="marks___oc-section">
+            <div class="marks___oc-section-title">Tags automáticas</div>
+            <div class="marks___oc-tags">
+              ${r.tags.map(t=>`<span class="marks___oc-tag">${t}</span>`).join("")}
+            </div>
+          </div>
+
+          <div class="marks___oc-section">
+            <div class="marks___oc-section-title">Justificativa do roteamento</div>
+            <p style="font-size:0.88rem;color:var(--voice-mid);line-height:1.55;">${r.nextAction}</p>
+          </div>
+
+          <div class="marks___oc-section">
+            <div class="marks___oc-section-title">Mensagem recomendada</div>
+            <p style="font-size:0.88rem;color:var(--voice-mid);line-height:1.55;">${r.barrierAction}</p>
+          </div>
+
+          <div class="marks___oc-section">
+            <div class="marks___oc-section-title">Trilha sugerida</div>
+            <p style="font-size:0.88rem;color:var(--voice-mid);line-height:1.55;">${r.recommendations[0]} e ${r.recommendations[1]}. Material complementar: ${r.asset}.</p>
+          </div>
+
+          <div class="marks___oc-section">
+            <div class="marks___oc-section-title">Linha do tempo</div>
+            <div class="marks___oc-timeline">
+              <div class="marks___oc-tl-item"><strong>${submitted}</strong><span>Lead concluído com captura completa.</span></div>
+              <div class="marks___oc-tl-item"><strong>Classificação automática</strong><span>${r.stage} · ${r.temperature.toLowerCase()} · score ${r.score}</span></div>
+              <div class="marks___oc-tl-item"><strong>Próxima ação</strong><span>${r.nextAction}</span></div>
+            </div>
+          </div>
+
+          <div class="marks___oc-note">
+            Demonstração conceitual — score, temperatura e recomendações são simulados por regras fixas. Em produção, esta camada integra CRM, automação e modelos de qualificação.
+          </div>
+        </div>
+      `;
+    }
+
+    /* ═══════════════════════════════════════
+       WATERMARK ICONS (SVG per step)
+    ═══════════════════════════════════════ */
+    function getWatermarkSVG(id) {
+      const icons = {
+        // Signpost / fork in road — "qual é sua situação"
+        goal: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M128 28v200" stroke="currentColor" stroke-width="12" stroke-linecap="round"/>
+          <path d="M128 60h72l-16 28 16 28h-72" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="currentColor" fill-opacity="0.08"/>
+          <path d="M128 136H56l16 28-16 28h72" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="currentColor" fill-opacity="0.08"/>
+          <circle cx="128" cy="28" r="8" fill="currentColor"/>
+        </svg>`,
+
+        // Compass — "qual momento traduz"
+        moment: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="128" cy="128" r="96" stroke="currentColor" stroke-width="12"/>
+          <polygon points="128,64 148,108 192,128 148,148 128,192 108,148 64,128 108,108" fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>
+          <circle cx="128" cy="128" r="8" fill="currentColor"/>
+          <line x1="128" y1="32" x2="128" y2="48" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <line x1="128" y1="208" x2="128" y2="224" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <line x1="32" y1="128" x2="48" y2="128" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <line x1="208" y1="128" x2="224" y2="128" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+        </svg>`,
+
+        // Target / bullseye — "em qual direção"
+        area: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="128" cy="128" r="100" stroke="currentColor" stroke-width="12"/>
+          <circle cx="128" cy="128" r="68" stroke="currentColor" stroke-width="10" fill="currentColor" fill-opacity="0.04"/>
+          <circle cx="128" cy="128" r="36" stroke="currentColor" stroke-width="8" fill="currentColor" fill-opacity="0.06"/>
+          <circle cx="128" cy="128" r="10" fill="currentColor"/>
+          <line x1="128" y1="18" x2="128" y2="56" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <line x1="128" y1="200" x2="128" y2="238" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <line x1="18" y1="128" x2="56" y2="128" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <line x1="200" y1="128" x2="238" y2="128" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+        </svg>`,
+
+        // Laptop / screen — "qual formato"
+        mode: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="48" width="176" height="120" rx="12" stroke="currentColor" stroke-width="12" fill="currentColor" fill-opacity="0.05"/>
+          <line x1="40" y1="148" x2="216" y2="148" stroke="currentColor" stroke-width="8"/>
+          <path d="M24 192h208" stroke="currentColor" stroke-width="12" stroke-linecap="round"/>
+          <path d="M96 168l-8 24" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+          <path d="M160 168l8 24" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="128" cy="108" r="20" stroke="currentColor" stroke-width="8" fill="currentColor" fill-opacity="0.08"/>
+          <path d="M120 108l10 7 0-14z" fill="currentColor"/>
+        </svg>`,
+
+        // Shield with lock — "o que trava"
+        barrier: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M128 28L44 68v56c0 52 36 96 84 116 48-20 84-64 84-116V68L128 28z" stroke="currentColor" stroke-width="12" stroke-linejoin="round" fill="currentColor" fill-opacity="0.05"/>
+          <rect x="104" y="120" width="48" height="40" rx="6" stroke="currentColor" stroke-width="10" fill="currentColor" fill-opacity="0.08"/>
+          <path d="M112 120v-16a16 16 0 0132 0v16" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="128" cy="138" r="5" fill="currentColor"/>
+        </svg>`,
+
+        // Map pin — "onde você está"
+        city: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M128 232s80-72 80-128a80 80 0 10-160 0c0 56 80 128 80 128z" stroke="currentColor" stroke-width="12" fill="currentColor" fill-opacity="0.05"/>
+          <circle cx="128" cy="104" r="32" stroke="currentColor" stroke-width="10" fill="currentColor" fill-opacity="0.08"/>
+          <circle cx="128" cy="104" r="10" fill="currentColor"/>
+        </svg>`,
+
+        // Hourglass — "quando começar"
+        timeframe: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M72 28h112" stroke="currentColor" stroke-width="12" stroke-linecap="round"/>
+          <path d="M72 228h112" stroke="currentColor" stroke-width="12" stroke-linecap="round"/>
+          <path d="M80 28c0 40 0 60 48 100-48 40-48 60-48 100" stroke="currentColor" stroke-width="12" fill="currentColor" fill-opacity="0.05"/>
+          <path d="M176 28c0 40 0 60-48 100 48 40 48 60 48 100" stroke="currentColor" stroke-width="12" fill="currentColor" fill-opacity="0.05"/>
+          <ellipse cx="128" cy="178" rx="20" ry="8" fill="currentColor" fill-opacity="0.15"/>
+          <line x1="128" y1="128" x2="128" y2="170" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-dasharray="4 6"/>
+        </svg>`,
+
+        // Landing — bifurcation/paths
+        landing: `<svg viewBox="0 0 256 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M128 230V128" stroke="currentColor" stroke-width="18" stroke-linecap="round"/>
+          <path d="M128 128L40 40M40 40V90M40 40H90" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M128 128L216 40M216 40V90M216 40H166" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`,
+
+        // Capture — user/contact
+        capture: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="128" cy="96" r="44" stroke="currentColor" stroke-width="12" fill="currentColor" fill-opacity="0.06"/>
+          <path d="M48 224c0-44 36-80 80-80s80 36 80 80" stroke="currentColor" stroke-width="12" stroke-linecap="round" fill="currentColor" fill-opacity="0.04"/>
+          <circle cx="128" cy="96" r="14" fill="currentColor" fill-opacity="0.1"/>
+          <path d="M188 76l24-24" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+          <path d="M200 76h12v-12" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`,
+
+        // Result — chart/pulse
+        result: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="32" y="32" width="192" height="192" rx="16" stroke="currentColor" stroke-width="12" fill="currentColor" fill-opacity="0.03"/>
+          <polyline points="56,176 88,128 120,152 152,80 184,112 216,64" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="152" cy="80" r="8" fill="currentColor"/>
+          <line x1="32" y1="200" x2="224" y2="200" stroke="currentColor" stroke-width="6" opacity="0.3"/>
+        </svg>`,
+
+        // Thank you — checkmark badge
+        thankyou: `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="128" cy="128" r="88" stroke="currentColor" stroke-width="12" fill="currentColor" fill-opacity="0.05"/>
+          <circle cx="128" cy="128" r="56" stroke="currentColor" stroke-width="8" fill="currentColor" fill-opacity="0.04"/>
+          <path d="M96 128l20 20 44-44" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="128" y1="20" x2="128" y2="40" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <line x1="128" y1="216" x2="128" y2="236" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <line x1="20" y1="128" x2="40" y2="128" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+          <line x1="216" y1="128" x2="236" y2="128" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+        </svg>`
+      };
+      return icons[id] || "";
+    }
+
+    function watermark(id) {
+      const svg = getWatermarkSVG(id);
+      return svg ? `<div class="marks___watermark" aria-hidden="true">${svg}</div>` : "";
+    }
+
+    /* ═══════════════════════════════════════
+       RENDER SCREENS
+    ═══════════════════════════════════════ */
+    function render() {
+      toggleSummary(false);
+      toggleAdmin(false);
+
+      if (state.screen === "landing") renderLanding();
+      else if (state.screen === "quiz") renderQuiz();
+      else if (state.screen === "capture") renderCapture();
+      else if (state.screen === "analysis") renderAnalysis();
+      else if (state.screen === "result") renderResult();
+      else if (state.screen === "thankyou") renderThankYou();
+
+      updateNav();
+    }
+
+    function renderLanding() {
+      app.innerHTML = `
+        <div class="marks___screen">
+          <div class="marks___watermark" aria-hidden="true" style="width:800px;height:800px;bottom:-120px;right:-120px;opacity:0.035;">${getWatermarkSVG("landing")}</div>
+          <div class="marks___screen-inner">
+            <div class="marks___kicker"><span class="marks___kicker-dot"></span>Orientação educacional interativa</div>
+            <h1 class="marks___headline">Você está no caminho certo<br>para este momento da sua <em>vida</em>?</h1>
+            <p class="marks___subline">Um diagnóstico rápido para quem está repensando sua trajetória acadêmica. Em poucos minutos, você recebe uma direção personalizada — e nós entendemos como te ajudar melhor.</p>
+
+            <div class="marks___hero-metrics">
+              <div class="marks___hero-metric"><strong>2 min</strong><span>Tempo médio para completar</span></div>
+              <div class="marks___hero-metric"><strong>7</strong><span>Perguntas sobre seu momento</span></div>
+              <div class="marks___hero-metric"><strong>1</strong><span>Diagnóstico personalizado</span></div>
+            </div>
+
+            <div class="marks___hero-actions">
+              <button class="marks___btn-primary" data-action="start-demo">
+                Começar
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderQuiz() {
+      const q = getQuestionConfig(steps[state.stepIndex]);
+      app.innerHTML = `
+        <div class="marks___screen">
+          ${watermark(steps[state.stepIndex])}
+          <div class="marks___screen-inner">
+            <div class="marks___kicker"><span class="marks___kicker-dot"></span>${q.kicker}</div>
+            <h1 class="marks___headline">${q.title.replace(/\n/g,"<br>")}</h1>
+            <p class="marks___subline">${q.sub}</p>
+
+            <div class="marks___options">
+              ${q.options.map(o=>`
+                <button class="marks___option" data-action="answer" data-step="${q.id}" data-value="${o.value}">
+                  <strong>${o.label}</strong>
+                  <span>${o.helper}</span>
+                </button>
+              `).join("")}
+            </div>
+
+            <div class="marks___quiz-footer">
+              <button class="marks___btn-back" data-action="${state.stepIndex===0?"back-landing":"prev-step"}">
+                &larr; ${state.stepIndex===0?"Início":"Voltar"}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCapture() {
+      app.innerHTML = `
+        <div class="marks___screen">
+          ${watermark("capture")}
+          <div class="marks___screen-inner">
+            <div class="marks___kicker"><span class="marks___kicker-dot"></span>Última etapa</div>
+            <h1 class="marks___headline">Quase lá. Vamos preparar<br>sua <em>recomendação</em>.</h1>
+            <p class="marks___subline">Preencha seus dados para receber o diagnóstico completo com sugestões de trilha e próximos passos.</p>
+
+            <form id="leadForm" onsubmit="return false;">
+              <div class="marks___form-grid">
+                <div class="marks___field">
+                  <label for="lead-name">Nome</label>
+                  <input id="lead-name" name="name" type="text" placeholder="Como quer ser chamado?" value="${esc(state.lead.name)}" required>
+                </div>
+                <div class="marks___field">
+                  <label for="lead-phone">WhatsApp</label>
+                  <input id="lead-phone" name="phone" type="tel" placeholder="(11) 99999-9999" value="${esc(state.lead.phone)}" required>
+                </div>
+                <div class="marks___field marks___full">
+                  <label for="lead-email">E-mail</label>
+                  <input id="lead-email" name="email" type="email" placeholder="voce@email.com" value="${esc(state.lead.email)}" required>
+                </div>
+              </div>
+
+              <p class="marks___fineprint">Seus dados são usados apenas para montar sua recomendação personalizada e facilitar o contato com um especialista, caso você queira.</p>
+
+              ${state.formError?`<div class="marks___error">${state.formError}</div>`:""}
+
+              <div class="marks___form-footer">
+                <button class="marks___btn-back" type="button" data-action="prev-step">&larr; Voltar</button>
+                <button class="marks___btn-primary" type="button" data-action="submit-lead">
+                  Ver meu diagnóstico
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAnalysis() {
+      app.innerHTML = `
+        <div class="marks___screen">
+          <div class="marks___screen-inner" style="text-align:center;">
+            <div class="marks___analysis">
+              <div class="marks___analysis-spinner"></div>
+              <div class="marks___analysis-text">
+                <strong>${analysisMessages[state.analysisIndex]}</strong>
+                <p>Combinando suas respostas para montar um diagnóstico personalizado.</p>
+              </div>
+              <div class="marks___analysis-dots"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function buildRadar(dims) {
+      // dims = [{label, value, color}] — 5 axes pentagon
+      const cx = 180, cy = 170, R = 115;
+      const n = dims.length;
+      const angleStep = (Math.PI * 2) / n;
+      const startAngle = -Math.PI / 2;
+      const colors = ["#6C5CE7","#00C9A7","#FF6B6B","#FDCB6E","#A29BFE"];
+
+      function pt(i, r) {
+        const a = startAngle + i * angleStep;
+        return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+      }
+
+      function polygon(r) {
+        return dims.map((_, i) => pt(i, r).join(",")).join(" ");
+      }
+
+      const gridLevels = [0.25, 0.5, 0.75, 1];
+      let svg = `<svg viewBox="0 0 360 340" xmlns="http://www.w3.org/2000/svg">`;
+
+      // Defs: gradients for each segment
+      svg += `<defs>`;
+      for (let i = 0; i < n; i++) {
+        const ni = (i + 1) % n;
+        const [x1, y1] = pt(i, R * dims[i].value / 100);
+        const [x2, y2] = pt(ni, R * dims[ni].value / 100);
+        svg += `<linearGradient id="rg${i}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" gradientUnits="userSpaceOnUse">`;
+        svg += `<stop offset="0%" stop-color="${colors[i]}"/>`;
+        svg += `<stop offset="100%" stop-color="${colors[ni]}"/>`;
+        svg += `</linearGradient>`;
+        svg += `<linearGradient id="rs${i}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" gradientUnits="userSpaceOnUse">`;
+        svg += `<stop offset="0%" stop-color="${colors[i]}" stop-opacity="0.18"/>`;
+        svg += `<stop offset="100%" stop-color="${colors[ni]}" stop-opacity="0.18"/>`;
+        svg += `</linearGradient>`;
+      }
+      svg += `</defs>`;
+
+      // Grid pentagons
+      gridLevels.forEach(l => {
+        svg += `<polygon points="${polygon(R * l)}" fill="none" stroke="var(--line)" stroke-width="0.8"/>`;
+      });
+
+      // Axes
+      dims.forEach((_, i) => {
+        const [x, y] = pt(i, R);
+        svg += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--line)" stroke-width="0.8"/>`;
+      });
+
+      // Fill: triangular segments with gradient
+      for (let i = 0; i < n; i++) {
+        const ni = (i + 1) % n;
+        const [x1, y1] = pt(i, R * dims[i].value / 100);
+        const [x2, y2] = pt(ni, R * dims[ni].value / 100);
+        svg += `<path d="M${cx},${cy} L${x1},${y1} L${x2},${y2} Z" fill="url(#rs${i})" />`;
+      }
+
+      // Stroke: gradient edges
+      for (let i = 0; i < n; i++) {
+        const ni = (i + 1) % n;
+        const [x1, y1] = pt(i, R * dims[i].value / 100);
+        const [x2, y2] = pt(ni, R * dims[ni].value / 100);
+        svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="url(#rg${i})" stroke-width="2.5" stroke-linecap="round"/>`;
+      }
+
+      // Dots on vertices
+      dims.forEach((d, i) => {
+        const [x, y] = pt(i, R * d.value / 100);
+        svg += `<circle cx="${x}" cy="${y}" r="5" fill="${colors[i]}" stroke="var(--surface-raised)" stroke-width="2.5"/>`;
+      });
+
+      // Labels
+      dims.forEach((d, i) => {
+        const [x, y] = pt(i, R + 28);
+        const anchor = x < cx - 20 ? "end" : x > cx + 20 ? "start" : "middle";
+        const dy = y < cy - 40 ? -4 : y > cy + 40 ? 4 : 0;
+        svg += `<text x="${x}" y="${y + dy}" text-anchor="${anchor}" dominant-baseline="central" font-family="var(--font-maquina)" font-size="8" letter-spacing="0.06em" fill="var(--voice-quiet)">${d.label}</text>`;
+        svg += `<text x="${x}" y="${y + dy + 14}" text-anchor="${anchor}" dominant-baseline="central" font-family="var(--font-alma)" font-size="15" font-weight="700" fill="${colors[i]}">${d.value}</text>`;
+      });
+
+      svg += `</svg>`;
+      return svg;
+    }
+
+    function getProfileAnalysis(r) {
+      const a = state.answers;
+      const name = state.lead.name.split(" ")[0];
+
+      // Deep profile text per area
+      const profiles = {
+        tech: {
+          insight: `${name}, pelo que você compartilhou, existe uma combinação forte entre o seu momento de vida e a direção que a tecnologia pode oferecer. Você não está procurando "qualquer curso" — está buscando <strong>uma rota que faça sentido profissionalmente e que caiba na sua realidade</strong>. Isso é um sinal claro de maturidade de decisão.`,
+          detail: `Pessoas com um perfil parecido com o seu geralmente se dão bem em trilhas que entregam resultado rápido e tangível. A área de tecnologia tem uma vantagem aqui: <strong>a empregabilidade é alta, o mercado absorve rápido e os formatos de estudo são flexíveis</strong>. Não é sobre virar programador — é sobre entrar em um ecossistema que valoriza quem resolve problemas.`,
+          barrier_time: `Você mencionou que tempo é a principal trava. Faz sentido: quem está repensando carreira raramente tem o dia vazio. A boa notícia é que as trilhas de tecnologia são as que mais oferecem formatos compatíveis com quem trabalha. Muitas pessoas na mesma situação começaram com 2 horas por dia e construíram uma transição real em 18 meses.`,
+          barrier_money: `Investimento é uma preocupação legítima — e em tecnologia, o retorno tende a aparecer mais rápido que na média. Segundo dados recentes, profissionais em transição para tech têm um dos menores tempos de recolocação. Além disso, existem modelos que cabem em praticamente qualquer orçamento.`,
+          barrier_employability: `Sua busca por segurança profissional está bem endereçada. Tecnologia é, de longe, a área com maior demanda não preenchida no mercado brasileiro. Só em análise de dados e desenvolvimento, existem mais vagas abertas do que profissionais formados. Você não está apostando — está entrando em terreno pavimentado.`,
+          barrier_doubt: `Não saber exatamente qual curso é mais comum do que parece — e é saudável. Significa que você quer fazer a escolha certa, não a primeira que aparecer. Dentro de tecnologia, existem trilhas mais práticas (ADS, Ciência de Dados) e mais amplas (Sistemas de Informação). Um especialista pode te ajudar a comparar em 15 minutos.`
+        },
+        business: {
+          insight: `${name}, o que aparece com clareza no seu perfil é uma busca por <strong>evolução concreta</strong>. Você não quer só estudar — quer que o estudo mude a sua posição. Gestão e negócios é uma das áreas que mais entrega isso: visibilidade, mobilidade interna e credencial reconhecida.`,
+          detail: `O mercado de gestão valoriza muito <strong>quem já tem alguma experiência de vida e de trabalho</strong>. Diferente de áreas onde você entra do zero, aqui cada ano que você viveu trabalhando é repertório real. As trilhas que recomendamos conectam esse repertório com ferramentas e vocabulário que aceleram promoção, troca de cargo ou transição de área.`,
+          barrier_time: `Tempo apertado é o desafio número um de quem busca gestão — justamente porque são pessoas ativas, trabalhando, com responsabilidades. A maioria dos alunos desse perfil estuda à noite ou em formato híbrido. E a boa notícia: o que você aprende se aplica no trabalho no dia seguinte.`,
+          barrier_money: `Em gestão, o retorno sobre o investimento costuma ser percebido já durante o curso — promoções, convites para projetos, mudança de visibilidade interna. É um investimento que se paga antes de terminar.`,
+          barrier_employability: `Se empregabilidade é o foco, gestão é terreno seguro. É a área com maior versatilidade: serve para quem quer subir onde está, trocar de empresa ou empreender. O diploma de gestão abre portas que experiência sozinha não abre.`,
+          barrier_doubt: `Não ter certeza entre Administração, Processos Gerenciais ou Gestão Financeira é normal — os nomes parecem próximos mas os caminhos são diferentes. Uma conversa de 10 minutos com um especialista resolve essa dúvida com clareza.`
+        },
+        health: {
+          insight: `${name}, o que o seu perfil mostra é algo que vemos muito em quem olha para saúde: uma <strong>motivação que vai além do salário</strong>. Você quer uma carreira com propósito e impacto direto na vida das pessoas. Essa clareza é um ativo enorme.`,
+          detail: `Trilhas de saúde exigem mais atenção na escolha de formato porque muitas envolvem prática presencial e estágio. A decisão aqui não é só "qual curso", é <strong>"como encaixar esse curso na minha vida real"</strong>. E por isso a recomendação precisa ser mais personalizada do que um site genérico pode oferecer.`,
+          barrier_time: `Saúde costuma pedir mais presença, e isso compete com a rotina. Mas existem formatos híbridos que organizam a prática em blocos concentrados. Muita gente nessa transição acha que precisa parar de trabalhar — e não precisa.`,
+          barrier_money: `Na área de saúde, o investimento inicial é um pouco maior, mas a estabilidade profissional compensa. Profissionais de saúde têm uma das menores taxas de desemprego no país. É um investimento em segurança de longo prazo.`,
+          barrier_employability: `Saúde é um dos poucos setores que não recua em nenhum cenário econômico. A demanda por profissionais cresce todo ano. Se empregabilidade é prioridade, poucas áreas competem com saúde em estabilidade.`,
+          barrier_doubt: `Dentro de saúde, as opções variam muito: de Psicologia a Biomedicina, de Gestão Hospitalar a Saúde Digital. Cada uma pede um perfil diferente. Um especialista pode cruzar o que você gosta de fazer com o que o mercado precisa — e encurtar essa dúvida.`
+        },
+        creative: {
+          insight: `${name}, o que aparece forte no seu perfil é uma <strong>busca por uma carreira que combine identidade e mercado</strong>. Comunicação e design não é só "fazer coisas bonitas" — é uma das áreas que mais crescem com a digitalização de tudo. Você está olhando para o lugar certo.`,
+          detail: `Quem tem perfil criativo geralmente sente uma pressão dupla: <strong>seguir o que gosta e provar que dá dinheiro</strong>. As trilhas que recomendamos resolvem isso conectando repertório criativo com posicionamento profissional real — marketing digital, publicidade, design com aplicação no mercado.`,
+          barrier_time: `Tempo é um recurso escasso para quem já está trabalhando, mas as trilhas criativas são as que mais se beneficiam do formato digital. Portfólio se constrói projeto a projeto, no seu ritmo. Não precisa de campus para criar.`,
+          barrier_money: `Em comunicação e design, o investimento se paga de formas não convencionais: freelancing durante o curso, portfólio que vira renda, networking que vira projeto. A formação abre portas antes mesmo do diploma.`,
+          barrier_employability: `O mercado criativo está em expansão acelerada. Toda empresa precisa de conteúdo, marca, presença digital. A diferença é que a empregabilidade aqui depende mais do portfólio do que do diploma — e o curso ajuda a construir os dois simultaneamente.`,
+          barrier_doubt: `Marketing, Publicidade, Design… os nomes se parecem mas as carreiras divergem rápido. Marketing é mais estratégico, Publicidade é mais campanha e mídia, Design é mais produto e visual. Um bate-papo com um especialista separa isso em 10 minutos.`
+        }
+      };
+
+      const p = profiles[a.area] || profiles.tech;
+      const barrierKey = `barrier_${a.barrier}`;
+      return { insight: p.insight, detail: p.detail, barrierText: p[barrierKey] || p.barrier_doubt };
+    }
+
+    function renderResult() {
+      const r = state.result;
+      const profile = getProfileAnalysis(r);
+      const name = state.lead.name.split(" ")[0];
+
+      const radarDims = [
+        { label: "URGÊNCIA", value: r.urgency },
+        { label: "CLAREZA", value: r.clarity },
+        { label: "ADERÊNCIA", value: r.fit },
+        { label: "PRONTIDÃO", value: r.readiness },
+        { label: "DECISÃO", value: Math.round((r.clarity + r.readiness) / 2) }
+      ];
+
+      const courseDescs = {
+        "Análise e Desenvolvimento de Sistemas": "Formação rápida, prática e com alta absorção no mercado. Ideal para quem quer entrar em tech sem rodeio.",
+        "Ciência de Dados": "Para quem gosta de números, padrões e quer trabalhar com inteligência aplicada a negócios.",
+        "Sistemas de Informação": "Visão mais ampla de tecnologia — conecta gestão, processos e soluções digitais.",
+        "Ciência da Computação": "A formação mais profunda em tech. Para quem quer dominar a base e ter liberdade de direção.",
+        "ADS": "Análise e Desenvolvimento de Sistemas — caminho rápido, direto e com alta demanda.",
+        "Processos Gerenciais": "Formação objetiva para quem quer gestão aplicada sem o tempo de uma graduação longa.",
+        "Gestão Financeira": "Para quem quer dominar o lado dos números em qualquer tipo de negócio.",
+        "Administração": "A base mais versátil de gestão — abre portas em qualquer setor e posição.",
+        "Gestão Comercial": "Focada em vendas, negociação e estratégia comercial. Resultados rápidos.",
+        "Gestão Hospitalar": "Gestão aplicada ao setor de saúde — cresce junto com o setor que mais contrata.",
+        "Saúde Digital": "A interseção entre tecnologia e saúde. Área nova, com demanda explosiva.",
+        "Biomedicina": "Para quem quer pesquisa, laboratório e ciência aplicada à saúde.",
+        "Psicologia": "Formação profunda para quem quer trabalhar com pessoas, comportamento e bem-estar.",
+        "Marketing Digital": "O coração da presença digital de qualquer empresa. Estratégia + criação + dados.",
+        "Marketing": "Visão ampla de posicionamento, marca e comunicação estratégica.",
+        "Design Digital": "Interfaces, experiência do usuário, produto digital. Design com aplicação direta.",
+        "Publicidade e Propaganda": "Campanha, mídia, storytelling. Para quem quer criar narrativas que movem pessoas.",
+        "Design": "A formação mais ampla em criação visual — do branding ao produto."
+      };
+
+      app.innerHTML = `
+        <div class="marks___screen marks___report">
+          <div class="marks___screen-inner marks___screen-wide">
+
+            <!-- HERO: Headline + Radar -->
+            <div class="marks___report-hero">
+              <div>
+                <div class="marks___kicker"><span class="marks___kicker-dot"></span>Relatório personalizado</div>
+                <h1 class="marks___headline">${name}, aqui está o que<br>descobrimos sobre você.</h1>
+                <p class="marks___subline">${r.area.summary}</p>
+              </div>
+              <div class="marks___radar-wrap">
+                ${buildRadar(radarDims)}
+              </div>
+            </div>
+
+            <!-- SECTION: Profile insight + Market — two columns -->
+            <div class="marks___report-section" style="border-bottom:none;padding-bottom:0;">
+              <div class="marks___report-profile-grid">
+                <!-- LEFT: Análise do perfil -->
+                <div>
+                  <div class="marks___report-label">Análise do perfil</div>
+                  <div class="marks___report-title">O que suas respostas revelam</div>
+                  <div class="marks___report-body">
+                    <p>${profile.insight}</p>
+                    <p style="margin-top:14px;">${profile.detail}</p>
+                  </div>
+                </div>
+                <!-- RIGHT: Panorama do mercado -->
+                <div>
+                  <div class="marks___report-label">Panorama do mercado para o seu perfil</div>
+                  <div class="marks___market-perspective" style="margin-top:8px;">
+                    <div class="marks___market-card" id="marks___marketCard">
+                      <div class="marks___market-shine"></div>
+                      <div class="marks___market-title">${state.answers.area === "tech" ? "Tecnologia no Brasil" : state.answers.area === "business" ? "Gestão e Negócios" : state.answers.area === "health" ? "Saúde e Bem-estar" : "Comunicação e Design"}</div>
+                      ${state.answers.area === "tech" ? `
+                        <div class="marks___market-stats">
+                          <div class="marks___market-stat"><strong style="color:#6C5CE7;">159 mil</strong><span>vagas abertas em tech no Brasil em 2025</span></div>
+                          <div class="marks___market-stat"><strong style="color:#00C9A7;">53%</strong><span>das empresas planejam contratar mais devs</span></div>
+                          <div class="marks___market-stat"><strong style="color:#FF6B6B;">R$ 8.4k</strong><span>salário médio inicial em ADS e dados</span></div>
+                          <div class="marks___market-stat"><strong style="color:#FDCB6E;">2x</strong><span>mais rápido que a média de recolocação</span></div>
+                        </div>
+                        <div class="marks___market-foot">Fontes: Brasscom 2025, CAGED, Glassdoor Brasil</div>
+                      ` : state.answers.area === "business" ? `
+                        <div class="marks___market-stats">
+                          <div class="marks___market-stat"><strong style="color:#6C5CE7;">82%</strong><span>das promoções exigem formação em gestão</span></div>
+                          <div class="marks___market-stat"><strong style="color:#00C9A7;">R$ 6.2k</strong><span>salário médio inicial em administração</span></div>
+                          <div class="marks___market-stat"><strong style="color:#FF6B6B;">3.1M</strong><span>profissionais de gestão ativos no país</span></div>
+                          <div class="marks___market-stat"><strong style="color:#FDCB6E;">68%</strong><span>dos formados atuam na área em até 1 ano</span></div>
+                        </div>
+                        <div class="marks___market-foot">Fontes: CFA, IBGE PNAD, Catho 2025</div>
+                      ` : state.answers.area === "health" ? `
+                        <div class="marks___market-stats">
+                          <div class="marks___market-stat"><strong style="color:#6C5CE7;">6.8%</strong><span>crescimento anual do setor de saúde</span></div>
+                          <div class="marks___market-stat"><strong style="color:#00C9A7;">2.4M</strong><span>profissionais de saúde registrados</span></div>
+                          <div class="marks___market-stat"><strong style="color:#FF6B6B;">97%</strong><span>taxa de empregabilidade em saúde</span></div>
+                          <div class="marks___market-stat"><strong style="color:#FDCB6E;">R$ 5.8k</strong><span>salário médio inicial na área</span></div>
+                        </div>
+                        <div class="marks___market-foot">Fontes: ANAHP, CFM, DataSUS 2025</div>
+                      ` : `
+                        <div class="marks___market-stats">
+                          <div class="marks___market-stat"><strong style="color:#6C5CE7;">R$ 72B</strong><span>mercado de publicidade digital no BR</span></div>
+                          <div class="marks___market-stat"><strong style="color:#00C9A7;">41%</strong><span>crescimento em vagas de UX/UI em 2 anos</span></div>
+                          <div class="marks___market-stat"><strong style="color:#FF6B6B;">R$ 5.5k</strong><span>salário médio inicial em marketing digital</span></div>
+                          <div class="marks___market-stat"><strong style="color:#FDCB6E;">78%</strong><span>das empresas aumentaram investimento em conteúdo</span></div>
+                        </div>
+                        <div class="marks___market-foot">Fontes: IAB Brasil, Glassdoor, LinkedIn 2025</div>
+                      `}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION: Recommended courses -->
+            <div class="marks___report-section">
+              <div class="marks___report-label">Trilhas recomendadas</div>
+              <div class="marks___report-title">Caminhos que fazem sentido para o seu momento</div>
+              <div class="marks___report-body"><p>Com base no que você contou — ${getOptionLabel("goal", state.answers.goal).toLowerCase()}, com foco em ${r.area.label.toLowerCase()} e preferência por formato ${r.modeLabel.toLowerCase()} — estas são as trilhas com maior aderência:</p></div>
+              <div class="marks___report-courses">
+                ${r.recommendations.slice(0, 2).map((c, i) => {
+                  const icons = {
+                    "Análise e Desenvolvimento de Sistemas": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+                    "ADS": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+                    "Ciência de Dados": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 17V13"/><path d="M12 17V8"/><path d="M17 17V11"/></svg>',
+                    "Sistemas de Informação": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+                    "Ciência da Computação": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
+                    "Processos Gerenciais": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20V10"/><path d="M6 20V4"/><path d="M18 20v-6"/></svg>',
+                    "Gestão Financeira": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>',
+                    "Administração": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>',
+                    "Gestão Comercial": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>',
+                    "Gestão Hospitalar": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
+                    "Saúde Digital": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M12 7v6"/><path d="M9 10h6"/></svg>',
+                    "Biomedicina": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+                    "Psicologia": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>',
+                    "Marketing Digital": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+                    "Marketing": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+                    "Design Digital": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12a10 10 0 005 8.66"/></svg>',
+                    "Publicidade e Propaganda": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>',
+                    "Design": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 13.5V4a2 2 0 012-2h3.5L12 6.5 16.5 2H20a2 2 0 012 2v9.5L17.5 18 22 22.5V24H2v-1.5L6.5 18 2 13.5z"/></svg>'
+                  };
+                  const imgPrompts = {
+                    "Análise e Desenvolvimento de Sistemas": "young developer coding on laptop at modern coworking space with purple ambient light",
+                    "ADS": "young developer coding on laptop at modern coworking space with purple ambient light",
+                    "Ciência de Dados": "data analyst looking at colorful dashboard charts on wide monitor in modern office",
+                    "Sistemas de Informação": "diverse team collaborating around digital whiteboard with system diagrams",
+                    "Ciência da Computação": "close up of code on dark screen with colorful syntax highlighting bokeh",
+                    "Processos Gerenciais": "young professional presenting project plan on tablet in bright modern meeting room",
+                    "Gestão Financeira": "business person reviewing financial charts on laptop in minimalist office",
+                    "Administração": "confident young professional in modern glass office building lobby",
+                    "Gestão Comercial": "dynamic sales team celebrating in modern startup office environment",
+                    "Gestão Hospitalar": "modern hospital corridor with warm ambient lighting and professional staff",
+                    "Saúde Digital": "healthcare professional using tablet with digital health interface in clinic",
+                    "Biomedicina": "laboratory technician using microscope in modern bright research lab",
+                    "Psicologia": "calm therapy room with soft natural light warm tones and plants",
+                    "Marketing Digital": "creative professional working on social media campaign on multiple screens",
+                    "Marketing": "marketing team brainstorming with colorful sticky notes on glass wall",
+                    "Design Digital": "designer creating UI mockup on large monitor with stylus tablet",
+                    "Publicidade e Propaganda": "creative studio with storyboards mood boards and warm lighting",
+                    "Design": "designer workspace with sketches color swatches and creative tools"
+                  };
+                  const icon = icons[c] || icons["Administração"];
+                  const prompt = encodeURIComponent(imgPrompts[c] || "young professional studying in modern environment");
+                  return '<div class="marks___report-course">'
+                    + '<img class="marks___report-course-img" src="https://placeholdr.dev/560x280/' + prompt + '?style=photographic&seed=' + (i + 1) + '" alt="' + c + '" loading="lazy" />'
+                    + '<div class="marks___report-course-body">'
+                    + '<div class="marks___report-course-head">'
+                    + '<div class="marks___report-course-icon">' + icon + '</div>'
+                    + '<strong>' + c + '</strong>'
+                    + '</div>'
+                    + '<p>' + (courseDescs[c] || "Trilha com alta aderência ao seu perfil e momento de vida.") + '</p>'
+                    + '</div></div>';
+                }).join("")}
+              </div>
+
+              <div class="marks___report-lifestyle">
+                <img src="https://placeholdr.dev/960x320/${encodeURIComponent(
+                  state.answers.area === "tech" ? "diverse young professionals at tech startup office with laptops warm natural light" :
+                  state.answers.area === "business" ? "young professionals in modern corporate environment with city skyline view" :
+                  state.answers.area === "health" ? "healthcare students in modern university campus with bright natural light" :
+                  "creative professionals collaborating in colorful design studio workspace"
+                )}?style=photographic&seed=2" alt="Lifestyle" loading="lazy" />
+                <div class="marks___report-lifestyle-caption">
+                  <strong>Imagine-se aqui</strong>
+                  ${state.answers.area === "tech" ? "Profissionais de tecnologia estão entre os mais requisitados do mercado. E o caminho começa com uma boa escolha." :
+                    state.answers.area === "business" ? "Quem domina gestão tem mobilidade para crescer em qualquer setor. A próxima oportunidade pode estar mais perto do que parece." :
+                    state.answers.area === "health" ? "Trabalhar com saúde é construir uma carreira com propósito e estabilidade. O primeiro passo é escolher a trilha certa." :
+                    "O mercado criativo nunca teve tanta demanda. Repertório + técnica = diferenciação real."}
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION: Barrier addressed -->
+            <div class="marks___report-section">
+              <div class="marks___report-label">Sobre sua principal preocupação</div>
+              <div class="marks___report-title">${r.barrierLabel}: o que você precisa saber</div>
+              <div class="marks___report-body">
+                <p>${profile.barrierText}</p>
+              </div>
+              <div class="marks___report-quote">
+                <p>"A melhor decisão não é a que elimina toda a dúvida — é a que transforma a dúvida em um primeiro passo concreto."</p>
+                <cite>— Equipe de orientação educacional</cite>
+              </div>
+            </div>
+
+            <!-- SECTION: What the numbers mean -->
+            <div class="marks___report-section">
+              <div class="marks___report-label">Seu mapa de decisão</div>
+              <div class="marks___report-title">O que cada dimensão do seu perfil significa</div>
+              <div class="marks___report-dims">
+                <div class="marks___report-dim" style="border-color:rgba(108,92,231,0.3);">
+                  <div class="marks___report-dim-num" style="color:#6C5CE7;">${r.urgency}</div>
+                  <div class="marks___report-dim-label" style="color:#6C5CE7;">Urgência</div>
+                  <p>${r.urgency >= 70 ? "Vontade de agir no curto prazo. Decisões com energia por trás tendem a virar ação." : r.urgency >= 45 ? "Ritmo moderado. Quer avançar mas com segurança." : "Momento de exploração. Permite comparar melhor."}</p>
+                </div>
+                <div class="marks___report-dim" style="border-color:rgba(0,201,167,0.3);">
+                  <div class="marks___report-dim-num" style="color:#00C9A7;">${r.clarity}</div>
+                  <div class="marks___report-dim-label" style="color:#00C9A7;">Clareza</div>
+                  <p>${r.clarity >= 65 ? "Noção clara do que quer. Isso encurta o caminho até a escolha certa." : "Espaço para refinar a direção. Um bate-papo consultivo resolve rápido."}</p>
+                </div>
+                <div class="marks___report-dim" style="border-color:rgba(255,107,107,0.3);">
+                  <div class="marks___report-dim-num" style="color:#FF6B6B;">${r.fit}</div>
+                  <div class="marks___report-dim-label" style="color:#FF6B6B;">Aderência</div>
+                  <p>${r.fit >= 65 ? "Formato e área combinam com seu perfil. Alta probabilidade de manter a decisão." : "Pode precisar de ajuste no formato para se sustentar no dia a dia."}</p>
+                </div>
+                <div class="marks___report-dim" style="border-color:rgba(253,203,110,0.4);">
+                  <div class="marks___report-dim-num" style="color:#FDCB6E;">${r.readiness}</div>
+                  <div class="marks___report-dim-label" style="color:#FDCB6E;">Prontidão</div>
+                  <p>${r.readiness >= 65 ? "Momento favorável para avançar. Uma conversa objetiva pode destravar a decisão." : "Mais útil receber orientação antes. Sem pressa, mas sem perder o timing."}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTA SECTION -->
+            <div class="marks___report-cta-section" style="display:block;">
+              <img class="marks___cta-bg-slide" src="https://placeholdr.dev/1400x700/${encodeURIComponent(
+                state.answers.area === "tech" ? "aerial view modern city at night neon purple blue lights" :
+                state.answers.area === "business" ? "modern glass skyscrapers reflecting golden sunset" :
+                state.answers.area === "health" ? "bright modern university campus with students walking" :
+                "colorful creative studio warm ambient lighting"
+              )}?style=photographic&seed=1" alt="" loading="lazy" />
+              <img class="marks___cta-bg-slide" src="https://placeholdr.dev/1400x700/${encodeURIComponent(
+                state.answers.area === "tech" ? "diverse young team collaborating at startup with laptops" :
+                state.answers.area === "business" ? "young professional presenting in bright conference room" :
+                state.answers.area === "health" ? "modern hospital with warm light and professional staff" :
+                "designer working on digital mockup multiple monitors"
+              )}?style=photographic&seed=2" alt="" loading="lazy" />
+              <img class="marks___cta-bg-slide" src="https://placeholdr.dev/1400x700/${encodeURIComponent(
+                state.answers.area === "tech" ? "close up hands typing code on laptop warm bokeh background" :
+                state.answers.area === "business" ? "team celebrating success in modern office environment" :
+                state.answers.area === "health" ? "laboratory with natural light and modern equipment" :
+                "creative brainstorming session colorful sticky notes glass wall"
+              )}?style=photographic&seed=3" alt="" loading="lazy" />
+              <div class="marks___cta-overlay"></div>
+
+              <div style="position:relative;z-index:1;max-width:66%;">
+                <div style="font-family:var(--font-maquina);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(247,248,252,0.4);margin-bottom:16px;">Próximo passo</div>
+                <div style="font-family:var(--font-alma);font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;margin-bottom:20px;">Quer transformar esse diagnóstico em ação?</div>
+                <p style="color:rgba(247,248,252,0.6);font-size:1.05rem;line-height:1.65;margin-bottom:32px;">Um especialista pode montar uma rota sob medida com base em tudo que você compartilhou aqui. Sem compromisso e sem pressão — só uma conversa que pode mudar o rumo da sua próxima decisão educacional.</p>
+                <button class="marks___btn-primary" data-action="go-thankyou" style="font-size:1rem;height:56px;padding:0 32px;">
+                  Quero minha rota personalizada
+                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div style="margin-top:24px;text-align:center;">
+              <button class="marks___btn-back" data-action="restart-demo">&larr; Testar com outro perfil</button>
+            </div>
+
+          </div>
+        </div>
+      `;
+
+      // 3D tilt effect on market card
+      requestAnimationFrame(() => {
+        const card = document.getElementById("marks___marketCard");
+        if (!card) return;
+
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -8;
+          const rotateY = ((x - centerX) / centerX) * 8;
+          const pctX = Math.round((x / rect.width) * 100);
+          const pctY = Math.round((y / rect.height) * 100);
+          const shinePosX = Math.round((x / rect.width) * 100);
+
+          card.style.transform = "rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg) scale(1.02)";
+          card.style.setProperty("--mx", pctX + "%");
+          card.style.setProperty("--my", pctY + "%");
+          card.querySelector(".marks___market-shine").style.backgroundPosition = shinePosX + "% 50%";
+        });
+
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+          card.querySelector(".marks___market-shine").style.backgroundPosition = "100% 0%";
+        });
+      });
+    }
+
+    function renderThankYou() {
+      const r = state.result;
+      app.innerHTML = `
+        <div class="marks___screen">
+          ${watermark("thankyou")}
+          <div class="marks___screen-inner">
+            <div style="text-align:center;">
+              <div style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--green-glow);margin-bottom:20px;">
+                <svg width="28" height="28" viewBox="0 0 16 16" fill="none"><path d="M3 8.4L6.1 11.5L13 4.6" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="marks___kicker" style="justify-content:center;"><span class="marks___kicker-dot"></span>Tudo certo</div>
+              <h1 class="marks___headline" style="max-width:16ch;margin:0 auto 16px;">Sua <em>rota</em> está sendo preparada.</h1>
+              <p class="marks___subline" style="margin:0 auto;">Um especialista vai entrar em contato ${r.responseTime.toLowerCase()} com sugestões personalizadas para o seu momento. Fique de olho no WhatsApp.</p>
+            </div>
+
+            <div class="marks___thankyou-grid" style="margin-top:32px;">
+              <div class="marks___result-card" style="text-align:center;">
+                <strong>O que você contou</strong>
+                <p>Interesse em ${r.area.label.toLowerCase()}, formato ${r.modeLabel.toLowerCase()}, em ${r.city}.</p>
+              </div>
+              <div class="marks___result-card" style="text-align:center;">
+                <strong>O que preparamos</strong>
+                <p>Uma recomendação com trilhas, formato e próximos passos sob medida para você.</p>
+              </div>
+            </div>
+
+            <div class="marks___result-actions" style="margin-top:28px;justify-content:center;">
+              <button class="marks___btn-back" data-action="restart-demo">&larr; Testar com outro perfil</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ═══════════════════════════════════════
+       EVENT HANDLING
+    ═══════════════════════════════════════ */
+    function startAnalysis() {
+      if (state.analysisTimer) clearInterval(state.analysisTimer);
+      state.analysisIndex = 0;
+      state.screen = "analysis";
+      render();
+
+      state.analysisTimer = setInterval(() => {
+        if (state.analysisIndex < analysisMessages.length - 1) {
+          state.analysisIndex++;
+          renderAnalysis();
+          return;
+        }
+        clearInterval(state.analysisTimer);
+        state.analysisTimer = null;
+        state.result = deriveLeadModel();
+        state.screen = "result";
+        render();
+      }, 1100);
+    }
+
+    function resetDemo() {
+      if (state.analysisTimer) { clearInterval(state.analysisTimer); state.analysisTimer = null; }
+      state.screen = "landing";
+      state.stepIndex = 0;
+      state.answers = {};
+      state.lead = { name: "", email: "", phone: "" };
+      state.formError = "";
+      state.analysisIndex = 0;
+      state.submittedAt = null;
+      state.result = null;
+      render();
+    }
+
+    document.addEventListener("click", e => {
+      const t = e.target.closest("[data-action]");
+      if (!t) return;
+      const a = t.dataset.action;
+
+      if (a === "start-demo") { state.screen = "quiz"; state.stepIndex = 0; render(); }
+      else if (a === "answer") {
+        state.answers[t.dataset.step] = t.dataset.value;
+        state.formError = "";
+        if (state.stepIndex >= steps.length - 1) state.screen = "capture";
+        else state.stepIndex++;
+        render();
+      }
+      else if (a === "prev-step") {
+        if (state.screen === "capture") { state.screen = "quiz"; state.stepIndex = steps.length - 1; }
+        else state.stepIndex = Math.max(0, state.stepIndex - 1);
+        render();
+      }
+      else if (a === "back-landing") { state.screen = "landing"; render(); }
+      else if (a === "go-thankyou") { state.screen = "thankyou"; render(); }
+      else if (a === "toggle-summary") toggleSummary();
+      else if (a === "close-summary") toggleSummary(false);
+      else if (a === "toggle-admin") toggleAdmin();
+      else if (a === "close-admin") toggleAdmin(false);
+      else if (a === "submit-lead") {
+        const nameEl = document.getElementById("lead-name");
+        const phoneEl = document.getElementById("lead-phone");
+        const emailEl = document.getElementById("lead-email");
+        if (!nameEl || !emailEl || !phoneEl) return;
+
+        const name = nameEl.value.trim();
+        const email = emailEl.value.trim();
+        const phone = formatPhone(phoneEl.value.trim());
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        const digits = phone.replace(/\D/g,"");
+
+        if (name.length < 3 || !emailOk || digits.length < 10) {
+          state.formError = "Preencha nome, e-mail válido e WhatsApp com DDD.";
+          state.lead = { name, email, phone };
+          renderCapture(); updateNav();
+          return;
+        }
+        state.lead = { name, email, phone };
+        state.formError = "";
+        state.submittedAt = new Date();
+        startAnalysis();
+      }
+      else if (a === "restart-demo" || a === "reset-demo") resetDemo();
+    });
+
+    // Summary backdrop click
+    document.getElementById("marks___summaryBackdrop").addEventListener("click", () => toggleSummary(false));
+    document.getElementById("marks___adminBackdrop").addEventListener("click", () => toggleAdmin(false));
+
+    document.addEventListener("input", e => {
+      if (e.target.id === "lead-phone") e.target.value = formatPhone(e.target.value);
+    });
+
+    // Enter key in form triggers submit-lead
+    document.addEventListener("keydown", e => {
+      if (e.key === "Enter" && e.target.closest("#leadForm")) {
+        e.preventDefault();
+        const btn = document.querySelector('[data-action="submit-lead"]');
+        if (btn) btn.click();
+      }
+    });
+
+    // Logo click
+    document.querySelector(".marks___logo").addEventListener("click", resetDemo);
+
+    // ═══════════════════════════════════════
+    // IMAGE GALLERY (pre-generation helper)
+    // ═══════════════════════════════════════
+    (function() {
+      const btn = document.getElementById("marks___galleryBtn");
+      const overlay = document.getElementById("marks___gallery");
+      const closeBtn = document.getElementById("marks___galleryClose");
+      const body = document.getElementById("marks___galleryBody");
+      const countEl = document.getElementById("marks___galleryCount");
+
+      function enc(s) { return encodeURIComponent(s); }
+
+      function getAllImages() {
+        const imgs = [];
+
+        // Course cards (560x280)
+        const coursePrompts = {
+          "Análise e Desenvolvimento de Sistemas": "young developer coding on laptop at modern coworking space with purple ambient light",
+          "Ciência de Dados": "data analyst looking at colorful dashboard charts on wide monitor in modern office",
+          "Sistemas de Informação": "diverse team collaborating around digital whiteboard with system diagrams",
+          "Ciência da Computação": "close up of code on dark screen with colorful syntax highlighting bokeh",
+          "Processos Gerenciais": "young professional presenting project plan on tablet in bright modern meeting room",
+          "Gestão Financeira": "business person reviewing financial charts on laptop in minimalist office",
+          "Administração": "confident young professional in modern glass office building lobby",
+          "Gestão Comercial": "dynamic sales team celebrating in modern startup office environment",
+          "Gestão Hospitalar": "modern hospital corridor with warm ambient lighting and professional staff",
+          "Saúde Digital": "healthcare professional using tablet with digital health interface in clinic",
+          "Biomedicina": "laboratory technician using microscope in modern bright research lab",
+          "Psicologia": "calm therapy room with soft natural light warm tones and plants",
+          "Marketing Digital": "creative professional working on social media campaign on multiple screens",
+          "Marketing": "marketing team brainstorming with colorful sticky notes on glass wall",
+          "Design Digital": "designer creating UI mockup on large monitor with stylus tablet",
+          "Publicidade e Propaganda": "creative studio with storyboards mood boards and warm lighting",
+          "Design": "designer workspace with sketches color swatches and creative tools"
+        };
+
+        Object.entries(coursePrompts).forEach(function(entry) {
+          [1, 2].forEach(function(seed) {
+            imgs.push({
+              cat: "Trilhas (" + entry[0] + ")",
+              size: "560x280",
+              url: "https://placeholdr.dev/560x280/" + enc(entry[1]) + "?style=photographic&seed=" + seed
+            });
+          });
+        });
+
+        // Lifestyle banners (960x320)
+        var lifestylePrompts = {
+          "Tech": "diverse young professionals at tech startup office with laptops warm natural light",
+          "Business": "young professionals in modern corporate environment with city skyline view",
+          "Health": "healthcare students in modern university campus with bright natural light",
+          "Creative": "creative professionals collaborating in colorful design studio workspace"
+        };
+
+        Object.entries(lifestylePrompts).forEach(function(entry) {
+          imgs.push({
+            cat: "Lifestyle (" + entry[0] + ")",
+            size: "960x320",
+            url: "https://placeholdr.dev/960x320/" + enc(entry[1]) + "?style=photographic&seed=2"
+          });
+        });
+
+        // CTA slides (1400x700)
+        var ctaPrompts = {
+          "Tech": [
+            "aerial view modern city at night neon purple blue lights",
+            "diverse young team collaborating at startup with laptops",
+            "close up hands typing code on laptop warm bokeh background"
+          ],
+          "Business": [
+            "modern glass skyscrapers reflecting golden sunset",
+            "young professional presenting in bright conference room",
+            "team celebrating success in modern office environment"
+          ],
+          "Health": [
+            "bright modern university campus with students walking",
+            "modern hospital with warm light and professional staff",
+            "laboratory with natural light and modern equipment"
+          ],
+          "Creative": [
+            "colorful creative studio warm ambient lighting",
+            "designer working on digital mockup multiple monitors",
+            "creative brainstorming session colorful sticky notes glass wall"
+          ]
+        };
+
+        Object.entries(ctaPrompts).forEach(function(entry) {
+          entry[1].forEach(function(prompt, i) {
+            imgs.push({
+              cat: "CTA Slide (" + entry[0] + ")",
+              size: "1400x700",
+              url: "https://placeholdr.dev/1400x700/" + enc(prompt) + "?style=photographic&seed=" + (i + 1)
+            });
+          });
+        });
+
+        return imgs;
+      }
+
+      function openGallery() {
+        var imgs = getAllImages();
+        countEl.textContent = imgs.length + " imagens no total — carregando todas para pré-gerar cache";
+
+        var cats = {};
+        imgs.forEach(function(img) {
+          if (!cats[img.cat]) cats[img.cat] = [];
+          cats[img.cat].push(img);
+        });
+
+        var html = "";
+        Object.entries(cats).forEach(function(entry) {
+          html += '<div style="margin-bottom:32px;">';
+          html += '<div style="font-family:var(--font-maquina);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(247,248,252,0.4);margin-bottom:8px;">' + entry[0] + ' — ' + entry[1][0].size + '</div>';
+          html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;">';
+          entry[1].forEach(function(img) {
+            html += '<div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);">';
+            html += '<img src="' + img.url + '" style="width:100%;display:block;" loading="eager" />';
+            html += '<div style="padding:8px 10px;font-size:0.68rem;color:rgba(247,248,252,0.35);word-break:break-all;">' + img.url.replace("https://placeholdr.dev/", "") + '</div>';
+            html += '</div>';
+          });
+          html += '</div></div>';
+        });
+
+        body.innerHTML = html;
+        overlay.style.display = "block";
+      }
+
+      btn.addEventListener("click", openGallery);
+      closeBtn.addEventListener("click", function() { overlay.style.display = "none"; });
+    })();
+
+    // Init
+    render();
+  </script>
+</body>
+</html>
