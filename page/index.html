@@ -1486,6 +1486,9 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 860px) {
+  /* ── GLOBAL ── */
+  body { overflow-x: hidden; }
+
   /* ── NAV ── */
   nav { padding: 0 16px; overflow: visible; }
   .nav-hamburger { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -1497,21 +1500,31 @@ footer {
     min-height: auto;
     padding: 88px 20px 48px;
     justify-content: flex-start;
+    overflow-x: hidden;
   }
   .hero-inner {
     grid-template-columns: 1fr;
     gap: 32px;
     max-width: 100%;
+    width: 100%;
     margin: 0;
+    overflow: hidden;
   }
+  .hero-text { overflow: hidden; max-width: 100%; }
   .hero-terminal-wrap { display: none; }
+  /* eyebrow: contém texto longo com letter-spacing grande — forçar ao container */
   .hero-eyebrow {
+    display: flex;
+    max-width: 100%;
+    overflow: hidden;
     font-size: 9px;
-    white-space: normal;
-    word-break: break-word;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 3px 10px;
   }
   .hero-title {
-    font-size: clamp(48px, 17vw, 72px);
+    font-size: clamp(36px, 10vw, 52px);
     line-height: 0.9;
     margin-bottom: 4px;
   }
@@ -1563,9 +1576,26 @@ footer {
   .arch-cat:last-child { border-bottom: none; }
   .arch-file { grid-template-columns: 1fr; gap: 3px; }
 
-  /* ── PADRÕES TABLE ── */
-  .pt-file, .pt-cat { display: none; }
-  .patterns-table th:last-child, .patterns-table td:last-child { display: none; }
+  /* ── PADRÕES TABLE → lista mobile ── */
+  .pt-table { display: block; overflow: hidden; }
+  .pt-table thead { display: none; }
+  .pt-table tbody { display: flex; flex-direction: column; gap: 8px; }
+  .pt-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+    gap: 6px;
+    background: var(--surface);
+    border-radius: 2px;
+  }
+  .pt-table tbody tr.hidden { display: none; }
+  .pt-table td { display: block; width: 100%; padding: 0; border: none; font-size: 12px; }
+  .pt-n { display: none; }
+  .pt-name { font-size: 12px; margin-bottom: 2px; }
+  .pt-desc { color: var(--text2); line-height: 1.5; }
+  .pt-file { display: none; }
+  .pt-cat { display: none; }
 
   /* ── FOOTER ── */
   footer { grid-template-columns: 1fr; padding: 32px 20px; }
