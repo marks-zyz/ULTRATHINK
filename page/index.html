@@ -135,7 +135,7 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   padding: 88px 56px 72px;
   border-bottom: 1px solid var(--border);
   max-width: 100%;
@@ -1450,63 +1450,139 @@ footer {
   line-height: 1.4;
 }
 
+/* ── HAMBURGER NAV (CSS-only mobile) ── */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 18px;
+  line-height: 1;
+  margin-left: auto;
+}
+/* Mobile nav dropdown */
+.nav-links.nav-open {
+  display: flex !important;
+  position: fixed;
+  top: 52px; left: 0; right: 0;
+  background: rgba(8,8,8,0.98);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  flex-direction: column;
+  padding: 12px 0;
+  z-index: 199;
+  gap: 0;
+}
+.nav-links.nav-open li a {
+  padding: 12px 20px;
+  font-size: 12px;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+}
+.nav-links.nav-open li:last-child a { border-bottom: none; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 860px) {
-  /* Nav */
-  nav { padding: 0 16px; gap: 12px; }
-  .nav-links { overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 0; flex-shrink: 1; }
-  .nav-links a { font-size: 9.5px; padding: 0 8px; white-space: nowrap; }
+  /* ── NAV ── */
+  nav { padding: 0 16px; overflow: visible; }
+  .nav-hamburger { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-links { display: none; }
   .nav-dot { display: none; }
 
-  /* Hero */
-  #hero { padding: 80px 24px 56px; align-items: flex-start; }
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-mascot { display: none; }
+  /* ── HERO ── */
+  #hero {
+    min-height: auto;
+    padding: 88px 20px 48px;
+    justify-content: flex-start;
+  }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    max-width: 100%;
+    margin: 0;
+  }
   .hero-terminal-wrap { display: none; }
-  .hero-sub { font-size: 11px; }
-  .stats-row { gap: 0; }
-  .stats-row .stat-item { min-width: 100px; padding: 14px 16px; }
-  .stat-num { font-size: 28px; }
+  .hero-eyebrow {
+    font-size: 9px;
+    white-space: normal;
+    word-break: break-word;
+  }
+  .hero-title {
+    font-size: clamp(48px, 17vw, 72px);
+    line-height: 0.9;
+    margin-bottom: 4px;
+  }
+  .hero-sub {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    max-width: 100%;
+    margin-bottom: 24px;
+    margin-top: 12px;
+  }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+  .stat-item {
+    border: none;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 14px;
+    min-width: 0;
+  }
+  .stat-item:nth-child(2n) { border-right: none; }
+  .stat-item:nth-last-child(-n+2):nth-child(odd),
+  .stat-item:nth-last-child(1) { border-bottom: none; }
+  .stat-num { font-size: 32px; }
+  .stat-label { font-size: 8px; }
 
-  /* Sections */
-  .section-head { flex-wrap: wrap; gap: 12px; }
+  /* ── QUERYLOOP PLAYER — esconde no mobile ── */
+  .ql-player { display: none !important; }
+
+  /* ── SECTIONS ── */
+  .section-head { flex-wrap: wrap; gap: 10px; padding: 24px 16px 0; }
   .section-desc { display: none; }
-  .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr; }
+  .section-num { display: none; }
+  .section-title { font-size: 22px; }
+  .card-grid, .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr; }
+  .card { padding: 18px; }
+  .card-title { font-size: 14px; }
+  .card-body { font-size: 12px; }
   .layers { grid-template-columns: 1fr; }
   .buddy-wrap { flex-direction: column; }
 
-  /* QueryLoop player */
-  .ql-stepper-wrap { padding: 20px 12px 16px; }
-  .ql-stepper { min-width: 600px; }
-  .ql-panel-header { flex-wrap: wrap; gap: 8px; padding: 16px 16px 12px; }
-  .ql-file { display: none; }
-  .ql-desc { padding: 10px 16px 14px; }
-  .ql-visual-wrap { margin: 0 16px 0; height: 200px; }
-  .ql-footer { padding: 12px 16px 8px; }
-  .ql-controls { padding: 10px 16px; gap: 6px; }
-
-  /* Architecture explorer */
+  /* ── ARCHITECTURE EXPLORER ── */
   .arch-grid { grid-template-columns: 1fr; }
-  .arch-cat:nth-child(3n)  { border-right: none; }
+  .arch-cat:nth-child(3n) { border-right: none; }
   .arch-cat:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
   .arch-cat:last-child { border-bottom: none; }
   .arch-file { grid-template-columns: 1fr; gap: 3px; }
 
-  /* Footer */
-  footer { grid-template-columns: 1fr; padding: 40px 24px; }
+  /* ── PADRÕES TABLE ── */
+  .pt-file, .pt-cat { display: none; }
+  .patterns-table th:last-child, .patterns-table td:last-child { display: none; }
+
+  /* ── FOOTER ── */
+  footer { grid-template-columns: 1fr; padding: 32px 20px; }
   .ft-sig { grid-column: span 1; flex-direction: column; gap: 8px; text-align: center; }
 
-  /* Insight modal */
-  .insight-modal { padding: 28px 20px; margin: 16px; max-height: calc(100vh - 32px); }
+  /* ── INSIGHT MODAL ── */
+  .insight-modal { padding: 24px 18px; margin: 12px; max-height: calc(100vh - 24px); }
+  .insight-item { padding: 14px 16px; }
 }
 </style>
 </head>
 <body>
 
 <!-- ═══ NAV ═══ -->
-<nav>
+<nav id="mainNav">
   <div class="nav-brand">UltraThink</div>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#anatomia"><i class="ph ph-heartbeat"></i>Anatomia</a></li>
     <li><a href="#arquitetura"><i class="ph ph-tree-structure"></i>Arquitetura</a></li>
     <li><a href="#ocultas"><i class="ph ph-eye-slash"></i>Ocultas</a></li>
@@ -1517,6 +1593,7 @@ footer {
     <li><a href="#expressoes"><i class="ph ph-sparkle"></i>Expressões</a></li>
   </ul>
   <div class="nav-dot"><div class="dot-live"></div>ultrathink.com.br</div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><i class="ph ph-list"></i></button>
 </nav>
 
 <!-- ═══ HERO ═══ -->
@@ -3366,6 +3443,25 @@ setInterval(function() {
       var isOpen = cat.classList.contains('open');
       cats.forEach(function(c) { c.classList.remove('open'); });
       if (!isOpen) cat.classList.add('open');
+    });
+  });
+})();
+
+// ── HAMBURGER MENU ──
+(function() {
+  var btn = document.getElementById('navHamburger');
+  var links = document.getElementById('navLinks');
+  if (!btn || !links) return;
+  btn.addEventListener('click', function() {
+    links.classList.toggle('nav-open');
+    btn.querySelector('i').className = links.classList.contains('nav-open')
+      ? 'ph ph-x' : 'ph ph-list';
+  });
+  // close on link click
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      links.classList.remove('nav-open');
+      btn.querySelector('i').className = 'ph ph-list';
     });
   });
 })();
