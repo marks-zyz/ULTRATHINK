@@ -55,7 +55,6 @@ nav {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 200;
   background: rgba(8,8,8,0.95);
-  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   height: 52px;
   display: flex;
@@ -1230,13 +1229,12 @@ footer {
 .insight-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.93);
   z-index: 9000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
-  backdrop-filter: blur(4px);
   animation: overlayIn 0.18s ease;
 }
 @keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
@@ -1471,7 +1469,6 @@ footer {
   position: fixed;
   top: 52px; left: 0; right: 0;
   background: rgba(8,8,8,0.98);
-  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   flex-direction: column;
   padding: 12px 0;
