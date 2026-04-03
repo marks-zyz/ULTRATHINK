@@ -1310,24 +1310,27 @@ footer {
 
 .insight-item {
   border-left: 3px solid var(--border2);
-  padding: 4px 0 4px 16px;
+  padding: 8px 0 8px 18px;
   transition: border-color 0.2s;
 }
 .insight-item:hover { border-left-color: var(--accent); }
 .insight-item-title {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   letter-spacing: -0.01em;
 }
 .insight-item-body {
-  font-size: 12.5px;
+  font-size: 14px;
   color: var(--text2);
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 .insight-modal-takeaway {
+  display: none !important;
+}
+.insight-modal-takeaway-KEEP {
   flex-shrink: 0;
   margin: 0 24px 24px;
   padding: 16px 20px;
@@ -1349,6 +1352,32 @@ footer {
 .insight-takeaway-text {
   font-size: 13px;
   color: var(--text);
+  line-height: 1.7;
+}
+
+
+/* ── SECTION TAKEAWAY ── */
+.section-takeaway {
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: rgba(217,119,87,0.05);
+  border: 1px solid rgba(217,119,87,0.2);
+  border-left: 3px solid var(--accent);
+}
+.section-takeaway-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.section-takeaway-text {
+  font-size: 14px;
+  color: var(--text2);
   line-height: 1.7;
 }
 
@@ -1580,7 +1609,33 @@ footer {
   .layers { grid-template-columns: 1fr; }
   .buddy-wrap { flex-direction: column; }
 
-  /* ── ARCHITECTURE EXPLORER ── */
+  
+/* ── SECTION TAKEAWAY ── */
+.section-takeaway {
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: rgba(217,119,87,0.05);
+  border: 1px solid rgba(217,119,87,0.2);
+  border-left: 3px solid var(--accent);
+}
+.section-takeaway-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.section-takeaway-text {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+/* ── ARCHITECTURE EXPLORER ── */
   .arch-grid { grid-template-columns: 1fr; }
   .arch-cat:nth-child(3n) { border-right: none; }
   .arch-cat:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
@@ -2111,6 +2166,11 @@ footer {
       <div class="hl"><strong>Aprendizado:</strong> Para N tarefas paralelas, construa payloads com prefixo idêntico e apenas sufixo variável.</div>
     </div>
   </div>
+
+  <div class="section-takeaway">
+    <div class="section-takeaway-label"><i class="ph ph-star"></i>Grande Aprendizado</div>
+    <div class="section-takeaway-text">Sistemas resilientes não tentam esconder a complexidade — eles a modelam explicitamente em estados, filas e marcadores. Implemente um loop de estados mínimo (idle → processing → recovering → compact → done), retenha erros antes de exibi-los, escale limites de forma inteligente e nunca destrua histórico. Esses quatro padrões juntos são a diferença entre um protótipo que impressiona numa demo e um produto que aguenta clientes reais pagando todo mês.</div>
+  </div>
 </div>
 
 <!-- ═══ ARQUITETURA ═══ -->
@@ -2398,6 +2458,11 @@ footer {
     </div>
 
   </div>
+
+  <div class="section-takeaway">
+    <div class="section-takeaway-label"><i class="ph ph-star"></i>Grande Aprendizado</div>
+    <div class="section-takeaway-text">Sistemas de IA para usuários reais precisam de três camadas que a maioria dos vibe coders ignora: consolidação autônoma de estado (DreamTask), preview especulativo antes de commitar (overlay filesystem), e classificação escalonada para controlar custo (2-stage classifier). Se você está construindo qualquer app com IA para clientes, implemente pelo menos o DreamTask pattern e o classificador 2-estágios — eles existem no produto mais avançado de coding AI do mundo por razões muito concretas de custo e experiência.</div>
+  </div>
 </div>
 
 <!-- ═══ 03 TERMINAL RENAISSANCE ═══ -->
@@ -2498,6 +2563,11 @@ footer {
       </div>
     </div>
 
+  </div>
+
+  <div class="section-takeaway">
+    <div class="section-takeaway-label"><i class="ph ph-star"></i>Grande Aprendizado</div>
+    <div class="section-takeaway-text">O stack de terminal do Claude Code é uma aula de como construir UI performática quando você não pode usar o DOM: React como modelo de componentes agnóstico de renderer, Yoga como engine de layout portável, interning de strings para diff O(1), e quantização de eventos para eliminar renders desnecessários. Os três padrões mais roubáveis: Scroll Quantum, CharPool/StylePool, e a função transition() pura — esses três juntos eliminam a maioria dos problemas de performance em apps que crescem para clientes reais.</div>
   </div>
 </div>
 
@@ -2604,6 +2674,11 @@ footer {
     </div>
 
   </div>
+
+  <div class="section-takeaway">
+    <div class="section-takeaway-label"><i class="ph ph-star"></i>Grande Aprendizado</div>
+    <div class="section-takeaway-text">Nunca confie em uma única camada para confiabilidade. Deduplicação no buffer, gate no flush, watchdog no stream, retry no cliente e cap no servidor são camadas independentes que se protegem mutuamente. O dinheiro dos clientes está em cima da confiabilidade percebida, não das features. Um chatbot que nunca duplica mensagem, nunca trava e se recupera sozinho de falha de rede vale muito mais — e gera muito menos churn — do que um com dez features a mais mas que às vezes bugga.</div>
+  </div>
 </div>
 
 <!-- ═══ 05 COMANDOS ═══ -->
@@ -2692,6 +2767,11 @@ footer {
     </div>
 
   </div>
+
+  <div class="section-takeaway">
+    <div class="section-takeaway-label"><i class="ph ph-star"></i>Grande Aprendizado</div>
+    <div class="section-takeaway-text">A interface mais escalável é aquela onde o próprio usuário consegue estender o sistema sem depender do criador. Skills declarativas em Markdown, ativação condicional por contexto e execução paralela via /batch são padrões que você pode implementar em qualquer SaaS de IA — cada um deles reduz o seu custo operacional enquanto aumenta o poder percebido pelo cliente. Features que o cliente consegue personalizar sozinho são features que você não precisa manter.</div>
+  </div>
 </div>
 
 <!-- ═══ 06 PADRÕES ═══ -->
@@ -2764,6 +2844,11 @@ footer {
       <tr data-cat="ai"><td class="pt-n">40</td><td class="pt-name">Numeric Length Anchors</td><td class="pt-desc">Instrução "em ~3 frases" supera "seja conciso" — redução de ~1.2% na verbosidade medida em produção</td><td class="pt-file">prompts/</td><td><span class="pt-cat ai">IA</span></td></tr>
     </tbody>
   </table>
+
+  <div class="section-takeaway">
+    <div class="section-takeaway-label"><i class="ph ph-star"></i>Grande Aprendizado</div>
+    <div class="section-takeaway-text">Os padrões arquiteturais de IA não são abstrações acadêmicas — cada um resolve um problema de produto que vai aparecer assim que você tiver usuários reais. Withheld Messages e Circuit Breaker protegem a confiança do usuário. 2-Stage Classification e Chain-of-Thought Descartável protegem sua margem. Overlay Filesystem e Bitmap Rejection protegem a experiência. Cada padrão que você ignora vai aparecer como bug de produto mais tarde.</div>
+  </div>
 </div>
 
 <!-- ═══ 07 EXPRESSÕES ═══ -->
@@ -2876,6 +2961,11 @@ footer {
       </div>
     </div>
 
+  </div>
+
+  <div class="section-takeaway">
+    <div class="section-takeaway-label"><i class="ph ph-star"></i>Grande Aprendizado</div>
+    <div class="section-takeaway-text">Personalidade e UX não são camada cosmética sobre funcionalidade — são o produto em si para uma geração de usuários que tem dez alternativas funcionais a um clique de distância. Os vibe coders que ganham não são os que constroem a feature mais inteligente, são os que fazem o usuário sentir algo enquanto a feature roda. Essa inversão de prioridade é o que separa produto que as pessoas recomendam de produto que as pessoas toleram.</div>
   </div>
 </div>
 
